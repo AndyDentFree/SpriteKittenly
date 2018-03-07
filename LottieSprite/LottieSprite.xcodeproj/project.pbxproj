@@ -1,0 +1,604 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		424ACCEC205078DC00A72FD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ACCEB205078DC00A72FD8 /* AppDelegate.swift */; };
+		424ACCEE205078DC00A72FD8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ACCED205078DC00A72FD8 /* GameViewController.swift */; };
+		424ACCF1205078DC00A72FD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 424ACCEF205078DC00A72FD8 /* Main.storyboard */; };
+		424ACCF4205078DC00A72FD8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 424ACCF2205078DC00A72FD8 /* LaunchScreen.storyboard */; };
+		424ACCFD205078DC00A72FD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ACCFC205078DC00A72FD8 /* AppDelegate.swift */; };
+		424ACCFF205078DC00A72FD8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ACCFE205078DC00A72FD8 /* GameViewController.swift */; };
+		424ACD02205078DC00A72FD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 424ACD00205078DC00A72FD8 /* Main.storyboard */; };
+		424ACD0B205078DC00A72FD8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ACD0A205078DC00A72FD8 /* AppDelegate.swift */; };
+		424ACD0D205078DC00A72FD8 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ACD0C205078DC00A72FD8 /* GameViewController.swift */; };
+		424ACD10205078DC00A72FD8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 424ACD0E205078DC00A72FD8 /* Main.storyboard */; };
+		424ACD12205078DC00A72FD8 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 424ACCE0205078DC00A72FD8 /* Actions.sks */; };
+		424ACD13205078DC00A72FD8 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 424ACCE0205078DC00A72FD8 /* Actions.sks */; };
+		424ACD14205078DC00A72FD8 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 424ACCE0205078DC00A72FD8 /* Actions.sks */; };
+		424ACD15205078DC00A72FD8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 424ACCE1205078DC00A72FD8 /* GameScene.sks */; };
+		424ACD16205078DC00A72FD8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 424ACCE1205078DC00A72FD8 /* GameScene.sks */; };
+		424ACD17205078DC00A72FD8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 424ACCE1205078DC00A72FD8 /* GameScene.sks */; };
+		424ACD18205078DC00A72FD8 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ACCE2205078DC00A72FD8 /* GameScene.swift */; };
+		424ACD19205078DC00A72FD8 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ACCE2205078DC00A72FD8 /* GameScene.swift */; };
+		424ACD1A205078DC00A72FD8 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 424ACCE2205078DC00A72FD8 /* GameScene.swift */; };
+		424ACD1B205078DC00A72FD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 424ACCE3205078DC00A72FD8 /* Assets.xcassets */; };
+		424ACD1C205078DC00A72FD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 424ACCE3205078DC00A72FD8 /* Assets.xcassets */; };
+		424ACD1D205078DC00A72FD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 424ACCE3205078DC00A72FD8 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		424ACCE0205078DC00A72FD8 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		424ACCE1205078DC00A72FD8 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		424ACCE2205078DC00A72FD8 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		424ACCE3205078DC00A72FD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		424ACCE8205078DC00A72FD8 /* LottieSprite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LottieSprite.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		424ACCEB205078DC00A72FD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		424ACCED205078DC00A72FD8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		424ACCF0205078DC00A72FD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		424ACCF3205078DC00A72FD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		424ACCF5205078DC00A72FD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		424ACCFA205078DC00A72FD8 /* LottieSprite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LottieSprite.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		424ACCFC205078DC00A72FD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		424ACCFE205078DC00A72FD8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		424ACD01205078DC00A72FD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		424ACD03205078DC00A72FD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		424ACD08205078DC00A72FD8 /* LottieSprite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LottieSprite.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		424ACD0A205078DC00A72FD8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		424ACD0C205078DC00A72FD8 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		424ACD0F205078DC00A72FD8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		424ACD11205078DC00A72FD8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		424ACCE5205078DC00A72FD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		424ACCF7205078DC00A72FD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		424ACD05205078DC00A72FD8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		424ACCDA205078DC00A72FD8 = {
+			isa = PBXGroup;
+			children = (
+				424ACCDF205078DC00A72FD8 /* LottieSprite Shared */,
+				424ACCEA205078DC00A72FD8 /* LottieSprite iOS */,
+				424ACCFB205078DC00A72FD8 /* LottieSprite tvOS */,
+				424ACD09205078DC00A72FD8 /* LottieSprite macOS */,
+				424ACCE9205078DC00A72FD8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		424ACCDF205078DC00A72FD8 /* LottieSprite Shared */ = {
+			isa = PBXGroup;
+			children = (
+				424ACCE0205078DC00A72FD8 /* Actions.sks */,
+				424ACCE1205078DC00A72FD8 /* GameScene.sks */,
+				424ACCE2205078DC00A72FD8 /* GameScene.swift */,
+				424ACCE3205078DC00A72FD8 /* Assets.xcassets */,
+			);
+			path = "LottieSprite Shared";
+			sourceTree = "<group>";
+		};
+		424ACCE9205078DC00A72FD8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				424ACCE8205078DC00A72FD8 /* LottieSprite.app */,
+				424ACCFA205078DC00A72FD8 /* LottieSprite.app */,
+				424ACD08205078DC00A72FD8 /* LottieSprite.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		424ACCEA205078DC00A72FD8 /* LottieSprite iOS */ = {
+			isa = PBXGroup;
+			children = (
+				424ACCEB205078DC00A72FD8 /* AppDelegate.swift */,
+				424ACCED205078DC00A72FD8 /* GameViewController.swift */,
+				424ACCEF205078DC00A72FD8 /* Main.storyboard */,
+				424ACCF2205078DC00A72FD8 /* LaunchScreen.storyboard */,
+				424ACCF5205078DC00A72FD8 /* Info.plist */,
+			);
+			path = "LottieSprite iOS";
+			sourceTree = "<group>";
+		};
+		424ACCFB205078DC00A72FD8 /* LottieSprite tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				424ACCFC205078DC00A72FD8 /* AppDelegate.swift */,
+				424ACCFE205078DC00A72FD8 /* GameViewController.swift */,
+				424ACD00205078DC00A72FD8 /* Main.storyboard */,
+				424ACD03205078DC00A72FD8 /* Info.plist */,
+			);
+			path = "LottieSprite tvOS";
+			sourceTree = "<group>";
+		};
+		424ACD09205078DC00A72FD8 /* LottieSprite macOS */ = {
+			isa = PBXGroup;
+			children = (
+				424ACD0A205078DC00A72FD8 /* AppDelegate.swift */,
+				424ACD0C205078DC00A72FD8 /* GameViewController.swift */,
+				424ACD0E205078DC00A72FD8 /* Main.storyboard */,
+				424ACD11205078DC00A72FD8 /* Info.plist */,
+			);
+			path = "LottieSprite macOS";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		424ACCE7205078DC00A72FD8 /* LottieSprite iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 424ACD20205078DC00A72FD8 /* Build configuration list for PBXNativeTarget "LottieSprite iOS" */;
+			buildPhases = (
+				424ACCE4205078DC00A72FD8 /* Sources */,
+				424ACCE5205078DC00A72FD8 /* Frameworks */,
+				424ACCE6205078DC00A72FD8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LottieSprite iOS";
+			productName = "LottieSprite iOS";
+			productReference = 424ACCE8205078DC00A72FD8 /* LottieSprite.app */;
+			productType = "com.apple.product-type.application";
+		};
+		424ACCF9205078DC00A72FD8 /* LottieSprite tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 424ACD23205078DC00A72FD8 /* Build configuration list for PBXNativeTarget "LottieSprite tvOS" */;
+			buildPhases = (
+				424ACCF6205078DC00A72FD8 /* Sources */,
+				424ACCF7205078DC00A72FD8 /* Frameworks */,
+				424ACCF8205078DC00A72FD8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LottieSprite tvOS";
+			productName = "LottieSprite tvOS";
+			productReference = 424ACCFA205078DC00A72FD8 /* LottieSprite.app */;
+			productType = "com.apple.product-type.application";
+		};
+		424ACD07205078DC00A72FD8 /* LottieSprite macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 424ACD26205078DC00A72FD8 /* Build configuration list for PBXNativeTarget "LottieSprite macOS" */;
+			buildPhases = (
+				424ACD04205078DC00A72FD8 /* Sources */,
+				424ACD05205078DC00A72FD8 /* Frameworks */,
+				424ACD06205078DC00A72FD8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LottieSprite macOS";
+			productName = "LottieSprite macOS";
+			productReference = 424ACD08205078DC00A72FD8 /* LottieSprite.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		424ACCDB205078DC00A72FD8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Touchgram Pty Ltd";
+				TargetAttributes = {
+					424ACCE7205078DC00A72FD8 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					424ACCF9205078DC00A72FD8 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					424ACD07205078DC00A72FD8 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 424ACCDE205078DC00A72FD8 /* Build configuration list for PBXProject "LottieSprite" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 424ACCDA205078DC00A72FD8;
+			productRefGroup = 424ACCE9205078DC00A72FD8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				424ACCE7205078DC00A72FD8 /* LottieSprite iOS */,
+				424ACCF9205078DC00A72FD8 /* LottieSprite tvOS */,
+				424ACD07205078DC00A72FD8 /* LottieSprite macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		424ACCE6205078DC00A72FD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				424ACD15205078DC00A72FD8 /* GameScene.sks in Resources */,
+				424ACCF1205078DC00A72FD8 /* Main.storyboard in Resources */,
+				424ACD12205078DC00A72FD8 /* Actions.sks in Resources */,
+				424ACCF4205078DC00A72FD8 /* LaunchScreen.storyboard in Resources */,
+				424ACD1B205078DC00A72FD8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		424ACCF8205078DC00A72FD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				424ACD02205078DC00A72FD8 /* Main.storyboard in Resources */,
+				424ACD16205078DC00A72FD8 /* GameScene.sks in Resources */,
+				424ACD1C205078DC00A72FD8 /* Assets.xcassets in Resources */,
+				424ACD13205078DC00A72FD8 /* Actions.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		424ACD06205078DC00A72FD8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				424ACD10205078DC00A72FD8 /* Main.storyboard in Resources */,
+				424ACD17205078DC00A72FD8 /* GameScene.sks in Resources */,
+				424ACD1D205078DC00A72FD8 /* Assets.xcassets in Resources */,
+				424ACD14205078DC00A72FD8 /* Actions.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		424ACCE4205078DC00A72FD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				424ACD18205078DC00A72FD8 /* GameScene.swift in Sources */,
+				424ACCEE205078DC00A72FD8 /* GameViewController.swift in Sources */,
+				424ACCEC205078DC00A72FD8 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		424ACCF6205078DC00A72FD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				424ACD19205078DC00A72FD8 /* GameScene.swift in Sources */,
+				424ACCFF205078DC00A72FD8 /* GameViewController.swift in Sources */,
+				424ACCFD205078DC00A72FD8 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		424ACD04205078DC00A72FD8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				424ACD1A205078DC00A72FD8 /* GameScene.swift in Sources */,
+				424ACD0D205078DC00A72FD8 /* GameViewController.swift in Sources */,
+				424ACD0B205078DC00A72FD8 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		424ACCEF205078DC00A72FD8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				424ACCF0205078DC00A72FD8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		424ACCF2205078DC00A72FD8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				424ACCF3205078DC00A72FD8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		424ACD00205078DC00A72FD8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				424ACD01205078DC00A72FD8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		424ACD0E205078DC00A72FD8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				424ACD0F205078DC00A72FD8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		424ACD1E205078DC00A72FD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		424ACD1F205078DC00A72FD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+			};
+			name = Release;
+		};
+		424ACD21205078DC00A72FD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 534LVXBU55;
+				INFOPLIST_FILE = "LottieSprite iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchgram.LottieSprite;
+				PRODUCT_NAME = LottieSprite;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		424ACD22205078DC00A72FD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 534LVXBU55;
+				INFOPLIST_FILE = "LottieSprite iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchgram.LottieSprite;
+				PRODUCT_NAME = LottieSprite;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		424ACD24205078DC00A72FD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "tvOS LaunchImage";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 534LVXBU55;
+				INFOPLIST_FILE = "LottieSprite tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchgram.LottieSprite;
+				PRODUCT_NAME = LottieSprite;
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.2;
+			};
+			name = Debug;
+		};
+		424ACD25205078DC00A72FD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "tvOS LaunchImage";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 534LVXBU55;
+				INFOPLIST_FILE = "LottieSprite tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchgram.LottieSprite;
+				PRODUCT_NAME = LottieSprite;
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		424ACD27205078DC00A72FD8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 534LVXBU55;
+				INFOPLIST_FILE = "LottieSprite macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchgram.LottieSprite;
+				PRODUCT_NAME = LottieSprite;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		424ACD28205078DC00A72FD8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 534LVXBU55;
+				INFOPLIST_FILE = "LottieSprite macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchgram.LottieSprite;
+				PRODUCT_NAME = LottieSprite;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		424ACCDE205078DC00A72FD8 /* Build configuration list for PBXProject "LottieSprite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				424ACD1E205078DC00A72FD8 /* Debug */,
+				424ACD1F205078DC00A72FD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		424ACD20205078DC00A72FD8 /* Build configuration list for PBXNativeTarget "LottieSprite iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				424ACD21205078DC00A72FD8 /* Debug */,
+				424ACD22205078DC00A72FD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		424ACD23205078DC00A72FD8 /* Build configuration list for PBXNativeTarget "LottieSprite tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				424ACD24205078DC00A72FD8 /* Debug */,
+				424ACD25205078DC00A72FD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		424ACD26205078DC00A72FD8 /* Build configuration list for PBXNativeTarget "LottieSprite macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				424ACD27205078DC00A72FD8 /* Debug */,
+				424ACD28205078DC00A72FD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 424ACCDB205078DC00A72FD8 /* Project object */;
+}

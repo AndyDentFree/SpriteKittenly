@@ -1,0 +1,2 @@
+Creation
+Setup with XCode 9.2 as a "cross-platform game" with tvOS, iOS and macOS enabled and watchOS removed.

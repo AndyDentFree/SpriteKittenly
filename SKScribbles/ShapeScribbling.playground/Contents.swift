@@ -13,27 +13,23 @@ class GameScene: SKScene {
     }
     
     func touchDown(atPoint pos : CGPoint) {
-        pointsDrawn = [pos]
+        pointsDrawn = [pos, pos]  // insert a dummy so always two points
     }
     
     func touchMoved(toPoint pos : CGPoint) {
       guard pos != pointsDrawn.last else { return }
-      pointsDrawn.append(pos)
-      updatePath()
+      updatePath(pos)
     }
     
     func touchUp(atPoint pos : CGPoint) {
       guard pos != pointsDrawn.last else { return }
-      pointsDrawn.append(pos)
-      updatePath()
+      updatePath(pos)
     }
   
-    func updatePath() {
-      
-      // start with completely re-creating the node. Horribly slow
-      if linesNode != nil {
-        removeChildren(in: [linesNode!])
-      }
+    func updatePath(_ pos : CGPoint) {
+      pointsDrawn[0] = pointsDrawn[1]
+      pointsDrawn[1] = pos
+      // add new node of two points
       linesNode = SKShapeNode(points:&pointsDrawn, count:pointsDrawn.count)
       linesNode!.lineWidth = 1
       linesNode!.strokeColor = SKColor.green

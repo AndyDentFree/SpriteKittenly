@@ -31,8 +31,15 @@ class GameScene: SKScene {
     }
     
     func touchUp(atPoint pos : CGPoint) {
-      guard pos.notCloseTo(pointsDrawn.last!) else { return }
-      updatePath(pos)
+      if !pos.notCloseTo(pointsDrawn.last!){
+        pointsDrawn.append(pos) // instead of updatePath(pos)
+      }
+      // this has no perceivable performance impact removeChildren(in: tempNodes)
+      var finishedPts = SKShapeNode(splinePoints:&pointsDrawn, count:pointsDrawn.count)
+      finishedPts.lineWidth = 1
+      finishedPts.strokeColor = SKColor.green
+      finishedPts.glowWidth = 2.0
+      addChild(finishedPts)
     }
   
     func updatePath(_ pos : CGPoint) {
@@ -42,7 +49,7 @@ class GameScene: SKScene {
       linesNode.lineWidth = 1
       linesNode.strokeColor = SKColor.yellow
       addChild(linesNode)
-      //tempNodes.append(linesNode)  // WHOA! this makes it slow down massively
+      tempNodes.append(linesNode)  // WHOA! this makes it slow down massively
     }
     
     override func mouseDown(with event: NSEvent) {
@@ -55,13 +62,6 @@ class GameScene: SKScene {
     
     override func mouseUp(with event: NSEvent) {
         touchUp(atPoint: event.location(in: self))
-      
-        // this has no perceivable performance impact removeChildren(in: tempNodes)
-        var finishedPts = SKShapeNode(splinePoints:&pointsDrawn, count:pointsDrawn.count)
-        finishedPts.lineWidth = 1
-        finishedPts.strokeColor = SKColor.green
-        finishedPts.glowWidth = 2.0
-        addChild(finishedPts)
     }
     
     override func update(_ currentTime: TimeInterval) {

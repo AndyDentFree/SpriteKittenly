@@ -11,29 +11,34 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    private var sparkNode : SKSpriteNode?
-    //private var sparkOriginalSize = CGSize()
+    private var sparkNode: SKSpriteNode?
+    private var sparkTrail: SKxMotionStreak?
+    private let scaledOnTouchBy = CGFloat(4.0)
     
     override func didMove(to view: SKView) {
-        
-        // Get label node from scene and store it for use later
-        sparkNode = self.childNode(withName: "//SparkNode") as? SKSpriteNode
+      sparkNode = self.childNode(withName: "//SparkNode") as? SKSpriteNode
     }
     
     
     func touchDown(atPoint pos : CGPoint) {
       sparkNode?.position = pos
-      //sparkOriginalSize = sparkNode!.size
-      sparkNode?.run(SKAction.scale(by: 6.0, duration:0.1))
+      sparkNode?.run(SKAction.scale(by: scaledOnTouchBy, duration:0.1))
+      sparkTrail = SKxMotionStreak()
+      addChild(sparkTrail!)
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-      sparkNode?.position = pos
+      sparkNode!.position = pos
+      sparkTrail!.addPosition(position: pos)
+      sparkTrail!.updateStreak()
     }
     
     func touchUp(atPoint pos : CGPoint) {
-      sparkNode?.position = pos
-      sparkNode?.run(SKAction.scale(by: 1.0/6.0, duration:0.5))
+      sparkNode!.position = pos
+      sparkTrail!.addPosition(position: pos)
+      sparkTrail!.updateStreak()
+      sparkNode!.run(SKAction.scale(by: 1.0/scaledOnTouchBy, duration:0.5))
+      removeChildren(in: [sparkTrail!])
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

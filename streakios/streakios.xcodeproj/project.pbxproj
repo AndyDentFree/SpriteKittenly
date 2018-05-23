@@ -15,6 +15,10 @@
 		42303743201618B4003E139B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42303741201618B4003E139B /* Main.storyboard */; };
 		42303745201618B5003E139B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42303744201618B5003E139B /* Assets.xcassets */; };
 		42303748201618B6003E139B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42303746201618B6003E139B /* LaunchScreen.storyboard */; };
+		42CEE36A20B58C700026E75E /* SKxMotionStreak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CEE36920B58C700026E75E /* SKxMotionStreak.swift */; };
+		42CEE36F20B594D50026E75E /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CEE36D20B594D50026E75E /* CGPoint+Extensions.swift */; };
+		42CEE37020B594D50026E75E /* SKColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CEE36E20B594D50026E75E /* SKColor+Extensions.swift */; };
+		42CEE37220B5A4FB0026E75E /* CGFloat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42CEE37120B5A4FB0026E75E /* CGFloat+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,10 @@
 		42303744201618B5003E139B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42303747201618B6003E139B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		42303749201618B8003E139B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42CEE36920B58C700026E75E /* SKxMotionStreak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKxMotionStreak.swift; sourceTree = "<group>"; };
+		42CEE36D20B594D50026E75E /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGPoint+Extensions.swift"; path = "SKTUtils/CGPoint+Extensions.swift"; sourceTree = SOURCE_ROOT; };
+		42CEE36E20B594D50026E75E /* SKColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SKColor+Extensions.swift"; path = "SKTUtils/SKColor+Extensions.swift"; sourceTree = SOURCE_ROOT; };
+		42CEE37120B5A4FB0026E75E /* CGFloat+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CGFloat+Extensions.swift"; path = "SKTUtils/CGFloat+Extensions.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +68,9 @@
 		42303736201618AF003E139B /* streakios */ = {
 			isa = PBXGroup;
 			children = (
+				42CEE37120B5A4FB0026E75E /* CGFloat+Extensions.swift */,
+				42CEE36D20B594D50026E75E /* CGPoint+Extensions.swift */,
+				42CEE36E20B594D50026E75E /* SKColor+Extensions.swift */,
 				42303737201618B0003E139B /* AppDelegate.swift */,
 				42303739201618B1003E139B /* GameScene.sks */,
 				4230373B201618B1003E139B /* Actions.sks */,
@@ -69,6 +80,7 @@
 				42303744201618B5003E139B /* Assets.xcassets */,
 				42303746201618B6003E139B /* LaunchScreen.storyboard */,
 				42303749201618B8003E139B /* Info.plist */,
+				42CEE36920B58C700026E75E /* SKxMotionStreak.swift */,
 			);
 			path = streakios;
 			sourceTree = "<group>";
@@ -100,7 +112,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Aussie Designed Software Pty Ltd";
 				TargetAttributes = {
 					42303733201618AE003E139B = {
@@ -148,7 +160,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4230373E201618B2003E139B /* GameScene.swift in Sources */,
+				42CEE37020B594D50026E75E /* SKColor+Extensions.swift in Sources */,
+				42CEE37220B5A4FB0026E75E /* CGFloat+Extensions.swift in Sources */,
+				42CEE36F20B594D50026E75E /* CGPoint+Extensions.swift in Sources */,
 				42303740201618B3003E139B /* GameViewController.swift in Sources */,
+				42CEE36A20B58C700026E75E /* SKxMotionStreak.swift in Sources */,
 				42303738201618B0003E139B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,6 +205,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -196,6 +213,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -246,6 +264,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -253,6 +272,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

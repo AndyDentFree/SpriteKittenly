@@ -19,6 +19,7 @@ class GameScene: SKScene {
 
   private var pointsDrawn = [CGPoint]()
   private var tempNodes = [SKShapeNode]()
+  private var drawModeIndex = 0
   
   class func newGameScene() -> GameScene {
       // Load 'GameScene.sks' as an SKScene.
@@ -37,6 +38,10 @@ class GameScene: SKScene {
     removeAllChildren()
     pointsDrawn = [CGPoint]()
     tempNodes = [SKShapeNode]()
+  }
+  
+  func setDrawMode(_ modeIndex:Int) {
+    clear()
   }
   
   func touchDown(atPoint pos : CGPoint) {

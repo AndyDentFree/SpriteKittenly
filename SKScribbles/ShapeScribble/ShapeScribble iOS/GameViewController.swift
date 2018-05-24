@@ -12,7 +12,15 @@ import GameplayKit
 
 class GameViewController: UIViewController {
   
+  @IBAction func segValueChange(_ sender: Any) {
+    scene.setDrawMode(optionSeg.selectedSegmentIndex)
+  }
+
   @IBAction func clearDrawing(_ sender: Any) {
+    scene.clear()
+  }
+  
+  @IBAction func drawMode(_ sender: Any) {
     scene.clear()
   }
   
@@ -32,6 +40,7 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = true
         skView.showsFPS = true
         skView.showsNodeCount = true
+    
     }
 
     override var shouldAutorotate: Bool {

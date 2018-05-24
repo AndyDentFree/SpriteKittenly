@@ -19,21 +19,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhn-pm-X9M">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="68" width="375" height="599"/>
                             </skView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUH-3H-hPb">
-                                <rect key="frame" x="331" y="8" width="36" height="30"/>
+                                <rect key="frame" x="331" y="32" width="36" height="30"/>
                                 <state key="normal" title="Clear"/>
                                 <connections>
                                     <action selector="clearDrawing:" destination="BV1-FR-VrT" eventType="touchUpInside" id="hFr-jl-QvM"/>
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Y0O-rC-SVg">
-                                <rect key="frame" x="127" y="8" width="121" height="29"/>
+                                <rect key="frame" x="95" y="32" width="185" height="29"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="2-line Nodes"/>
+                                    <segment title="Path rebuild"/>
                                 </segments>
+                                <connections>
+                                    <action selector="segValueChange:" destination="BV1-FR-VrT" eventType="valueChanged" id="k9y-PL-CWe"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -44,7 +47,7 @@
                             <constraint firstItem="Dhn-pm-X9M" firstAttribute="bottom" secondItem="bNo-s9-wk6" secondAttribute="bottom" id="Dzz-k3-doc"/>
                             <constraint firstItem="bNo-s9-wk6" firstAttribute="trailing" secondItem="Dhn-pm-X9M" secondAttribute="trailing" id="GJB-Sm-qYO"/>
                             <constraint firstItem="Dhn-pm-X9M" firstAttribute="top" secondItem="Y0O-rC-SVg" secondAttribute="bottom" constant="8" id="MFh-C2-JvU"/>
-                            <constraint firstItem="bNo-s9-wk6" firstAttribute="top" secondItem="Y0O-rC-SVg" secondAttribute="top" constant="12" id="Mqa-28-bhy"/>
+                            <constraint firstItem="Y0O-rC-SVg" firstAttribute="top" secondItem="bNo-s9-wk6" secondAttribute="top" constant="12" id="Mqa-28-bhy"/>
                             <constraint firstItem="Y0O-rC-SVg" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="eVJ-Hh-Q8c"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bNo-s9-wk6"/>

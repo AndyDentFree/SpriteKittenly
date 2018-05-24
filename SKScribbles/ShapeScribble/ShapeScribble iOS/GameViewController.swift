@@ -11,14 +11,22 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
-
-    override func viewDidLoad() {
+  
+  @IBAction func clearDrawing(_ sender: Any) {
+    scene.clear()
+  }
+  
+  @IBOutlet weak var optionSeg: UISegmentedControl!
+  @IBOutlet weak var skView: SKView!
+  
+  lazy var scene:GameScene = GameScene.newGameScene()
+  
+  override func viewDidLoad() {
         super.viewDidLoad()
         
-        let scene = GameScene.newGameScene()
+        scene = GameScene.newGameScene()
 
         // Present the scene
-        let skView = self.view as! SKView
         skView.presentScene(scene)
         
         skView.ignoresSiblingOrder = true

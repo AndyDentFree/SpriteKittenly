@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A278a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +13,50 @@
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="ShapeScribble" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhn-pm-X9M">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                            </skView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUH-3H-hPb">
+                                <rect key="frame" x="331" y="8" width="36" height="30"/>
+                                <state key="normal" title="Clear"/>
+                                <connections>
+                                    <action selector="clearDrawing:" destination="BV1-FR-VrT" eventType="touchUpInside" id="hFr-jl-QvM"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Y0O-rC-SVg">
+                                <rect key="frame" x="127" y="8" width="121" height="29"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="mUH-3H-hPb" firstAttribute="trailing" secondItem="bNo-s9-wk6" secondAttribute="trailing" constant="-8" id="4OH-bH-VLg"/>
+                            <constraint firstItem="Dhn-pm-X9M" firstAttribute="width" secondItem="bNo-s9-wk6" secondAttribute="width" id="6K0-be-QzL"/>
+                            <constraint firstItem="mUH-3H-hPb" firstAttribute="top" secondItem="Y0O-rC-SVg" secondAttribute="top" id="9FC-VP-c0R"/>
+                            <constraint firstItem="Dhn-pm-X9M" firstAttribute="bottom" secondItem="bNo-s9-wk6" secondAttribute="bottom" id="Dzz-k3-doc"/>
+                            <constraint firstItem="bNo-s9-wk6" firstAttribute="trailing" secondItem="Dhn-pm-X9M" secondAttribute="trailing" id="GJB-Sm-qYO"/>
+                            <constraint firstItem="Dhn-pm-X9M" firstAttribute="top" secondItem="Y0O-rC-SVg" secondAttribute="bottom" constant="8" id="MFh-C2-JvU"/>
+                            <constraint firstItem="bNo-s9-wk6" firstAttribute="top" secondItem="Y0O-rC-SVg" secondAttribute="top" constant="12" id="Mqa-28-bhy"/>
+                            <constraint firstItem="Y0O-rC-SVg" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="eVJ-Hh-Q8c"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bNo-s9-wk6"/>
                     </view>
+                    <connections>
+                        <outlet property="optionSeg" destination="Y0O-rC-SVg" id="yky-7a-fK8"/>
+                        <outlet property="skView" destination="Dhn-pm-X9M" id="Kk1-Ms-ehb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="24.800000000000001" y="31.934032983508249"/>
         </scene>
     </scenes>
 </document>

@@ -20,18 +20,25 @@ class GameScene: SKScene {
   private var pointsDrawn = [CGPoint]()
   private var tempNodes = [SKShapeNode]()
   
-    class func newGameScene() -> GameScene {
-        // Load 'GameScene.sks' as an SKScene.
-        guard let scene = SKScene(fileNamed: "GameScene") as? GameScene else {
-            print("Failed to load GameScene.sks")
-            abort()
-        }
-        
-        // Set the scale mode to scale to fit the window
-        scene.scaleMode = .aspectFill
-        return scene
-    }
+  class func newGameScene() -> GameScene {
+      // Load 'GameScene.sks' as an SKScene.
+      guard let scene = SKScene(fileNamed: "GameScene") as? GameScene else {
+          print("Failed to load GameScene.sks")
+          abort()
+      }
+    
+      // Set the scale mode to scale to fit the window
+      scene.scaleMode = .aspectFill
+      return scene
+  }
 
+  func clear()
+  {
+    removeAllChildren()
+    pointsDrawn = [CGPoint]()
+    tempNodes = [SKShapeNode]()
+  }
+  
   func touchDown(atPoint pos : CGPoint) {
     pointsDrawn = [pos]
   }

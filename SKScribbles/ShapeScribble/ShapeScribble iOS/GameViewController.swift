@@ -11,36 +11,39 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
-  
+
+    @IBOutlet weak var optionSeg: UISegmentedControl!
+    @IBOutlet weak var skView: SKView!
+
+    lazy var scene: SKScene = GameScene2LineNodes.newGameScene()
+
   @IBAction func segValueChange(_ sender: Any) {
-    scene.setDrawMode(optionSeg.selectedSegmentIndex)
+      makeScene(sceneIndex:optionSeg.selectedSegmentIndex)
   }
 
   @IBAction func clearDrawing(_ sender: Any) {
-    scene.clear()
+      makeScene(sceneIndex:optionSeg.selectedSegmentIndex)
   }
-  
-  @IBAction func drawMode(_ sender: Any) {
-    scene.clear()
-  }
-  
-  @IBOutlet weak var optionSeg: UISegmentedControl!
-  @IBOutlet weak var skView: SKView!
-  
-  lazy var scene:GameScene = GameScene.newGameScene()
-  
+
   override func viewDidLoad() {
         super.viewDidLoad()
-        
-        scene = GameScene.newGameScene()
 
-        // Present the scene
-        skView.presentScene(scene)
-        
+        makeScene(sceneIndex:optionSeg.selectedSegmentIndex)
+
         skView.ignoresSiblingOrder = true
         skView.showsFPS = true
         skView.showsNodeCount = true
     
+    }
+
+    func makeScene(sceneIndex:Int) {
+        if sceneIndex == 0 {
+            scene = GameScene2LineNodes.newGameScene()
+        }
+        else {
+            scene = GameScenePathRebuilding.newGameScene()
+        }
+        skView.presentScene(scene)
     }
 
     override var shouldAutorotate: Bool {

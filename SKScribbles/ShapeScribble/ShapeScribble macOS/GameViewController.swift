@@ -13,28 +13,34 @@ import GameplayKit
 class GameViewController: NSViewController {
   
   @IBOutlet weak var optionSeg: NSSegmentedControl!
+  lazy var skView = self.view as! SKView
+  lazy var scene: SKScene = GameScene2LineNodes.newGameScene()
+
   @IBAction func clearDrawing(_ sender: Any) {
-    scene.clear()
+      makeScene(sceneIndex:optionSeg.selectedSegment)
   }
   
   @IBAction func optionSegChanged(_ sender: Any) {
-    scene.setDrawMode(optionSeg.selectedSegment)
+    makeScene(sceneIndex:optionSeg.selectedSegment)
   }
-  
-  lazy var scene:GameScene = GameScene.newGameScene()
-  
+
+    func makeScene(sceneIndex:Int) {
+        if sceneIndex == 0 {
+            scene = GameScene2LineNodes.newGameScene()
+        }
+        else {
+            scene = GameScenePathRebuilding.newGameScene()
+        }
+        skView.presentScene(scene)
+    }
+
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        scene = GameScene.newGameScene()
-        
-        // Present the scene
-        let skView = self.view as! SKView
-        skView.presentScene(scene)
-        
+
+        makeScene(sceneIndex:optionSeg.selectedSegment)
         skView.ignoresSiblingOrder = true
-        
         skView.showsFPS = true
         skView.showsNodeCount = true
     }

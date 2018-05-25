@@ -14,20 +14,18 @@
 		42BCF73520B542AC007A54B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BCF73420B542AC007A54B9 /* AppDelegate.swift */; };
 		42BCF73720B542AC007A54B9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BCF73620B542AC007A54B9 /* GameViewController.swift */; };
 		42BCF73A20B542AC007A54B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42BCF73820B542AC007A54B9 /* Main.storyboard */; };
-		42BCF73C20B542AC007A54B9 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42BCF71820B542AA007A54B9 /* Actions.sks */; };
-		42BCF73D20B542AC007A54B9 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42BCF71820B542AA007A54B9 /* Actions.sks */; };
-		42BCF73E20B542AC007A54B9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42BCF71920B542AA007A54B9 /* GameScene.sks */; };
-		42BCF73F20B542AC007A54B9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42BCF71920B542AA007A54B9 /* GameScene.sks */; };
-		42BCF74020B542AC007A54B9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BCF71A20B542AA007A54B9 /* GameScene.swift */; };
-		42BCF74120B542AC007A54B9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BCF71A20B542AA007A54B9 /* GameScene.swift */; };
+		42BCF74020B542AC007A54B9 /* GameScene2LineNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BCF71A20B542AA007A54B9 /* GameScene2LineNodes.swift */; };
+		42BCF74120B542AC007A54B9 /* GameScene2LineNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BCF71A20B542AA007A54B9 /* GameScene2LineNodes.swift */; };
 		42BCF74220B542AC007A54B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42BCF71B20B542AC007A54B9 /* Assets.xcassets */; };
 		42BCF74320B542AC007A54B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42BCF71B20B542AC007A54B9 /* Assets.xcassets */; };
+		C8BC2348DDA508796AB0E120 /* ScribbleHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC28C498BC1845977AECBD /* ScribbleHelpers.swift */; };
+		C8BC245A2C2A1723AF275A9D /* GameScenePathRebuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */; };
+		C8BC2CBC34889026C1D62D73 /* GameScenePathRebuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */; };
+		C8BC2DEE1E3B0C57582549C4 /* ScribbleHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC28C498BC1845977AECBD /* ScribbleHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		42BCF71820B542AA007A54B9 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
-		42BCF71920B542AA007A54B9 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		42BCF71A20B542AA007A54B9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		42BCF71A20B542AA007A54B9 /* GameScene2LineNodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene2LineNodes.swift; sourceTree = "<group>"; };
 		42BCF71B20B542AC007A54B9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42BCF72020B542AC007A54B9 /* ShapeScribble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShapeScribble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42BCF72320B542AC007A54B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -40,6 +38,8 @@
 		42BCF73620B542AC007A54B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		42BCF73920B542AC007A54B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42BCF73B20B542AC007A54B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScenePathRebuilding.swift; sourceTree = "<group>"; };
+		C8BC28C498BC1845977AECBD /* ScribbleHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScribbleHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,10 +73,10 @@
 		42BCF71720B542AA007A54B9 /* ShapeScribble Shared */ = {
 			isa = PBXGroup;
 			children = (
-				42BCF71820B542AA007A54B9 /* Actions.sks */,
-				42BCF71920B542AA007A54B9 /* GameScene.sks */,
-				42BCF71A20B542AA007A54B9 /* GameScene.swift */,
+				42BCF71A20B542AA007A54B9 /* GameScene2LineNodes.swift */,
 				42BCF71B20B542AC007A54B9 /* Assets.xcassets */,
+				C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */,
+				C8BC28C498BC1845977AECBD /* ScribbleHelpers.swift */,
 			);
 			path = "ShapeScribble Shared";
 			sourceTree = "<group>";
@@ -192,9 +192,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42BCF73E20B542AC007A54B9 /* GameScene.sks in Resources */,
 				42BCF72920B542AC007A54B9 /* Main.storyboard in Resources */,
-				42BCF73C20B542AC007A54B9 /* Actions.sks in Resources */,
 				42BCF72C20B542AC007A54B9 /* LaunchScreen.storyboard in Resources */,
 				42BCF74220B542AC007A54B9 /* Assets.xcassets in Resources */,
 			);
@@ -205,9 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42BCF73A20B542AC007A54B9 /* Main.storyboard in Resources */,
-				42BCF73F20B542AC007A54B9 /* GameScene.sks in Resources */,
 				42BCF74320B542AC007A54B9 /* Assets.xcassets in Resources */,
-				42BCF73D20B542AC007A54B9 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,9 +214,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42BCF74020B542AC007A54B9 /* GameScene.swift in Sources */,
+				42BCF74020B542AC007A54B9 /* GameScene2LineNodes.swift in Sources */,
 				42BCF72620B542AC007A54B9 /* GameViewController.swift in Sources */,
 				42BCF72420B542AC007A54B9 /* AppDelegate.swift in Sources */,
+				C8BC2CBC34889026C1D62D73 /* GameScenePathRebuilding.swift in Sources */,
+				C8BC2348DDA508796AB0E120 /* ScribbleHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,9 +226,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42BCF74120B542AC007A54B9 /* GameScene.swift in Sources */,
+				42BCF74120B542AC007A54B9 /* GameScene2LineNodes.swift in Sources */,
 				42BCF73720B542AC007A54B9 /* GameViewController.swift in Sources */,
 				42BCF73520B542AC007A54B9 /* AppDelegate.swift in Sources */,
+				C8BC245A2C2A1723AF275A9D /* GameScenePathRebuilding.swift in Sources */,
+				C8BC2DEE1E3B0C57582549C4 /* ScribbleHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

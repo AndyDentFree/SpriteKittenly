@@ -44,8 +44,8 @@ class GameScenePathRebuilding: SKScene {
     func updatePath(_ pos: CGPoint) {
         // not called unless moved at least a few pixels from initial touch
         _pointsDrawn.append(pos)
-        _path = CGMutablePath()
-        //_path.removeAllPoints()
+        // recreated path if you want to see only one, leave it there and move(to:) starts new sub-path
+        // _path = CGMutablePath()
         _path.move(to:_pointsDrawn[0])
         for pt in _pointsDrawn[1...] {
             _path.addLine(to:pt)
@@ -67,16 +67,6 @@ class GameScenePathRebuilding: SKScene {
 #endif
 
     func setupOnLoad() {
-        _bigNode.lineWidth = 0.0
-        //_bigNode.fillColor = SKColor(red:1.0, green:1.0, blue:1.0, alpha:0.25)
-        _bigNode.isAntialiased = false
-        // NOTE: This is necessary because of an issue with Sprite Kit.
-        // If the ShapeNode does not cover the entire playing area when it
-        // is created, then it gets hidden in the areas it doesn't cover,
-        // even if you add those later. I consider this a bug. (Andy Note - 4yo assertion needs verifying)
-        _path.move(to: CGPoint(x:0, y:0))
-        _path.addLine(to: CGPoint(x:1000.0, y:1000.0))
-        //_path.close()
         _bigNode.path = _path
         addChild(_bigNode)
     }

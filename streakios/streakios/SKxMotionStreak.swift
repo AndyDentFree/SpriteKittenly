@@ -17,7 +17,7 @@ import CoreGraphics
   
 class SKxMotionStreak : SKShapeNode {
 
-    var _path: UIBezierPath
+    var _path = CGMutablePath()  // instead of UIBezierPath in original, use a type that allows reuse of this class on macOS
     var _points = [CGPoint](repeating:CGPoint(), count:MaxPoints)
     var _angles = [CGFloat](repeating: 0, count:MaxPoints)
     var _previousPoint = CGPoint()
@@ -25,12 +25,11 @@ class SKxMotionStreak : SKShapeNode {
     var _index: Int = 0
     
     override init() {
-        _path = UIBezierPath()
         super.init()
         self.lineWidth = 0.0
         self.fillColor = SKColorWithRGBA(255, g:255, b:255, a:64)
         self.isAntialiased = false
-        self.path = _path.cgPath
+        self.path = _path
     }
   
   required init?(coder aDecoder: NSCoder) {
@@ -56,7 +55,7 @@ class SKxMotionStreak : SKShapeNode {
     }
     
     func updateStreak() {
-      _path.removeAllPoints()
+      _path = CGMutablePath()
       if _count > 1 {
         let i = _index%_count
         var point = _points[i]
@@ -81,8 +80,8 @@ class SKxMotionStreak : SKShapeNode {
           c = cos(_angles[i])*taper*Thickness
           _path.addLine(to: CGPoint(x:point.x+c, y:point.y+s))
         }
-        _path.close()
-        self.path = _path.cgPath
+        _path.closeSubpath()  // closes "most recent" path, same effect as the UIBezierPath.close() that was here before
+        self.path = _path
       }
     }
     

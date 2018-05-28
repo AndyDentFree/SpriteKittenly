@@ -30,14 +30,7 @@ class SKxMotionStreak : SKShapeNode {
         self.lineWidth = 0.0
         self.fillColor = SKColorWithRGBA(255, g:255, b:255, a:64)
         self.isAntialiased = false
-        // NOTE: This is necessary because of an issue with Sprite Kit.
-        // If the ShapeNode does not cover the entire playing area when it
-        // is created, then it gets hidden in the areas it doesn't cover,
-        // even if you add those later. I consider this a bug. (Andy Note - 4yo assertion needs verifying)
-      _path.move(to: CGPoint(x:0, y:0))
-      _path.addLine(to: CGPoint(x:1000.0, y:1000.0))
-      _path.close()
-      self.path = _path.cgPath
+        self.path = _path.cgPath
     }
   
   required init?(coder aDecoder: NSCoder) {

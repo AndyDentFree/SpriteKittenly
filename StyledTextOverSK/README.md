@@ -12,10 +12,22 @@ This node type supports a single style specifying font name, size, style and col
 ### Attributed String Issues
 Although the visual scene editor apparently allows you to specify the colour, this doesn't seem to persist and translate into runtime.
 
-This supports a 
+This supports attributed strings but not wrapping them.
+
+There was a useful gist on building multiple label nodes `SKMultilineLabel` by [Craig Grummitt][CG] but only taking a single style and breaking the word wrapping (note this **is** a complex issue!).
+
+You can (possibly only in iOS 11) use a combination of:
+
+    label.lineBreakMode = .byWordWrapping
+    label.numberOfLines = 0 
+
+To get wrapped text - the key is specifying the `numberOfLines` as the default is to a single line.
+![Screenshot of wrapped formatted text](img/AttributedStringWithWrapping.png)
+
 
 ## App Build
 Created using XCode 9.4.1 "ios Game" template
 
 [SKLabelNode]: https://developer.apple.com/documentation/spritekit/sklabelnode
 [NSAttributedString]: https://developer.apple.com/documentation/foundation/nsattributedstring
+[CG]: https://gist.github.com/craiggrummitt/03bfa93c07e247ee9358

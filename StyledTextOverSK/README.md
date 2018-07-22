@@ -12,11 +12,13 @@ This node type supports a single style specifying font name, size, style and col
 ### Attributed String Issues
 Although the visual scene editor apparently allows you to specify the colour, this doesn't seem to persist and translate into runtime.
 
-This supports attributed strings but not wrapping them.
+**Attributed Strings for SKLabelNode were added in iOS 11**.
+
+The visual editor supports attributed strings but not wrapping them with inserted linebreaks. If you set the modes correctly, as mentioned below, they will wrap.
 
 There was a useful gist on building multiple label nodes `SKMultilineLabel` by [Craig Grummitt][CG] but only taking a single style and breaking the word wrapping (note this **is** a complex issue!).
 
-You can (possibly only in iOS 11) use a combination of:
+You can use a combination of:
 
     label.lineBreakMode = .byWordWrapping
     label.numberOfLines = 0 

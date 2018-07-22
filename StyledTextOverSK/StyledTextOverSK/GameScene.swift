@@ -20,7 +20,7 @@ class GameScene: SKScene {
         // Get label node from scene and store it for use later
         //self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
       
-      
+        // ONLY ON IOS11 OR LATER
         self.label = SKLabelNode(attributedText: fancyHello())
         if let label = self.label {
             // WARNING our label will NOT wrap to fit by default, using these calls possibly introduced in iOS 11

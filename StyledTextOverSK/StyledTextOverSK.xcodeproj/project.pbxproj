@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4279EA0A210442AA0039046E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEAABA2104294D00A16AC4 /* GameScene.swift */; };
+		4279EA0B210442AA0039046E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEAABC2104294D00A16AC4 /* GameViewController.swift */; };
+		4279EA0C210442AA0039046E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEAAB42104294D00A16AC4 /* AppDelegate.swift */; };
+		4279EA0F210442AA0039046E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42DEAABE2104294D00A16AC4 /* Main.storyboard */; };
+		4279EA10210442AA0039046E /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42DEAAB62104294D00A16AC4 /* GameScene.sks */; };
+		4279EA11210442AA0039046E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42DEAAC12104295200A16AC4 /* Assets.xcassets */; };
+		4279EA12210442AA0039046E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42DEAAC32104295200A16AC4 /* LaunchScreen.storyboard */; };
+		4279EA13210442AA0039046E /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42DEAAB82104294D00A16AC4 /* Actions.sks */; };
 		42DEAAB52104294D00A16AC4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEAAB42104294D00A16AC4 /* AppDelegate.swift */; };
 		42DEAAB72104294D00A16AC4 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42DEAAB62104294D00A16AC4 /* GameScene.sks */; };
 		42DEAAB92104294D00A16AC4 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42DEAAB82104294D00A16AC4 /* Actions.sks */; };
@@ -18,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4279EA17210442AA0039046E /* StyledTextOverSKOld9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StyledTextOverSKOld9.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4279EA18210442AA0039046E /* StyledTextOverSK copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "StyledTextOverSK copy-Info.plist"; path = "/Users/andydent/dev/openSourceDev/SpriteKittenly/StyledTextOverSK/StyledTextOverSK copy-Info.plist"; sourceTree = "<absolute>"; };
 		42DEAAB12104294D00A16AC4 /* StyledTextOverSK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StyledTextOverSK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42DEAAB42104294D00A16AC4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42DEAAB62104294D00A16AC4 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -31,6 +41,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4279EA0D210442AA0039046E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		42DEAAAE2104294D00A16AC4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -46,6 +63,7 @@
 			children = (
 				42DEAAB32104294D00A16AC4 /* StyledTextOverSK */,
 				42DEAAB22104294D00A16AC4 /* Products */,
+				4279EA18210442AA0039046E /* StyledTextOverSK copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -53,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				42DEAAB12104294D00A16AC4 /* StyledTextOverSK.app */,
+				4279EA17210442AA0039046E /* StyledTextOverSKOld9.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,6 +95,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4279EA08210442AA0039046E /* StyledTextOverSKOld9 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4279EA14210442AA0039046E /* Build configuration list for PBXNativeTarget "StyledTextOverSKOld9" */;
+			buildPhases = (
+				4279EA09210442AA0039046E /* Sources */,
+				4279EA0D210442AA0039046E /* Frameworks */,
+				4279EA0E210442AA0039046E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StyledTextOverSKOld9;
+			productName = StyledTextOverSK;
+			productReference = 4279EA17210442AA0039046E /* StyledTextOverSKOld9.app */;
+			productType = "com.apple.product-type.application";
+		};
 		42DEAAB02104294D00A16AC4 /* StyledTextOverSK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 42DEAAC92104295200A16AC4 /* Build configuration list for PBXNativeTarget "StyledTextOverSK" */;
@@ -122,11 +158,24 @@
 			projectRoot = "";
 			targets = (
 				42DEAAB02104294D00A16AC4 /* StyledTextOverSK */,
+				4279EA08210442AA0039046E /* StyledTextOverSKOld9 */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4279EA0E210442AA0039046E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4279EA0F210442AA0039046E /* Main.storyboard in Resources */,
+				4279EA10210442AA0039046E /* GameScene.sks in Resources */,
+				4279EA11210442AA0039046E /* Assets.xcassets in Resources */,
+				4279EA12210442AA0039046E /* LaunchScreen.storyboard in Resources */,
+				4279EA13210442AA0039046E /* Actions.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		42DEAAAF2104294D00A16AC4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -142,6 +191,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4279EA09210442AA0039046E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4279EA0A210442AA0039046E /* GameScene.swift in Sources */,
+				4279EA0B210442AA0039046E /* GameViewController.swift in Sources */,
+				4279EA0C210442AA0039046E /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		42DEAAAD2104294D00A16AC4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -174,6 +233,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4279EA15210442AA0039046E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7MXY472HBV;
+				INFOPLIST_FILE = "StyledTextOverSK copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.aussiedesignedsoftware.StyledTextOverSK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4279EA16210442AA0039046E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7MXY472HBV;
+				INFOPLIST_FILE = "StyledTextOverSK copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.aussiedesignedsoftware.StyledTextOverSK;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		42DEAAC72104295200A16AC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -327,6 +424,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4279EA14210442AA0039046E /* Build configuration list for PBXNativeTarget "StyledTextOverSKOld9" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4279EA15210442AA0039046E /* Debug */,
+				4279EA16210442AA0039046E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		42DEAAAC2104294D00A16AC4 /* Build configuration list for PBXProject "StyledTextOverSK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

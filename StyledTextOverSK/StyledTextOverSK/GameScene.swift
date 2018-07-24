@@ -20,12 +20,16 @@ class GameScene: SKScene {
         // Get label node from scene and store it for use later
         //self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
       
-        // ONLY ON IOS11 OR LATER
-        self.label = SKLabelNode(attributedText: fancyHello())
+        if #available(iOS 11.0, *) {
+          self.label = SKLabelNode(attributedText: fancyHello())
+          // WARNING our label will NOT wrap to fit by default, using these calls possibly introduced in iOS 11
+          self.label?.lineBreakMode = .byWordWrapping
+          self.label?.numberOfLines = 0  // the KEY to making it wrap, otherwise default is 1 line that goes off edge of screen
+        }
+        else{
+          self.label = SKLabelNode(text:"Hello monostyle world")
+        }
         if let label = self.label {
-            // WARNING our label will NOT wrap to fit by default, using these calls possibly introduced in iOS 11
-            label.lineBreakMode = .byWordWrapping
-            label.numberOfLines = 0  // the KEY to making it wrap, otherwise default is 1 line that goes off edge of screen
             // because we haven't added it in the GameScene visual editor, need to add manually
             scene?.addChild(label)
             label.alpha = 0.0

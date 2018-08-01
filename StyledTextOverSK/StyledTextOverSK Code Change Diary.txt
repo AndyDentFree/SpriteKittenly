@@ -23,10 +23,21 @@ GameScene.swift
 
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Alternate Label modes with Web Overlay
+Alternate Label modes with UILabel Overlay - proves you can do annotated strings in an overlaying UILabelView on iOS9
 2018-07-24
 
 GameScene.swift
 - overlayView added
 - factored out label making code from didMove(to:) to makeLabelNode
 - touchedBegan - invoke makeLabelNode or makeOverlay
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Alternate Label modes with Web Overlay
+2018-08-01
+
+GameScene.swift
+- enum TextDisplay added
+- properties label and overlayView replaced with a TextDisplay
+- makeLabelNode and makeOverlay return nodes and move into TextDisplay
+- makeWebOverlay added
+- move state change from touchesBegan to touchesEnded

@@ -20,3 +20,13 @@ StyledTextOverSKOld9 - target added targeting iOS 9
 
 GameScene.swift
 - didMove(to:) - init self.label differently depending on iOS version 
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Alternate Label modes with Web Overlay
+2018-07-24
+
+GameScene.swift
+- overlayView added
+- factored out label making code from didMove(to:) to makeLabelNode
+- touchedBegan - invoke makeLabelNode or makeOverlay

@@ -4,10 +4,18 @@ Test of putting overlays of text on top of a SpriteKit app.
 
 In particular, mimic typical meme layout with an overlay that stands out against a background picture.
 
+Tapping the screen will switch to a different rendering technique at the end of the touch.
+
 ## The Exploration
 The initial template for an SK game displays a Hello World using an [SKLabelNode] that is constructed in the initial `GameScene.sks` - you can edit it in the Scene visual editor.
 
 This node type supports a single style specifying font name, size, style and color, **or** using an [NSAttributedString] which allows for inline changes of font attributes. It is still a single line of text with control over how it wraps but no easy way to use multiple lines (inserting line breaks programmatically may work)
+
+The sample builds for iOS 9 and when it runs there, the first rendering mode will be mono.
+
+The next two rendering modes use UIView objects overlaid on the SKView as sub views. Using a UILabel allows you to use attributed strings regardless of the version.
+
+The second test rendering mode uses a web view and HTML to provide the formatting.
 
 ### Attributed String Issues
 Although the visual scene editor apparently allows you to specify the colour, this doesn't seem to persist and translate into runtime.

@@ -10,10 +10,24 @@ import SpriteKit
 import GameplayKit
 import WebKit
 
+extension SKScene {
+    func makeTransparent() {
+        backgroundColor = backgroundColor.withAlphaComponent(0.0)
+        self.view?.allowsTransparency = true
+    }
+    
+    func makeOpaque() {
+        backgroundColor = backgroundColor.withAlphaComponent(1.0)
+        self.view?.allowsTransparency = false
+    }
+}
+
 enum TextDisplay {
     case sprite(SKLabelNode?)
     case uilabel(UILabel?)
     case web(WKWebView?)
+    case webUnder(WKWebView?)
+    case webImage(WebviewImageCapturer?)  // renders web view into a node
     case nothing
     
     func removeCurrent(from scene:SKScene?) {
@@ -21,17 +35,23 @@ enum TextDisplay {
             case .sprite(let s): s?.removeFromParent()
             case .uilabel(let l): l?.removeFromSuperview()
             case .web(let wv): wv?.removeFromSuperview()
+            case .webUnder(let wv): wv?.removeFromSuperview()
+            case .webImage(let wic): wic?.removeFromParent()
             case .nothing: return  // nothing to remove
         }
     }
-
     
+    // cycles around the enum values, manufacturing the next view
     func addNext(on scene:SKScene?) -> TextDisplay {
         removeCurrent(from:scene)
         switch self {
             case .sprite: return .uilabel(makeUILabelOverlay(on:scene))
             case .uilabel: return .web(makeWebOverlay(on:scene))
-            case .web, .nothing: return .sprite(makeLabelNode(on:scene))
+            case .web: return .webUnder(makeWebUnderlay(on:scene))
+            case .webUnder:
+                scene?.makeOpaque()
+                return .webImage(makeWebImage(on:scene))
+            case .webImage, .nothing: return .sprite(makeLabelNode(on:scene))
         }
     }
 
@@ -41,7 +61,7 @@ enum TextDisplay {
         var label: SKLabelNode? = nil
         if #available(iOS 11.0, *) {
             label = SKLabelNode(attributedText: fancyHello())
-            // WARNING our label will NOT wrap to fit by default, using these calls possibly introduced in iOS 11
+            // WARNING our label will NOT wrap to fit by default, make it wrap using these calls possibly introduced in iOS 11
             label?.lineBreakMode = .byWordWrapping
             label?.numberOfLines = 0  // the KEY to making it wrap, otherwise default is 1 line that goes off edge of screen
         }
@@ -65,23 +85,21 @@ enum TextDisplay {
         let viewframeSize = scene?.view?.frame.size ?? CGSize(width:200, height:200)
         let labelView = UILabel(frame: CGRect(origin: CGPoint(), size:viewframeSize))
         labelView.attributedText = fancyHello()
-        //labelView.text = "fred woz ere"
-        //labelView.textColor = .cyan
         labelView.lineBreakMode = .byWordWrapping
         labelView.numberOfLines = 0
         scene?.view?.addSubview(labelView)
         return labelView
     }
     
-    // SLOOOOWWW to render compared to attributed string, and swallows gestures
-    func makeWebOverlay(on scene:SKScene?) -> WKWebView?  {
+    // SLOOOOWWW to render compared to attributed string
+    func makeWebView(sizedTo scene:SKScene?, background bgColorString:String) -> WKWebView  {
         let viewframeSize = scene?.view?.frame.size ?? CGSize(width:200, height:200)
         let hview = WKWebView(frame: CGRect(origin: CGPoint(), size:viewframeSize))
         // using very simple way to centre vertically with big margin
         hview.loadHTMLString("""
         <html>
         <style>
-            body {background-color: rgba(0,50,50,10);  display: flex; justify-content: center;align-items: center; }
+            body {background-color: \(bgColorString);  display: flex; justify-content: center;align-items: center; }
             section{ display: grid; }
         </style>
         <body>
@@ -93,18 +111,42 @@ enum TextDisplay {
         </html>
         """
             , baseURL: nil)
-        hview.scrollView.isScrollEnabled = false
+        hview.scrollView.isScrollEnabled = false  // FORCE RENDERING SCALED WITHIN THE WINDOW
+        hview.isUserInteractionEnabled = false
+        return hview
+    }
+    
+    // Slow and swallows gestures
+    func makeWebOverlay(on scene:SKScene?) -> WKWebView?  {
+        let hview = makeWebView(sizedTo: scene, background:"rgba(0,50,50,1)")
+        // as an overlay, want it see-through
         hview.scrollView.isOpaque = false
         hview.isOpaque = false
         hview.backgroundColor = UIColor.clear
         hview.scrollView.backgroundColor = UIColor.clear
-        hview.isUserInteractionEnabled = false
-        
         scene?.view?.addSubview(hview)
         return hview
     }
+    
+    func makeWebUnderlay(on scene:SKScene?) -> WKWebView?  {
+        let hview = makeWebView(sizedTo: scene, background:"rgba(247,135,223,1)")
+        scene?.view?.superview?.insertSubview(hview, at: 0) // put behind the scene
+        scene?.makeTransparent()
+        return hview
+    }
+
+    // Slow and broken but leaves us in pure SpriteKit world
+    func makeWebImage(on scene:SKScene?) -> WebviewImageCapturer?  {
+        let hview = makeWebView(sizedTo: scene, background:"rgba(244,247,185,1)")
+        // two-stage process as we cannot capture its image until it loads and renders
+        let imageGrabber = WebviewImageCapturer(scene:scene!)
+        hview.navigationDelegate = imageGrabber
+        scene?.view?.addSubview(hview)
+        return imageGrabber
+    }
 
 }  // enum TextDisplay
+
 
 class GameScene: SKScene {
     

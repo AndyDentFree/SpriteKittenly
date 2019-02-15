@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42622E0422156C020076847F /* WebviewImageCapturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42622E0322156C020076847F /* WebviewImageCapturer.swift */; };
+		42622E0522156C020076847F /* WebviewImageCapturer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42622E0322156C020076847F /* WebviewImageCapturer.swift */; };
 		4279EA0A210442AA0039046E /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEAABA2104294D00A16AC4 /* GameScene.swift */; };
 		4279EA0B210442AA0039046E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEAABC2104294D00A16AC4 /* GameViewController.swift */; };
 		4279EA0C210442AA0039046E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DEAAB42104294D00A16AC4 /* AppDelegate.swift */; };
@@ -26,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42622E0322156C020076847F /* WebviewImageCapturer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewImageCapturer.swift; sourceTree = "<group>"; };
 		4279EA17210442AA0039046E /* StyledTextOverSKOld9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StyledTextOverSKOld9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4279EA18210442AA0039046E /* StyledTextOverSK copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "StyledTextOverSK copy-Info.plist"; path = "/Users/andydent/dev/openSourceDev/SpriteKittenly/StyledTextOverSK/StyledTextOverSK copy-Info.plist"; sourceTree = "<absolute>"; };
 		42DEAAB12104294D00A16AC4 /* StyledTextOverSK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StyledTextOverSK.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,6 +91,7 @@
 				42DEAAC12104295200A16AC4 /* Assets.xcassets */,
 				42DEAAC32104295200A16AC4 /* LaunchScreen.storyboard */,
 				42DEAAC62104295200A16AC4 /* Info.plist */,
+				42622E0322156C020076847F /* WebviewImageCapturer.swift */,
 			);
 			path = StyledTextOverSK;
 			sourceTree = "<group>";
@@ -198,6 +202,7 @@
 				4279EA0A210442AA0039046E /* GameScene.swift in Sources */,
 				4279EA0B210442AA0039046E /* GameViewController.swift in Sources */,
 				4279EA0C210442AA0039046E /* AppDelegate.swift in Sources */,
+				42622E0522156C020076847F /* WebviewImageCapturer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +213,7 @@
 				42DEAABB2104294D00A16AC4 /* GameScene.swift in Sources */,
 				42DEAABD2104294D00A16AC4 /* GameViewController.swift in Sources */,
 				42DEAAB52104294D00A16AC4 /* AppDelegate.swift in Sources */,
+				42622E0422156C020076847F /* WebviewImageCapturer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

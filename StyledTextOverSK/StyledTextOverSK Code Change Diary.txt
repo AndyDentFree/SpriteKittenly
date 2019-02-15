@@ -41,3 +41,28 @@ GameScene.swift
 - makeLabelNode and makeOverlay return nodes and move into TextDisplay
 - makeWebOverlay added
 - move state change from touchesBegan to touchesEnded
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Added fourth alternate Label mode with Web rendered to an image node
+2019-02-14
+
+GameScene.swift
+- enum TextDisplay 
+  - webUnder added to enum
+  - addNext, removeCurrent include .webUnder
+  - makeWebOverlay most logic factored out to makeWebView
+  - makeWebUnderlay added
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Added failing fifth alternate Label mode with Web rendered to an image node
+2019-02-14
+
+GameScene.swift
+- enum TextDisplay 
+  - webImage added to enum
+  - addNext, removeCurrent include .webImage
+  - makeWebImage added
+  
+WebviewImageCapturer.swift
+- added helper delegate  

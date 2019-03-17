@@ -12,21 +12,42 @@ import GameplayKit
 
 class GameViewController: NSViewController {
   
-  @IBOutlet weak var optionSeg: NSSegmentedControl!
-  lazy var skView = self.view as! SKView
-  lazy var scene: SKScene = GameScene2LineNodes.newGameScene()
+    @IBOutlet weak var optionSeg: NSSegmentedControl!
+    @IBOutlet weak var varyColorsCheck: NSButton!
+    var varColorsOn:Bool {get { return varyColorsCheck.state == .on  }}
+    
+    // via Attributed String Creator
+    let coloredLabel =  NSMutableAttributedString(string:"Vary colors per stroke")
+    
+    // Declare the fonts
+    let coloredLabelFont1 = NSFont(name:"SFUIDisplay-Regular", size:14.0)!
+    
+    // Declare the colors
+    let coloredLabelColor1 = NSColor(red: 0.292745, green: 0.461693, blue: 0.998524, alpha: 1.000000)
+    let coloredLabelColor2 = NSColor(red: 0.999999, green: 0.999974, blue: 0.999991, alpha: 1.000000)
+    
+    
+    lazy var skView = self.view as! SKView
+    lazy var scene: SKScene = GameScene2LineNodes.newGameScene(colorsVaryingPerStroke:varColorsOn)
+    
+    @IBAction func clearDrawing(_ sender: Any) {
+          makeScene(sceneIndex:optionSeg.selectedSegment)
+    }
 
-  @IBAction func clearDrawing(_ sender: Any) {
-      makeScene(sceneIndex:optionSeg.selectedSegment)
-  }
-  
-  @IBAction func optionSegChanged(_ sender: Any) {
-    makeScene(sceneIndex:optionSeg.selectedSegment)
-  }
+    @IBAction func optionSegChanged(_ sender: Any) {
+        makeScene(sceneIndex:optionSeg.selectedSegment)
+    }
 
+    @IBAction func varyColorsValueChange(_ sender: Any) {
+// remake the scene if index 0
+        if optionSeg.selectedSegment == 0 {
+            makeScene(sceneIndex:0)
+        }
+    }
+    
     func makeScene(sceneIndex:Int) {
         if sceneIndex == 0 {
-            scene = GameScene2LineNodes.newGameScene()
+            scene = GameScene2LineNodes.newGameScene(colorsVaryingPerStroke:varColorsOn)
         }
         else {
             scene = GameScenePathRebuilding.newGameScene()
@@ -43,6 +64,13 @@ class GameViewController: NSViewController {
         skView.ignoresSiblingOrder = true
         skView.showsFPS = true
         skView.showsNodeCount = true
+
+        // Create the attributes and add them to the string
+        coloredLabel.addAttribute(NSAttributedString.Key.font, value:coloredLabelFont1, range:NSRange(location: 0, length: 22))
+        coloredLabel.addAttribute(NSAttributedString.Key.underlineColor, value:coloredLabelColor1, range:NSRange(location: 0, length: 22))
+        coloredLabel.addAttribute(NSAttributedString.Key.foregroundColor, value:coloredLabelColor2, range:NSRange(location: 0, length: 22))
+        coloredLabel.addAttribute(NSAttributedString.Key.underlineStyle, value:1, range:NSRange(location: 0, length: 22))
+        varyColorsCheck.attributedTitle = coloredLabel
     }
 
 }

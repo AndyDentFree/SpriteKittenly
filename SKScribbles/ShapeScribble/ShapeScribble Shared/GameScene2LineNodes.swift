@@ -12,11 +12,15 @@ class GameScene2LineNodes: SKScene {
 
     var _pointsDrawn = [CGPoint]()
     var _tempNodes = [SKShapeNode]()
+    var _colorsVary = false
+    // see https://medium.com/@cgoldsby/swift-the-never-ending-rainbow-7e2471d9ac3
+    var _colorIter:AnyIterator<SKColor> = SKColor.rainbowIterator(frequency: 0.1, phase1: 0.0, phase2: 2.0, phase3: 1.0, amplitude: 128.0, center: 128.0, repeat: true)
 
-    class func newGameScene() -> GameScene2LineNodes {
+    class func newGameScene(colorsVaryingPerStroke:Bool) -> GameScene2LineNodes {
         var ret = GameScene2LineNodes(size: CGSize(width: 1366, height: 1024))
         // Set the scale mode to scale to fit the window
         ret.scaleMode = .aspectFill
+        ret._colorsVary = colorsVaryingPerStroke
         return ret
     }
 
@@ -39,7 +43,8 @@ class GameScene2LineNodes: SKScene {
 
         var finishedPts = SKShapeNode(splinePoints: &_pointsDrawn, count: _pointsDrawn.count)
         finishedPts.lineWidth = 1
-        finishedPts.strokeColor = SKColor.green
+        let drawColor = _colorsVary ? (_colorIter.next() ??  SKColor.blue) : SKColor.green
+        finishedPts.strokeColor = drawColor
         finishedPts.glowWidth = 2.0
         addChild(finishedPts)
     }

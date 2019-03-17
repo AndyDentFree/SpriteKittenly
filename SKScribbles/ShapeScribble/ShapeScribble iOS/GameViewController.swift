@@ -14,16 +14,25 @@ class GameViewController: UIViewController {
 
     @IBOutlet weak var optionSeg: UISegmentedControl!
     @IBOutlet weak var skView: SKView!
+    @IBOutlet weak var varyColorsSwitch: UISwitch!
+    var varColorsOn:Bool {get { return varyColorsSwitch?.isOn ?? false  }}
 
-    lazy var scene: SKScene = GameScene2LineNodes.newGameScene()
+    lazy var scene: SKScene = GameScene2LineNodes.newGameScene(colorsVaryingPerStroke:varColorsOn)
 
-  @IBAction func segValueChange(_ sender: Any) {
-      makeScene(sceneIndex:optionSeg.selectedSegmentIndex)
-  }
+    @IBAction func segValueChange(_ sender: Any) {
+        makeScene(sceneIndex:optionSeg.selectedSegmentIndex)
+    }
 
-  @IBAction func clearDrawing(_ sender: Any) {
-      makeScene(sceneIndex:optionSeg.selectedSegmentIndex)
-  }
+    @IBAction func clearDrawing(_ sender: Any) {
+        makeScene(sceneIndex:optionSeg.selectedSegmentIndex)
+    }
+    
+    @IBAction func varyColorsValueChange(_ sender: Any) {
+        // remake the scene if index 0
+        if optionSeg.selectedSegmentIndex == 0 {
+            makeScene(sceneIndex:0)
+        }
+    }
 
   override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +42,12 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = true
         skView.showsFPS = true
         skView.showsNodeCount = true
-    
+
     }
 
     func makeScene(sceneIndex:Int) {
         if sceneIndex == 0 {
-            scene = GameScene2LineNodes.newGameScene()
+            scene = GameScene2LineNodes.newGameScene(colorsVaryingPerStroke:varColorsOn)
         }
         else {
             scene = GameScenePathRebuilding.newGameScene()

@@ -18,6 +18,8 @@
 		42BCF74120B542AC007A54B9 /* GameScene2LineNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BCF71A20B542AA007A54B9 /* GameScene2LineNodes.swift */; };
 		42BCF74220B542AC007A54B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42BCF71B20B542AC007A54B9 /* Assets.xcassets */; };
 		42BCF74320B542AC007A54B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42BCF71B20B542AC007A54B9 /* Assets.xcassets */; };
+		42BDAEEF223EBBDE00B0C5B1 /* ColorIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BDAEEB223EBBDD00B0C5B1 /* ColorIterator.swift */; };
+		42BDAEF0223EBBDE00B0C5B1 /* ColorIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BDAEEB223EBBDD00B0C5B1 /* ColorIterator.swift */; };
 		C8BC2348DDA508796AB0E120 /* ScribbleHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC28C498BC1845977AECBD /* ScribbleHelpers.swift */; };
 		C8BC245A2C2A1723AF275A9D /* GameScenePathRebuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */; };
 		C8BC2CBC34889026C1D62D73 /* GameScenePathRebuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */; };
@@ -38,6 +40,7 @@
 		42BCF73620B542AC007A54B9 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		42BCF73920B542AC007A54B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42BCF73B20B542AC007A54B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42BDAEEB223EBBDD00B0C5B1 /* ColorIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorIterator.swift; sourceTree = "<group>"; };
 		C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScenePathRebuilding.swift; sourceTree = "<group>"; };
 		C8BC28C498BC1845977AECBD /* ScribbleHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScribbleHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +76,7 @@
 		42BCF71720B542AA007A54B9 /* ShapeScribble Shared */ = {
 			isa = PBXGroup;
 			children = (
+				42BDAEEB223EBBDD00B0C5B1 /* ColorIterator.swift */,
 				42BCF71A20B542AA007A54B9 /* GameScene2LineNodes.swift */,
 				42BCF71B20B542AC007A54B9 /* Assets.xcassets */,
 				C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */,
@@ -162,9 +166,11 @@
 				TargetAttributes = {
 					42BCF71F20B542AC007A54B9 = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1010;
 					};
 					42BCF73120B542AC007A54B9 = {
 						CreatedOnToolsVersion = 9.3.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -219,6 +225,7 @@
 				42BCF72420B542AC007A54B9 /* AppDelegate.swift in Sources */,
 				C8BC2CBC34889026C1D62D73 /* GameScenePathRebuilding.swift in Sources */,
 				C8BC2348DDA508796AB0E120 /* ScribbleHelpers.swift in Sources */,
+				42BDAEEF223EBBDE00B0C5B1 /* ColorIterator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +238,7 @@
 				42BCF73520B542AC007A54B9 /* AppDelegate.swift in Sources */,
 				C8BC245A2C2A1723AF275A9D /* GameScenePathRebuilding.swift in Sources */,
 				C8BC2DEE1E3B0C57582549C4 /* ScribbleHelpers.swift in Sources */,
+				42BDAEF0223EBBDE00B0C5B1 /* ColorIterator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,7 +395,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.touchgram.ShapeScribble;
 				PRODUCT_NAME = ShapeScribble;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -408,7 +416,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.touchgram.ShapeScribble;
 				PRODUCT_NAME = ShapeScribble;
 				SDKROOT = iphoneos;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -431,7 +439,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.touchgram.ShapeScribble;
 				PRODUCT_NAME = ShapeScribble;
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -452,7 +460,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.touchgram.ShapeScribble;
 				PRODUCT_NAME = ShapeScribble;
 				SDKROOT = macosx;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

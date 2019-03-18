@@ -1,0 +1,46 @@
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+After basic version going, started logging changes
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Add Multiple Color option
+2019-03-18
+
+Updated to Swift 4.2 syntax
+
+ios/Main.storyboard
+macOS/Main.storyboard
+- added checkbox/UISwitch to turn on multi-colour mode
+
+ios/GameViewController.swift
+macOS/GameViewController.swift
+- added property varColorsOn
+- added action varyColorsValueChange to detect switch changes & recreate scene
+- varyColorsSwitch/Checkbox bound to storyboard
+
+GameScene2LineNodes 
+- _colorsVary and _colorIter properties added
+- newGameScene
+  - added param to flag doing multi-colors
+  - touchUp optionally use _colorIter instead of fixed green
+
+ColorIterator.swift
+- copied from github
+- minor rewrite using SKColor to be platform-agnostic instead of UIIColor
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Refactor Multiple Color option to also apply to PathRebuild
+2019-03-18
+
+ColorProvider.swift
+- abstracted out colour generation so always pass an iterator, rather than flag + iter
+
+ios/GameViewController.swift
+macOS/GameViewController.swift
+- makeScene - use ColorProvider and pass to both
+
+GameScene2LineNodes 
+- refactor very slightly to use passed-in ColorProvider
+
+GameScenePathRebuilding
+- newGameScene - take ColorProvider
+  - touchUp use _colorIter instead of fixed green

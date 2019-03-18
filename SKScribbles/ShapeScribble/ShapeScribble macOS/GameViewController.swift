@@ -28,7 +28,7 @@ class GameViewController: NSViewController {
     
     
     lazy var skView = self.view as! SKView
-    lazy var scene: SKScene = GameScene2LineNodes.newGameScene(colorsVaryingPerStroke:varColorsOn)
+    lazy var scene: SKScene = SKScene()
     
     @IBAction func clearDrawing(_ sender: Any) {
           makeScene(sceneIndex:optionSeg.selectedSegment)
@@ -46,11 +46,12 @@ class GameViewController: NSViewController {
     }
     
     func makeScene(sceneIndex:Int) {
+        var strokeColorMaker = varColorsOn ? ColorProvider() : ColorProvider(fixedColor: .green)
         if sceneIndex == 0 {
-            scene = GameScene2LineNodes.newGameScene(colorsVaryingPerStroke:varColorsOn)
+            scene = GameScene2LineNodes.newGameScene(strokeColors: strokeColorMaker)
         }
         else {
-            scene = GameScenePathRebuilding.newGameScene()
+            scene = GameScenePathRebuilding.newGameScene(strokeColors: strokeColorMaker)
         }
         skView.presentScene(scene)
     }

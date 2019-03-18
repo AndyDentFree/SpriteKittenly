@@ -20,9 +20,22 @@ Scribbling with my awkward handwriting and an Adonit Jot Pro styles on an iPhone
 
 ### Line2Nodes approach
 
-<img alt="Sample shot of Line2Nodes" src="./img/2LineNodes_sample.png" width=400/> 
-<img alt="Sample shot of PathRebuild" src="./img/PathRebuild_sample.png" width=400 />
+<img alt="Sample shot of Line2Nodes" src="./img/2LineNodes_sample.png" width=300/> 
+<img alt="Sample shot of PathRebuild" src="./img/PathRebuild_sample.png" width=300 />
 
 With the screenshots blown up you can see the _glow_ effect applied on Lines2Node. 
 
 To my eye, this is PathRebuild is a little bit more jerky as each set of points is connected with a straight line, so when moving fast they have no smoothing. This is most noticeable on the capital P of _Pro_
+
+## Varying Colors
+
+Using [Chris Goldsby's color sequence iterator](https://github.com/cgoldsby/Sequences) different colors are generated for subsequent strokes.
+
+This makes the different pattern of adding strokes really clear - when you turn this on and draw lots of different strokes in Line2Nodes, each ends up as a different color.
+
+With PathRebuild, the color for the **entire path** changes ever time you draw a new stroke.
+
+In the following shot, note that I also doubled the _glow_ parameter to 4.0.
+
+<img alt="Sample shot of Line2Nodes with multiple colors" src="./img/2LineNodes_sample_multicolor.png" width=300/> 
+

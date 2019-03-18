@@ -15,12 +15,17 @@ class GameScenePathRebuilding: SKScene {
     private var _pointsDrawn = [CGPoint]()
     var _path = CGMutablePath()
     var _bigNode = SKShapeNode()
+    lazy var _colorProvider: AnyIterator<SKColor> = AnyIterator { return SKColor.blue }
 
-    class func newGameScene() -> GameScenePathRebuilding {
-        var ret = GameScenePathRebuilding(size: CGSize(width: 1366, height: 1024))
+    class func newGameScene(strokeColors:AnyIterator<SKColor>) -> GameScenePathRebuilding {
+        return GameScenePathRebuilding(size: CGSize(width: 1366, height: 1024), strokeColors:strokeColors)
         // Set the scale mode to scale to fit the window
-        ret.scaleMode = .aspectFill
-        return ret
+    }
+
+    convenience init (size:CGSize, strokeColors:AnyIterator<SKColor>) {
+        self.init(size:size)
+        _colorProvider = strokeColors
+        scaleMode = .aspectFill
     }
 
     func touchDown(atPoint pos: CGPoint) {
@@ -52,7 +57,9 @@ class GameScenePathRebuilding: SKScene {
         }
         //_path.close()
         _bigNode.lineWidth = 2.0
-        _bigNode.strokeColor = SKColor.green
+        if let drawColor = _colorProvider.next() {
+            _bigNode.strokeColor = drawColor
+        }
         _bigNode.path = _path
     }
 

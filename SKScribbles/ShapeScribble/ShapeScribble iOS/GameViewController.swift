@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var varyColorsSwitch: UISwitch!
     var varColorsOn:Bool {get { return varyColorsSwitch?.isOn ?? false  }}
 
-    lazy var scene: SKScene = GameScene2LineNodes.newGameScene(colorsVaryingPerStroke:varColorsOn)
+    lazy var scene: SKScene = SKScene()
 
     @IBAction func segValueChange(_ sender: Any) {
         makeScene(sceneIndex:optionSeg.selectedSegmentIndex)
@@ -46,11 +46,12 @@ class GameViewController: UIViewController {
     }
 
     func makeScene(sceneIndex:Int) {
+        var strokeColorMaker = varColorsOn ? ColorProvider() : ColorProvider(fixedColor: .green)
         if sceneIndex == 0 {
-            scene = GameScene2LineNodes.newGameScene(colorsVaryingPerStroke:varColorsOn)
+            scene = GameScene2LineNodes.newGameScene(strokeColors: strokeColorMaker)
         }
         else {
-            scene = GameScenePathRebuilding.newGameScene()
+            scene = GameScenePathRebuilding.newGameScene(strokeColors: strokeColorMaker)
         }
         skView.presentScene(scene)
     }

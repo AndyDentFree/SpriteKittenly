@@ -19,29 +19,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lcN-Iy-fn4">
-                                <rect key="frame" x="95" y="32" width="51" height="31"/>
+                                <rect key="frame" x="29" y="32" width="51" height="31"/>
                                 <connections>
                                     <action selector="varyColorsValueChange:" destination="BV1-FR-VrT" eventType="valueChanged" id="c4m-nm-1dK"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vary colors per stroke" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7v-s9-3of">
-                                <rect key="frame" x="152" y="37" width="223" height="21"/>
+                                <rect key="frame" x="86" y="37" width="289" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUH-3H-hPb">
-                                <rect key="frame" x="331" y="75" width="36" height="30"/>
+                                <rect key="frame" x="331" y="32" width="36" height="30"/>
                                 <state key="normal" title="Clear"/>
                                 <connections>
                                     <action selector="clearDrawing:" destination="BV1-FR-VrT" eventType="touchUpInside" id="hFr-jl-QvM"/>
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Y0O-rC-SVg">
-                                <rect key="frame" x="95" y="75" width="185" height="29"/>
+                                <rect key="frame" x="29" y="75" width="317" height="29"/>
                                 <segments>
                                     <segment title="2-line Nodes"/>
                                     <segment title="Path rebuild"/>
+                                    <segment title="Particle crayon"/>
                                 </segments>
                                 <connections>
                                     <action selector="segValueChange:" destination="BV1-FR-VrT" eventType="valueChanged" id="k9y-PL-CWe"/>
@@ -55,8 +56,8 @@
                         <constraints>
                             <constraint firstItem="mUH-3H-hPb" firstAttribute="trailing" secondItem="bNo-s9-wk6" secondAttribute="trailing" constant="-8" id="4OH-bH-VLg"/>
                             <constraint firstItem="Dhn-pm-X9M" firstAttribute="width" secondItem="bNo-s9-wk6" secondAttribute="width" id="6K0-be-QzL"/>
-                            <constraint firstItem="mUH-3H-hPb" firstAttribute="top" secondItem="Y0O-rC-SVg" secondAttribute="top" id="9FC-VP-c0R"/>
                             <constraint firstItem="lcN-Iy-fn4" firstAttribute="top" secondItem="bNo-s9-wk6" secondAttribute="top" constant="12" id="AvT-Uj-r4x"/>
+                            <constraint firstItem="mUH-3H-hPb" firstAttribute="top" secondItem="lcN-Iy-fn4" secondAttribute="top" id="BVX-1M-QrY"/>
                             <constraint firstItem="Dhn-pm-X9M" firstAttribute="bottom" secondItem="bNo-s9-wk6" secondAttribute="bottom" id="Dzz-k3-doc"/>
                             <constraint firstItem="v7v-s9-3of" firstAttribute="leading" secondItem="lcN-Iy-fn4" secondAttribute="trailing" constant="8" id="EXZ-YI-Q8f"/>
                             <constraint firstItem="bNo-s9-wk6" firstAttribute="trailing" secondItem="Dhn-pm-X9M" secondAttribute="trailing" id="GJB-Sm-qYO"/>

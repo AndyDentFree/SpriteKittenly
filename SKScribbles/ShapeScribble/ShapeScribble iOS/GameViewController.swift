@@ -47,11 +47,15 @@ class GameViewController: UIViewController {
 
     func makeScene(sceneIndex:Int) {
         var strokeColorMaker = varColorsOn ? ColorProvider() : ColorProvider(fixedColor: .green)
-        if sceneIndex == 0 {
+        switch sceneIndex {
+        case 0:
             scene = GameScene2LineNodes.newGameScene(strokeColors: strokeColorMaker)
-        }
-        else {
+        
+        case 1:
             scene = GameScenePathRebuilding.newGameScene(strokeColors: strokeColorMaker)
+            
+        default:
+            scene = GameSceneParticleCrayon.newGameScene(strokeColors: strokeColorMaker)
         }
         skView.presentScene(scene)
     }

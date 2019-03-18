@@ -22,6 +22,10 @@
 		42BDAEF0223EBBDE00B0C5B1 /* ColorIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BDAEEB223EBBDD00B0C5B1 /* ColorIterator.swift */; };
 		42BDAEF2223F43BD00B0C5B1 /* ColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BDAEF1223F43BD00B0C5B1 /* ColorProvider.swift */; };
 		42BDAEF3223F43BD00B0C5B1 /* ColorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BDAEF1223F43BD00B0C5B1 /* ColorProvider.swift */; };
+		42BDAEF5223F6BF300B0C5B1 /* Crayon.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42BDAEF4223F6BF300B0C5B1 /* Crayon.sks */; };
+		42BDAEF6223F6BF300B0C5B1 /* Crayon.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42BDAEF4223F6BF300B0C5B1 /* Crayon.sks */; };
+		42BDAEF8223F99AC00B0C5B1 /* GameSceneParticleCrayon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BDAEF7223F99AC00B0C5B1 /* GameSceneParticleCrayon.swift */; };
+		42BDAEF9223F99AC00B0C5B1 /* GameSceneParticleCrayon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42BDAEF7223F99AC00B0C5B1 /* GameSceneParticleCrayon.swift */; };
 		C8BC2348DDA508796AB0E120 /* ScribbleHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC28C498BC1845977AECBD /* ScribbleHelpers.swift */; };
 		C8BC245A2C2A1723AF275A9D /* GameScenePathRebuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */; };
 		C8BC2CBC34889026C1D62D73 /* GameScenePathRebuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */; };
@@ -44,6 +48,8 @@
 		42BCF73B20B542AC007A54B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42BDAEEB223EBBDD00B0C5B1 /* ColorIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorIterator.swift; sourceTree = "<group>"; };
 		42BDAEF1223F43BD00B0C5B1 /* ColorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorProvider.swift; sourceTree = "<group>"; };
+		42BDAEF4223F6BF300B0C5B1 /* Crayon.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Crayon.sks; sourceTree = "<group>"; };
+		42BDAEF7223F99AC00B0C5B1 /* GameSceneParticleCrayon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneParticleCrayon.swift; sourceTree = "<group>"; };
 		C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScenePathRebuilding.swift; sourceTree = "<group>"; };
 		C8BC28C498BC1845977AECBD /* ScribbleHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScribbleHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,12 +85,14 @@
 		42BCF71720B542AA007A54B9 /* ShapeScribble Shared */ = {
 			isa = PBXGroup;
 			children = (
+				42BDAEF7223F99AC00B0C5B1 /* GameSceneParticleCrayon.swift */,
 				42BDAEEB223EBBDD00B0C5B1 /* ColorIterator.swift */,
 				42BCF71A20B542AA007A54B9 /* GameScene2LineNodes.swift */,
 				42BCF71B20B542AC007A54B9 /* Assets.xcassets */,
 				C8BC24B1A27F58AADD76D651 /* GameScenePathRebuilding.swift */,
 				C8BC28C498BC1845977AECBD /* ScribbleHelpers.swift */,
 				42BDAEF1223F43BD00B0C5B1 /* ColorProvider.swift */,
+				42BDAEF4223F6BF300B0C5B1 /* Crayon.sks */,
 			);
 			path = "ShapeScribble Shared";
 			sourceTree = "<group>";
@@ -203,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42BCF72920B542AC007A54B9 /* Main.storyboard in Resources */,
+				42BDAEF5223F6BF300B0C5B1 /* Crayon.sks in Resources */,
 				42BCF72C20B542AC007A54B9 /* LaunchScreen.storyboard in Resources */,
 				42BCF74220B542AC007A54B9 /* Assets.xcassets in Resources */,
 			);
@@ -214,6 +223,7 @@
 			files = (
 				42BCF73A20B542AC007A54B9 /* Main.storyboard in Resources */,
 				42BCF74320B542AC007A54B9 /* Assets.xcassets in Resources */,
+				42BDAEF6223F6BF300B0C5B1 /* Crayon.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42BDAEF8223F99AC00B0C5B1 /* GameSceneParticleCrayon.swift in Sources */,
 				42BCF74020B542AC007A54B9 /* GameScene2LineNodes.swift in Sources */,
 				42BDAEF2223F43BD00B0C5B1 /* ColorProvider.swift in Sources */,
 				42BCF72620B542AC007A54B9 /* GameViewController.swift in Sources */,
@@ -238,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42BDAEF9223F99AC00B0C5B1 /* GameSceneParticleCrayon.swift in Sources */,
 				42BCF74120B542AC007A54B9 /* GameScene2LineNodes.swift in Sources */,
 				42BDAEF3223F43BD00B0C5B1 /* ColorProvider.swift in Sources */,
 				42BCF73720B542AC007A54B9 /* GameViewController.swift in Sources */,

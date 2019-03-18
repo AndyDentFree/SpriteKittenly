@@ -44,3 +44,25 @@ GameScene2LineNodes
 GameScenePathRebuilding
 - newGameScene - take ColorProvider
   - touchUp use _colorIter instead of fixed green
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Adding Particle-based drawing
+2019-03-18
+
+ios/Main.storyboard
+macOS/Main.storyboard
+- added particle crayon option on both
+
+ios/GameViewController.swift
+macOS/GameViewController.swift
+- makeScene - add 3rd option making a GameSceneParticleCrayon
+
+
+spark.imageset
+- added automatically by adding a particle
+
+crayon.sks 
+- added particle file
+
+GameSceneParticleCrayon.swift
+- added to use crayon.sks but vary birthrate and position as move the touch.

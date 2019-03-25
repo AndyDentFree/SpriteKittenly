@@ -13,18 +13,20 @@ import CoreGraphics
 class GameScenePathRebuilding: SKScene {
 
     private var _pointsDrawn = [CGPoint]()
+    var _fillShape = false
     var _path = CGMutablePath()
     var _bigNode = SKShapeNode()
     lazy var _colorProvider: AnyIterator<SKColor> = AnyIterator { return SKColor.blue }
 
-    class func newGameScene(strokeColors:AnyIterator<SKColor>) -> GameScenePathRebuilding {
-        return GameScenePathRebuilding(size: CGSize(width: 1366, height: 1024), strokeColors:strokeColors)
+    class func newGameScene(strokeColors:AnyIterator<SKColor>, fill:Bool=false) -> GameScenePathRebuilding {
+        return GameScenePathRebuilding(size: CGSize(width: 1366, height: 1024), strokeColors:strokeColors, fill:fill)
         // Set the scale mode to scale to fit the window
     }
 
-    convenience init (size:CGSize, strokeColors:AnyIterator<SKColor>) {
+    convenience init (size:CGSize, strokeColors:AnyIterator<SKColor>, fill:Bool) {
         self.init(size:size)
         _colorProvider = strokeColors
+        _fillShape = fill
         scaleMode = .aspectFill
     }
 
@@ -55,10 +57,12 @@ class GameScenePathRebuilding: SKScene {
         for pt in _pointsDrawn[1...] {
             _path.addLine(to:pt)
         }
-        //_path.close()
         _bigNode.lineWidth = 2.0
         if let drawColor = _colorProvider.next() {
             _bigNode.strokeColor = drawColor
+            if _fillShape {
+                _bigNode.fillColor = drawColor
+            }
         }
         _bigNode.path = _path
     }

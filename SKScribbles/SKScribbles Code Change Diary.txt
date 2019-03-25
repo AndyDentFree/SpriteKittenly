@@ -66,3 +66,34 @@ crayon.sks
 
 GameSceneParticleCrayon.swift
 - added to use crayon.sks but vary birthrate and position as move the touch.
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Adding Fill Switch and drawing filled shapes
+2019-03-24
+
+both/GameViewController.swift
+- renamed with iOS and Mac suffix because Interface Builder keeps confusing same name even with manual selection, 
+  making outlets be inserted into the wrong file.
+- varyColorsValueChange - fixed bug where called makeScene with index 0 - meant if you toggled the varyColors switch you got the wrong scene started anew
+- fillValueChanged added so if toggle new switch, starts again
+- segValueChange - disabled varyColors and fill switches if on the particleCrayon panel
+- makeScene pass a fill flag to newGameScene methods for first two scene types
+
+ios/Main.storyboard
+macOS/Main.storyboard
+- added switch/checkbox on both for Fill
+
+GameScene2LineNodes 
+- added _fillShape property
+- added fill param to init and factory function
+- touchUp
+  - set the fill color depending on _fillShape
+  - close the curve with an added point if _fillShape set
+
+GameScenePathRebuilding
+- added _fillShape property
+- added fill param to init and factory function
+- touchUp
+  - set the fill color depending on _fillShape
+- updatePath - set the fill color depending on _fillShape

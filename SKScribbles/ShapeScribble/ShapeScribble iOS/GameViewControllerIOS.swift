@@ -10,27 +10,40 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-class GameViewController: UIViewController {
+class GameViewControllerIOS: UIViewController {
 
     @IBOutlet weak var optionSeg: UISegmentedControl!
     @IBOutlet weak var skView: SKView!
     @IBOutlet weak var varyColorsSwitch: UISwitch!
+    @IBOutlet weak var fillSwitch: UISwitch!
+    
+    
     var varColorsOn:Bool {get { return varyColorsSwitch?.isOn ?? false  }}
-
+    var fillOn:Bool {get { return fillSwitch?.isOn ?? false }}
     lazy var scene: SKScene = SKScene()
 
     @IBAction func segValueChange(_ sender: Any) {
-        makeScene(sceneIndex:optionSeg.selectedSegmentIndex)
+        clearDrawing(sender)
+        let enableSwitches = optionSeg.selectedSegmentIndex != 2
+        varyColorsSwitch.isEnabled = enableSwitches
+        fillSwitch.isEnabled = enableSwitches
     }
 
     @IBAction func clearDrawing(_ sender: Any) {
         makeScene(sceneIndex:optionSeg.selectedSegmentIndex)
     }
     
+    @IBAction func fillValueChange(_ sender: Any) {
+        // remake the scene if cares
+        if optionSeg.selectedSegmentIndex != 2 {
+            clearDrawing(sender)
+        }
+    }
+
     @IBAction func varyColorsValueChange(_ sender: Any) {
-        // remake the scene if index 0
-        if optionSeg.selectedSegmentIndex == 0 {
-            makeScene(sceneIndex:0)
+        // remake the scene if cares
+        if optionSeg.selectedSegmentIndex != 2 {
+            clearDrawing(sender)
         }
     }
 
@@ -49,10 +62,10 @@ class GameViewController: UIViewController {
         var strokeColorMaker = varColorsOn ? ColorProvider() : ColorProvider(fixedColor: .green)
         switch sceneIndex {
         case 0:
-            scene = GameScene2LineNodes.newGameScene(strokeColors: strokeColorMaker)
+            scene = GameScene2LineNodes.newGameScene(strokeColors: strokeColorMaker, fill:fillOn)
         
         case 1:
-            scene = GameScenePathRebuilding.newGameScene(strokeColors: strokeColorMaker)
+            scene = GameScenePathRebuilding.newGameScene(strokeColors: strokeColorMaker, fill:fillOn)
             
         default:
             scene = GameSceneParticleCrayon.newGameScene(strokeColors: strokeColorMaker)

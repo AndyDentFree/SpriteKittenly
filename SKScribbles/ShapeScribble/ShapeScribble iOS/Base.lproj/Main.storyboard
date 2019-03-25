@@ -10,27 +10,44 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller-->
+        <!--Game View Controller iOS-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModule="ShapeScribble" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BV1-FR-VrT" customClass="GameViewControllerIOS" customModule="ShapeScribble" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3se-qz-xqx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lcN-Iy-fn4">
-                                <rect key="frame" x="29" y="32" width="51" height="31"/>
-                                <connections>
-                                    <action selector="varyColorsValueChange:" destination="BV1-FR-VrT" eventType="valueChanged" id="c4m-nm-1dK"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vary colors per stroke" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7v-s9-3of">
-                                <rect key="frame" x="86" y="37" width="289" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUH-3H-hPb">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="SaL-Yd-1eU" userLabel="Switch Stack">
+                                <rect key="frame" x="29" y="32" width="240.5" height="31"/>
+                                <subviews>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YKP-sc-wDh" userLabel="Fill Switch">
+                                        <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="fillValueChange:" destination="BV1-FR-VrT" eventType="valueChanged" id="CYJ-FP-doc"/>
+                                        </connections>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fill" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UR-O8-Qtp">
+                                        <rect key="frame" x="61" y="5.5" width="21" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lcN-Iy-fn4">
+                                        <rect key="frame" x="94" y="0.0" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="varyColorsValueChange:" destination="BV1-FR-VrT" eventType="valueChanged" id="c4m-nm-1dK"/>
+                                        </connections>
+                                    </switch>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vary colors" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7v-s9-3of">
+                                        <rect key="frame" x="155" y="5.5" width="85.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUH-3H-hPb">
                                 <rect key="frame" x="331" y="32" width="36" height="30"/>
                                 <state key="normal" title="Clear"/>
                                 <connections>
@@ -56,21 +73,18 @@
                         <constraints>
                             <constraint firstItem="mUH-3H-hPb" firstAttribute="trailing" secondItem="bNo-s9-wk6" secondAttribute="trailing" constant="-8" id="4OH-bH-VLg"/>
                             <constraint firstItem="Dhn-pm-X9M" firstAttribute="width" secondItem="bNo-s9-wk6" secondAttribute="width" id="6K0-be-QzL"/>
-                            <constraint firstItem="lcN-Iy-fn4" firstAttribute="top" secondItem="bNo-s9-wk6" secondAttribute="top" constant="12" id="AvT-Uj-r4x"/>
-                            <constraint firstItem="mUH-3H-hPb" firstAttribute="top" secondItem="lcN-Iy-fn4" secondAttribute="top" id="BVX-1M-QrY"/>
                             <constraint firstItem="Dhn-pm-X9M" firstAttribute="bottom" secondItem="bNo-s9-wk6" secondAttribute="bottom" id="Dzz-k3-doc"/>
-                            <constraint firstItem="v7v-s9-3of" firstAttribute="leading" secondItem="lcN-Iy-fn4" secondAttribute="trailing" constant="8" id="EXZ-YI-Q8f"/>
                             <constraint firstItem="bNo-s9-wk6" firstAttribute="trailing" secondItem="Dhn-pm-X9M" secondAttribute="trailing" id="GJB-Sm-qYO"/>
                             <constraint firstItem="Dhn-pm-X9M" firstAttribute="top" secondItem="Y0O-rC-SVg" secondAttribute="bottom" constant="8" id="MFh-C2-JvU"/>
-                            <constraint firstItem="lcN-Iy-fn4" firstAttribute="leading" secondItem="Y0O-rC-SVg" secondAttribute="leading" id="RYd-1Y-OO5"/>
-                            <constraint firstItem="bNo-s9-wk6" firstAttribute="trailing" secondItem="v7v-s9-3of" secondAttribute="trailing" id="T6o-oF-SgJ"/>
-                            <constraint firstItem="v7v-s9-3of" firstAttribute="centerY" secondItem="lcN-Iy-fn4" secondAttribute="centerY" id="XSh-6t-NQG"/>
-                            <constraint firstItem="Y0O-rC-SVg" firstAttribute="top" secondItem="lcN-Iy-fn4" secondAttribute="bottom" constant="12" id="bwe-yk-RRX"/>
+                            <constraint firstItem="SaL-Yd-1eU" firstAttribute="leading" secondItem="Y0O-rC-SVg" secondAttribute="leading" id="PtL-Cw-Ebx"/>
+                            <constraint firstItem="SaL-Yd-1eU" firstAttribute="top" secondItem="bNo-s9-wk6" secondAttribute="top" constant="12" id="PvA-2u-L6r"/>
                             <constraint firstItem="Y0O-rC-SVg" firstAttribute="centerX" secondItem="3se-qz-xqx" secondAttribute="centerX" id="eVJ-Hh-Q8c"/>
+                            <constraint firstItem="Y0O-rC-SVg" firstAttribute="top" secondItem="SaL-Yd-1eU" secondAttribute="bottom" constant="12" id="vHB-Z5-zoa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bNo-s9-wk6"/>
                     </view>
                     <connections>
+                        <outlet property="fillSwitch" destination="YKP-sc-wDh" id="qt2-81-qnY"/>
                         <outlet property="optionSeg" destination="Y0O-rC-SVg" id="yky-7a-fK8"/>
                         <outlet property="skView" destination="Dhn-pm-X9M" id="Kk1-Ms-ehb"/>
                         <outlet property="varyColorsSwitch" destination="lcN-Iy-fn4" id="3gX-qN-4L9"/>

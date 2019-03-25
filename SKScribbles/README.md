@@ -29,7 +29,7 @@ To my eye, PathRebuild is a little bit more jerky as each set of points is conne
 
 ## Varying Colors
 
-Using [Chris Goldsby's color sequence iterator](https://github.com/cgoldsby/Sequences) different colors are generated for subsequent strokes.
+Using [Chris Goldsby's color sequence iterator](https://github.com/cgoldsby/Sequences) different colors are generated for subsequent strokes (except on the Particle Crayon mode).
 
 This makes the different pattern of adding strokes really clear - when you turn this on and draw lots of different strokes in 2LineNodes, each ends up as a different color.
 
@@ -39,3 +39,7 @@ In the following shot, note that I also doubled the _glow_ parameter to 4.0.
 
 <img alt="Sample shot of 2LineNodes with multiple colors" src="./img/2LineNodes_sample_multicolor.png" width=300/> 
 
+## Fill Mode
+On the vector drawing, first two modes (not Particle Crayon), you can also toggle a _Fill_ mode. This has very different effects, on the 2LineNodes panel you see the shape you drew closed and filled. This confirms this is the best approach to draw a series of bounding, filled shapes, which was the main aim of adding the feature.
+
+The effect with PathRebuilding is a lot more dynamic as different curve segments are alternatively filled - have fun playing with it and working out what's going on.

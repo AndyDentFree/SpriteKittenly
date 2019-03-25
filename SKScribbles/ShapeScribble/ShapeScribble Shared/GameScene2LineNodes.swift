@@ -11,16 +11,18 @@ import SpriteKit
 class GameScene2LineNodes: SKScene {
 
     var _pointsDrawn = [CGPoint]()
+    var _fillShape = false
     var _tempNodes = [SKShapeNode]()
     lazy var _colorProvider: AnyIterator<SKColor> = AnyIterator { return SKColor.blue }
 
-    class func newGameScene(strokeColors:AnyIterator<SKColor>) -> GameScene2LineNodes {
-        return GameScene2LineNodes(size: CGSize(width: 1366, height: 1024), strokeColors:strokeColors)
+    class func newGameScene(strokeColors:AnyIterator<SKColor>, fill:Bool=false) -> GameScene2LineNodes {
+        return GameScene2LineNodes(size: CGSize(width: 1366, height: 1024), strokeColors:strokeColors, fill:fill)
     }
 
-    convenience init (size:CGSize, strokeColors:AnyIterator<SKColor>) {
+    convenience init (size:CGSize, strokeColors:AnyIterator<SKColor>, fill:Bool) {
         self.init(size:size)
         _colorProvider = strokeColors
+        _fillShape = fill
         scaleMode = .aspectFill
     }
     
@@ -39,12 +41,18 @@ class GameScene2LineNodes: SKScene {
         if !pos.notCloseTo(_pointsDrawn.last!) {
             _pointsDrawn.append(pos) // instead of updatePath(pos)
         }
+        if _fillShape {
+            _pointsDrawn.append(_pointsDrawn.first!)  // close it because we use the SKShapeNode(splinePoints...) init which can smooth the close
+        }
         removeChildren(in: _tempNodes) // neaten things up - this has no perceivable performance impact
 
         var finishedPts = SKShapeNode(splinePoints: &_pointsDrawn, count: _pointsDrawn.count)
         finishedPts.lineWidth = 1
         if let drawColor = _colorProvider.next() {
             finishedPts.strokeColor = drawColor
+            if _fillShape {
+                finishedPts.fillColor = drawColor
+            }
         }
         finishedPts.glowWidth = 4.0
         addChild(finishedPts)
@@ -56,6 +64,9 @@ class GameScene2LineNodes: SKScene {
         var linesNode = SKShapeNode(points: &_pointsDrawn[_pointsDrawn.count - 2], count: 2)
         linesNode.lineWidth = 1
         linesNode.strokeColor = SKColor.yellow
+        if _fillShape {
+            linesNode.fillColor = SKColor.yellow
+        }
         addChild(linesNode)
         _tempNodes.append(linesNode)  // WHOA! this makes a playground slow down massively
     }

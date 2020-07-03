@@ -66,3 +66,14 @@ GameScene.swift
   
 WebviewImageCapturer.swift
 - added helper delegate  
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Added layout test to get SKLabelNode at top and bottom for touchme.me
+2019-07-03
+
+GameScene.swift
+- enum TextDisplay 
+  - multisprite added to enum
+  - addNext, removeCurrent include .multiSprite
+- makeTopBottomLabelNodes added
+- makeMonoLabel added

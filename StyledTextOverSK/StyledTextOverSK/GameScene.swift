@@ -23,6 +23,7 @@ extension SKScene {
 }
 
 enum TextDisplay {
+    case multiSprite([SKLabelNode?])
     case sprite(SKLabelNode?)
     case uilabel(UILabel?)
     case web(WKWebView?)
@@ -32,6 +33,7 @@ enum TextDisplay {
     
     func removeCurrent(from scene:SKScene?) {
         switch self {
+            case .multiSprite(let sprites): sprites.forEach{$0?.removeFromParent()}
             case .sprite(let s): s?.removeFromParent()
             case .uilabel(let l): l?.removeFromSuperview()
             case .web(let wv): wv?.removeFromSuperview()
@@ -45,13 +47,14 @@ enum TextDisplay {
     func addNext(on scene:SKScene?) -> TextDisplay {
         removeCurrent(from:scene)
         switch self {
+            case .multiSprite: return .sprite(makeLabelNode(on:scene))
             case .sprite: return .uilabel(makeUILabelOverlay(on:scene))
             case .uilabel: return .web(makeWebOverlay(on:scene))
             case .web: return .webUnder(makeWebUnderlay(on:scene))
             case .webUnder:
                 scene?.makeOpaque()
                 return .webImage(makeWebImage(on:scene))
-            case .webImage, .nothing: return .sprite(makeLabelNode(on:scene))
+            case .webImage, .nothing: return .multiSprite(makeTopBottomLabelNodes(on:scene))
         }
     }
 
@@ -79,6 +82,49 @@ enum TextDisplay {
         }
         return label
     }
+    
+    func makeMonoLabel(on scene:SKScene?, fadeIn:Bool, wrapWidth:CGFloat) -> SKLabelNode? {
+        var label: SKLabelNode? = nil
+        
+        if #available(iOS 11.0, *) {
+            let mas = monostyledAS(from: "This is a nice bit of text")
+            label = SKLabelNode(attributedText: mas)
+            // WARNING our label will NOT wrap to fit by default, make it wrap using these calls possibly introduced in iOS 11
+            label?.lineBreakMode = .byWordWrapping
+            label?.numberOfLines = 0  // the KEY to making it wrap, otherwise default is 1 line that goes off edge of screen
+        }
+        else{
+            label = SKLabelNode(text:"Hello monostyle world")
+        }
+        if let label = label {
+            label.preferredMaxLayoutWidth = wrapWidth //ALSO ENABLES LINE WRAPPING
+            //var labelVert = label.frame.height/2.0
+            // because we haven't added it in the GameScene visual editor, need to add manually
+            label
+            scene?.addChild(label)
+            if fadeIn {
+                label.alpha = 0.0
+                label.run(SKAction.fadeIn(withDuration: 2.0))
+            }
+        }
+        return label
+    }
+
+    func makeTopBottomLabelNodes(on scene:SKScene?, fadeIn:Bool=false) -> [SKLabelNode?] {
+        guard let sc = scene else { return [] }
+        let indentedWrap = sc.frame.width - 24.0
+        let top = makeMonoLabel(on: scene, fadeIn: fadeIn, wrapWidth: indentedWrap)
+        top?.position = CGPoint(x: 0, y: sc.frame.height + sc.frame.minY)  // adjust position AFTER adding
+        top?.verticalAlignmentMode = .top
+        let animColors = SKAction.colorize(with: UIColor.red, colorBlendFactor: 1, duration: 4)
+        top?.run(animColors)
+        
+        let bottom = makeMonoLabel(on: scene, fadeIn: fadeIn, wrapWidth: indentedWrap)
+        bottom?.position = CGPoint(x: 0, y: sc.frame.minY)  // adjust position AFTER adding
+        bottom?.verticalAlignmentMode = .bottom
+        return [top, bottom]
+    }
+
     
     /// use a UILabel so can put annotated string in regardless of version
     func makeUILabelOverlay(on scene:SKScene?) -> UILabel? {
@@ -260,3 +306,23 @@ func fancyHello() -> NSAttributedString
     
     return NSAttributedString(attributedString:myString)
 }
+
+func monostyledAS(from:String) -> NSAttributedString {
+    let myString = NSMutableAttributedString(string:from)
+    // Declare the fonts
+    let myStringFont1 = UIFont(name:"Noteworthy-Bold", size:96.0)!
+    let myStringRange1 = NSRange(location: 0, length: myString.length)
+    
+    // Declare the colors
+    myString.addAttribute(NSAttributedString.Key.foregroundColor, value:UIColor.yellow, range:myStringRange1)
+    myString.addAttribute(NSAttributedString.Key.font, value:myStringFont1, range:myStringRange1)
+    myString.addAttribute(NSAttributedString.Key.strokeColor, value:UIColor.green, range:myStringRange1)
+    myString.addAttribute(NSAttributedString.Key.strokeWidth, value:-6.0, range:myStringRange1)
+    // the following by itself does NOT make it wrap
+    let myStringParaStyle1 = NSMutableParagraphStyle()
+    myStringParaStyle1.alignment = NSTextAlignment.center
+    myString.addAttribute(NSAttributedString.Key.paragraphStyle, value:myStringParaStyle1, range:myStringRange1)
+    
+    return NSAttributedString(attributedString:myString)
+}
+

@@ -83,11 +83,11 @@ enum TextDisplay {
         return label
     }
     
-    func makeMonoLabel(on scene:SKScene?, fadeIn:Bool, wrapWidth:CGFloat) -> SKLabelNode? {
+    func makeMonoLabel(from msg: String, on scene:SKScene?, fadeIn:Bool, wrapWidth:CGFloat) -> SKLabelNode? {
         var label: SKLabelNode? = nil
         
         if #available(iOS 11.0, *) {
-            let mas = monostyledAS(from: "This is a nice bit of text")
+            let mas = monostyledAS(from: msg)
             label = SKLabelNode(attributedText: mas)
             // WARNING our label will NOT wrap to fit by default, make it wrap using these calls possibly introduced in iOS 11
             label?.lineBreakMode = .byWordWrapping
@@ -100,7 +100,6 @@ enum TextDisplay {
             label.preferredMaxLayoutWidth = wrapWidth //ALSO ENABLES LINE WRAPPING
             //var labelVert = label.frame.height/2.0
             // because we haven't added it in the GameScene visual editor, need to add manually
-            label
             scene?.addChild(label)
             if fadeIn {
                 label.alpha = 0.0
@@ -110,18 +109,28 @@ enum TextDisplay {
         return label
     }
 
+    /**
+    prints some debugging sizes deliberately using a single-line at bottom to verify printed heights vary
+     eg: on portrait iPhone 8 Plus
+     top frame is (-325.0, 346.0, 651.0, 321.0) in scene (-375.0, -667.0, 750.0, 1334.0)
+     bottom frame is (-187.0, -667.0, 375.0, 166.0)
+    */
     func makeTopBottomLabelNodes(on scene:SKScene?, fadeIn:Bool=false) -> [SKLabelNode?] {
         guard let sc = scene else { return [] }
         let indentedWrap = sc.frame.width - 24.0
-        let top = makeMonoLabel(on: scene, fadeIn: fadeIn, wrapWidth: indentedWrap)
-        top?.position = CGPoint(x: 0, y: sc.frame.height + sc.frame.minY)  // adjust position AFTER adding
-        top?.verticalAlignmentMode = .top
-        let animColors = SKAction.colorize(with: UIColor.red, colorBlendFactor: 1, duration: 4)
-        top?.run(animColors)
+        guard let top = makeMonoLabel(from: "This is a nice bit of text", on: scene, fadeIn: fadeIn, wrapWidth: indentedWrap) else { return [] }
+        top.position = CGPoint(x: 0, y: sc.frame.height + sc.frame.minY) // combination of position and alignment mode makes this approach work
+        top.verticalAlignmentMode = .top  // if wanted a draggable block, would set this to .center then adjust position as you drag
+        print("top frame is \(top.frame) in scene \(sc.frame)")
         
-        let bottom = makeMonoLabel(on: scene, fadeIn: fadeIn, wrapWidth: indentedWrap)
-        bottom?.position = CGPoint(x: 0, y: sc.frame.minY)  // adjust position AFTER adding
-        bottom?.verticalAlignmentMode = .bottom
+        // just a bit of added fun
+        let animColors = SKAction.colorize(with: UIColor.red, colorBlendFactor: 1, duration: 4)
+        top.run(animColors)
+        
+        guard let bottom = makeMonoLabel(from: "one-liner", on: scene, fadeIn: fadeIn, wrapWidth: indentedWrap) else { return [] }
+        bottom.position = CGPoint(x: 0, y: sc.frame.minY)
+        bottom.verticalAlignmentMode = .bottom
+        print("bottom frame is \(bottom.frame)")
         return [top, bottom]
     }
 

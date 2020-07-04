@@ -69,7 +69,7 @@ WebviewImageCapturer.swift
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Added layout test to get SKLabelNode at top and bottom for touchme.me
-2019-07-03
+2020-07-03
 
 GameScene.swift
 - enum TextDisplay 
@@ -77,3 +77,14 @@ GameScene.swift
   - addNext, removeCurrent include .multiSprite
 - makeTopBottomLabelNodes added
 - makeMonoLabel added
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Refined top/bottom test to see different heights for wrapped text
+2020-07-04
+
+GameScene.swift
+- makeTopBottomLabelNodes 
+  - add debug prints of frames
+  - vary text used in makeMonoLabel so one-liner only at bottom and can see diff heights
+- makeMonoLabel take msg param

@@ -2,3 +2,23 @@ Creation
 Setup with XCode 11.6 as an iOS app with Storyboard. Avoiding SwiftUI for now because related Touchgram project runs on 12.1
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Basic UI
+2020-07-26
+
+MainStoryboard
+- ViewController scene
+  - added Stack with two labels and a button
+  - connected labels to outlets
+  - connected button to onPickFont IBAction
+  
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Adding Font Picking
+2020-07-26
+
+ViewController.swift
+- added demoText string property (anticipate changing text in future)
+- added pickedFontDesc property
+- updateDisplays added to set text and try to set as attributedText on one, if pickedFontDesc
+
+- made a UIFontPickerViewControllerDelegate
+  - added ...DidPick setting pickedFontDesc & calling update

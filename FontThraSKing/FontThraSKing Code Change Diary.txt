@@ -17,6 +17,7 @@ Adding Font Picking
 
 ViewController.swift
 - added demoText string property (anticipate changing text in future)
+- added fontSize property 
 - added pickedFontDesc property
 - updateDisplays added to set text and try to set as attributedText on one, if pickedFontDesc
 

@@ -1,0 +1,4 @@
+Creation
+Setup with XCode 11.6 as an iOS app with Storyboard. Avoiding SwiftUI for now because related Touchgram project runs on 12.1
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

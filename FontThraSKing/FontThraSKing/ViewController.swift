@@ -50,6 +50,8 @@ class ViewController: UIViewController {
             } else if let pickedFamily = attr[.family] {
                 let fontFam = String(describing: pickedFamily)
                 attrs[.family] = fontFam
+                // try bold traits
+                //attrs[.traits] = UIFontDescriptor.SymbolicTraits([.traitBold])  // causes "unrecognised selector..." crash
             }
             let fd2 = UIFontDescriptor(fontAttributes: attrs)
             if let font2 = try? UIFont(descriptor:fd2, size: fontSize) {

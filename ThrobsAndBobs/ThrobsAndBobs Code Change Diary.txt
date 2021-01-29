@@ -26,3 +26,13 @@ CGPoint_GeometryExtensions.swift
 
 SpriteKitExtensions.swift
 - copied from twostraws repo
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Make Throbbing Heart Shader blend with background
+2021-01-29
+
+GameScene.sks
+- change color to blue so easy to see shader is blending
+
+ThrobbingHeart2D.fsh
+- blend with a transparent background color rather than generating pretty gradient

@@ -2,3 +2,27 @@
 Creation
 Setup with XCode XCode.12.3 as an "iOS game"
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Adding Throbbing Heart Shader Element
+2021-01-29
+
+GameScene.sks
+- changed label so know is not default project
+
+GameScene.swift
+- comment out spinnyNode
+- heartShader & heartShaderNode added
+- touchDown - create heartShaderNode if not existing or too close
+- touchMoved - remove spinnyNode code, just move heartShaderNode
+- touchUp - remove spinnyNode code
+- didMove(to)
+  - comment out creating spinnyNode
+  
+ThrobbingHeart2D.fsh
+- added
+
+CGPoint_GeometryExtensions.swift
+- added
+
+SpriteKitExtensions.swift
+- copied from twostraws repo

@@ -14,6 +14,9 @@
 		42366A0825C262A20037C755 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42366A0725C262A20037C755 /* GameViewController.swift */; };
 		42366A0B25C262A20037C755 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42366A0925C262A20037C755 /* Main.storyboard */; };
 		42366A0D25C262A40037C755 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42366A0C25C262A40037C755 /* Assets.xcassets */; };
+		42A77C9425C3DB8D00C61BD8 /* CGPoint_GeometryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A77C9325C3DB8D00C61BD8 /* CGPoint_GeometryExtensions.swift */; };
+		42A77C9725C3E02600C61BD8 /* ThrobbingHeart2D.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 42A77C9625C3E02600C61BD8 /* ThrobbingHeart2D.fsh */; };
+		42A77C9A25C3E72400C61BD8 /* ShaderKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A77C9925C3E72400C61BD8 /* ShaderKitExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		42366A0A25C262A20037C755 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42366A0C25C262A40037C755 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42366A0E25C262A40037C755 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42A77C9325C3DB8D00C61BD8 /* CGPoint_GeometryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint_GeometryExtensions.swift; sourceTree = "<group>"; };
+		42A77C9625C3E02600C61BD8 /* ThrobbingHeart2D.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = ThrobbingHeart2D.fsh; sourceTree = "<group>"; };
+		42A77C9925C3E72400C61BD8 /* ShaderKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderKitExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,7 @@
 		423669FE25C262A20037C755 /* ThrobsAndBobs */ = {
 			isa = PBXGroup;
 			children = (
+				42A77C9925C3E72400C61BD8 /* ShaderKitExtensions.swift */,
 				423669FF25C262A20037C755 /* AppDelegate.swift */,
 				42366A0125C262A20037C755 /* GameScene.sks */,
 				42366A0325C262A20037C755 /* Actions.sks */,
@@ -66,6 +73,8 @@
 				42366A0925C262A20037C755 /* Main.storyboard */,
 				42366A0C25C262A40037C755 /* Assets.xcassets */,
 				42366A0E25C262A40037C755 /* Info.plist */,
+				42A77C9325C3DB8D00C61BD8 /* CGPoint_GeometryExtensions.swift */,
+				42A77C9625C3E02600C61BD8 /* ThrobbingHeart2D.fsh */,
 			);
 			path = ThrobsAndBobs;
 			sourceTree = "<group>";
@@ -129,6 +138,7 @@
 			files = (
 				42366A0B25C262A20037C755 /* Main.storyboard in Resources */,
 				42366A0225C262A20037C755 /* GameScene.sks in Resources */,
+				42A77C9725C3E02600C61BD8 /* ThrobbingHeart2D.fsh in Resources */,
 				42366A0D25C262A40037C755 /* Assets.xcassets in Resources */,
 				42366A0425C262A20037C755 /* Actions.sks in Resources */,
 			);
@@ -141,6 +151,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42A77C9A25C3E72400C61BD8 /* ShaderKitExtensions.swift in Sources */,
+				42A77C9425C3DB8D00C61BD8 /* CGPoint_GeometryExtensions.swift in Sources */,
 				42366A0625C262A20037C755 /* GameScene.swift in Sources */,
 				42366A0825C262A20037C755 /* GameViewController.swift in Sources */,
 				42366A0025C262A20037C755 /* AppDelegate.swift in Sources */,

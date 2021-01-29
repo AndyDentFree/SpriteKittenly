@@ -11,8 +11,9 @@ import GameplayKit
 class GameScene: SKScene {
     
     private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
-    
+    private var heartShader : SKShader?
+    private var heartShaderNode : SKNode?
+
     override func didMove(to view: SKView) {
         
         // Get label node from scene and store it for use later
@@ -21,44 +22,34 @@ class GameScene: SKScene {
             label.alpha = 0.0
             label.run(SKAction.fadeIn(withDuration: 2.0))
         }
-        
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
+    }
+    
+    private func createHeartShader(width: CGFloat) {
+        let ret = SKSpriteNode(color: .yellow, size: CGSize(width: width, height: width))  // use different color from heart so know when debugging that shader didn't draw anything
+        if heartShader == nil {
+            heartShader = SKShader(fromFile: "ThrobbingHeart2D")  // only one instance needed, which is optimal if many shaders active
         }
+        ret.shader = heartShader
+        heartShaderNode = ret
     }
     
     
     func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
+        let hsnWidth = (self.size.width + self.size.height) * 0.1
+        if heartShaderNode == nil || !heartShaderNode!.position.close(to:pos, radius: hsnWidth+2.0) {
+            // create new one first time or if tap far enough away, just debounces a create and drag
+            createHeartShader(width: hsnWidth)
+            self.addChild(heartShaderNode!)
         }
+        heartShaderNode!.position = pos
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
+        heartShaderNode?.position = pos
     }
     
     func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
+        // later maybe remove heartShaderNode if you wanted it to vanish after dragging
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

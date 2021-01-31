@@ -12,6 +12,10 @@ Specifically, I want to have a _mildly animated_ prompt in [Touchgram][tg] that 
 ## Credits
 Uses `ShaderKitExtensions.swift` from [twoStraws][ShKit]
 
+The throbbing heart originally from [Inigo Quilez on ShaderToy](st1).
+
+The disc originally from [smkgames on ShaderToy](st2).
+
 ## The Exploration
 
 This reflects just not knowing what performance is like for different alternatives and also considering how they may fit in with aspects of [Touchgram][tg].
@@ -42,3 +46,5 @@ I'm only going to explore this with [SKAction][SKA] and possibly not get to it i
 [tg]: https://www.touchgram.com
 [follow]: https://developer.apple.com/documentation/spritekit/skaction/1417822-follow
 [ShKit]: https://github.com/twostraws/ShaderKit
+[st1]: https://www.shadertoy.com/view/XsfGRn
+[st2]: https://www.shadertoy.com/view/XtBcWh

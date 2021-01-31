@@ -1,4 +1,5 @@
 // ThrobbingDisc draws a circle which varies in color and diameter
+// original from https://www.shadertoy.com/view/XtBcWh
 void main(void)
 {
     vec2 uv = v_tex_coord;

@@ -17,6 +17,7 @@
 		42A77C9425C3DB8D00C61BD8 /* CGPoint_GeometryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A77C9325C3DB8D00C61BD8 /* CGPoint_GeometryExtensions.swift */; };
 		42A77C9725C3E02600C61BD8 /* ThrobbingHeart2D.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 42A77C9625C3E02600C61BD8 /* ThrobbingHeart2D.fsh */; };
 		42A77C9A25C3E72400C61BD8 /* ShaderKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A77C9925C3E72400C61BD8 /* ShaderKitExtensions.swift */; };
+		42A77CA125C5453800C61BD8 /* ThrobbingDisc.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 42A77CA025C5453800C61BD8 /* ThrobbingDisc.fsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		42A77C9325C3DB8D00C61BD8 /* CGPoint_GeometryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint_GeometryExtensions.swift; sourceTree = "<group>"; };
 		42A77C9625C3E02600C61BD8 /* ThrobbingHeart2D.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = ThrobbingHeart2D.fsh; sourceTree = "<group>"; };
 		42A77C9925C3E72400C61BD8 /* ShaderKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderKitExtensions.swift; sourceTree = "<group>"; };
+		42A77CA025C5453800C61BD8 /* ThrobbingDisc.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ThrobbingDisc.fsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		423669FE25C262A20037C755 /* ThrobsAndBobs */ = {
 			isa = PBXGroup;
 			children = (
+				42A77CA025C5453800C61BD8 /* ThrobbingDisc.fsh */,
 				42A77C9925C3E72400C61BD8 /* ShaderKitExtensions.swift */,
 				423669FF25C262A20037C755 /* AppDelegate.swift */,
 				42366A0125C262A20037C755 /* GameScene.sks */,
@@ -140,6 +143,7 @@
 				42366A0225C262A20037C755 /* GameScene.sks in Resources */,
 				42A77C9725C3E02600C61BD8 /* ThrobbingHeart2D.fsh in Resources */,
 				42366A0D25C262A40037C755 /* Assets.xcassets in Resources */,
+				42A77CA125C5453800C61BD8 /* ThrobbingDisc.fsh in Resources */,
 				42366A0425C262A20037C755 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

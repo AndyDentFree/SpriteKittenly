@@ -2,7 +2,12 @@
 
 Test of different ways to have a simple shape pulse and move.
 
+Every alternate touch either creates a heart throbber or a circle that follows a heart path.
+
 Specifically, I want to have a _mildly animated_ prompt in [Touchgram][tg] that hints to the user where they should be stroking. Internally, we have a series of coordinates which are already used to draw an [SKShapeNode][SKShape] if the creator of the Touchgram requests a static prompt (typically mostly transparent).
+
+
+![Recording of tapping the screen a few times](./ThrobsAndBobsDemo.gif)
 
 ## Credits
 Uses `ShaderKitExtensions.swift` from [twoStraws][ShKit]

@@ -36,3 +36,19 @@ GameScene.sks
 
 ThrobbingHeart2D.fsh
 - blend with a transparent background color rather than generating pretty gradient
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Simple circular throbber that follows a path & Hearts shrink & vanish
+2021-01-30
+
+ThrobbingDisc.fsh
+- added
+
+GameScenes.swift
+- heartShape constant added
+- discShaderNode & makeDiscNext properties added
+- createHeartPathLocalCoords helper added & invoked from didMove(to)
+- touchDown 
+  - create alternating disc or heart
+  - add scaling action to heartShaderNode so gradually reduces in size to nothing & removes

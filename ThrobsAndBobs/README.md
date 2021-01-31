@@ -12,9 +12,9 @@ Specifically, I want to have a _mildly animated_ prompt in [Touchgram][tg] that 
 ## Credits
 Uses `ShaderKitExtensions.swift` from [twoStraws][ShKit]
 
-The throbbing heart originally from [Inigo Quilez on ShaderToy](st1).
+The throbbing heart originally from [Inigo Quilez on ShaderToy][st1].
 
-The disc originally from [smkgames on ShaderToy](st2).
+The disc originally from [smkgames on ShaderToy][st2].
 
 ## The Exploration
 

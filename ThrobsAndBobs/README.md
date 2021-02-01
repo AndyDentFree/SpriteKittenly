@@ -18,17 +18,17 @@ The disc originally from [smkgames on ShaderToy][st2].
 
 ## The Exploration
 
-This reflects just not knowing what performance is like for different alternatives and also considering how they may fit in with aspects of [Touchgram][tg].
+Looking at how shaders vs actions work, not just performance but how easily they can be integrated into [Touchgram][tg] as part of a message with a user interface to easily customise them.
 
 ### Throbbing
 
 Initial ideas are that a _throbbing_ shape can be accomplished, at least, by:
 
-- an [SKShader][SKSd] rendering the entire shape and varying it over time or position, useful for inbuilt components and I suspect the most efficient way to provide this
+- an [SKShader][SKShd] rendering the entire shape and varying it over time or position, useful for inbuilt components and I suspect the most efficient way to provide this
 - an [SKAction][SKA] animating through a set of [SKTextures][SKT] - typical game technique but maybe more awkward when loading user generated content
-- an [SKAction][SKA] that changes the [scale] of an original graphic node.
+- an [SKAction][SKA] that changes the [scale] of an original graphic node (note originally I tested also fading the node but you cannot apply an opacity change to a node with an [SKShader][SKShd] drawing it).
 
-Note that there's a massive set of SKActions you choose from with a factory function they call an [initializer][init] as well as being able to 
+Note that there's a massive set of SKActions you choose from with a factory function they call an [initializer][init] as well as being able to create your own.
 
 ### SKAction-based pulse
 The default template for a SpriteKit game includes a file `Actions.sks` which defines an action `Pulse`. That is invoked in `GameScene.swift`
@@ -41,6 +41,7 @@ I'm only going to explore this with [SKAction][SKA] and possibly not get to it i
 [SKA]: https://developer.apple.com/documentation/spritekit/skaction
 [SKShape]: https://developer.apple.com/documentation/spritekit/skshapenode
 [SKShd]: https://developer.apple.com/documentation/spritekit/skshader
+[SKT]: https://developer.apple.com/documentation/spritekit/sktexture
 [scale]: https://developer.apple.com/documentation/spritekit/skaction/1417741-scale
 [init]: https://developer.apple.com/documentation/spritekit/skaction/action_initializers
 [tg]: https://www.touchgram.com

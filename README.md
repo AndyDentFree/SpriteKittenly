@@ -1,7 +1,7 @@
 # SpriteKittenly
 Exploring cute and sometimes scratchy corners of SpriteKit with Swift.
 
-Main motivation finding ways to do things for touch feedback in [Touchgram][tg] which was initially ported from C++ and the Cocos2D-X game framework.
+Main motivation finding ways to do things for touch feedback and rendering in [Touchgram][tg] which was initially ported from C++ and the Cocos2D-X game framework. Touchgram lets you compose multi-page interactive messages within Apple iMessage.
 
 See specific README in each project directory
 
@@ -10,6 +10,8 @@ See specific README in each project directory
 * [SKScribbles](./SKScribbles/) multiple approaches tried with sample images to show smoothness of different drawings, also see the closely-related...
 * [streakios](./streakios/) which wraps someone else's work and draws a decaying streak, like I was using in Cocos2D-X
 * [ThrobsAndBobs](./ThrobsAndBobs/) different ways to have shapes that _throb_ and animation along paths
+* [FramesAndBackgrounds](./FramesAndBackgrounds/) Exploring tiling backgrounds and using shaders to frame an image.
+
 
 ## Text oriented
 * [StyledTextOverSK](./StyledTextOverSK/) long discussion of how to combine SpriteKit with styled text. I went with an SKLabelNode using NSAttributedString in [Touchgram](https://www.touchgram.com/) because of the  performance issues this sample shows.

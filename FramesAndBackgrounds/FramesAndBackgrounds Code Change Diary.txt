@@ -1,0 +1,25 @@
+2021-02-01
+Creation
+Setup with XCode XCode.12.4 as an "iOS game"
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Adding First scene with background image, unscaled
+2021-02-01
+
+GameScene.sks
+- added topLabel
+- moved other label & renamed bottomLabel
+- added SKSpriteNode pointing to paper-bg-csszengarden
+
+GameScene.swift
+- remove spinnyNode
+- touchesBegan - don't run pulse action on label
+- touchDown - create heartShaderNode if not existing or too close
+- touchMoved - remove spinnyNode code, just move heartShaderNode
+- touchUp - remove spinnyNode code
+- didMove(to)
+  - comment out creating spinnyNode
+
+
+Assets.xcassets
+- paper-bg-csszengarden.jpg added

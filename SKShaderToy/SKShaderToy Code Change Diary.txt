@@ -1,0 +1,26 @@
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Creation & copy basic dynamic shader over
+2021-04-04
+
+Created with XCode 12.4 as Game
+
+GameScene.swift
+GameScene.sks
+Actions.sks
+GameViewController renamed PlayViewController, creates one scene with a spritenode and shader using bits from tg classes
+
+SKShaderToyModel.swift added
+AppDelegate - var model added
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Tab Bar adding with secondary screen for editing
+2021-04-05
+
+Main.storyboard 
+- embedded PlayView in tabbed controller
+- EditShaderViewController added
+
+EditShaderViewController.swift added
+
+PlayViewController.swift
+- update shader if shared model has been edited

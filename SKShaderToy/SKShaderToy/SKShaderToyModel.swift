@@ -16,17 +16,20 @@ class SKShaderToyModel {
     private(set) static var defaultPlayingSize: CGSize = UIScreen.main.bounds.size  // reset on every startPlaying
     #endif
     private(set) var playingSize = SKShaderToyModel.defaultPlayingSize
-    var activeScene: SKScene!
+    var activeScene: SKScene? = nil
     var activeShaderNode: SKSpriteNode? = nil
     var shaderText: String = SKShaderToyModel.movingGradientShader
+    var editDirty = false
 
     // copied from tgTouchgram.startPlaying
     func startPlaying(onView:SKView) {
+        guard activeScene == nil else {return}  // safe to call repeatedly
         playingSize = onView.bounds.size
-        activeScene = SKScene(size: playingSize)
-        activeScene.scaleMode = .aspectFill
+        let newScene = SKScene(size: playingSize)
+        activeScene = newScene
+        newScene.scaleMode = .aspectFill
         updateShaderNode()
-        onView.presentScene(activeScene)
+        onView.presentScene(newScene)
     }
     
     func updateShaderNode() {
@@ -36,7 +39,7 @@ class SKShaderToyModel {
         }
         if let newNode = makeShaderNode(fitting: playingSize) {
             activeShaderNode = newNode
-            activeScene.addChild(newNode)
+            activeScene?.addChild(newNode)
         }
     }
     

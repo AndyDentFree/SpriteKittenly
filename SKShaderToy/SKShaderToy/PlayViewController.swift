@@ -9,15 +9,17 @@ import UIKit
 import SpriteKit
 
 class PlayViewController: UIViewController {
-    @IBOutlet weak var playView: SKView!
-    lazy var model:SKShaderToyModel? = AppDelegate.model
+    @IBOutlet var playView: SKView!
+    lazy var model:SKShaderToyModel! = AppDelegate.model
 
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        if let view = self.view as! SKView? {
-            model?.startPlaying(onView: view)        }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        model.startPlaying(onView: playView)
+        if model.editDirty {
+            model.editDirty = false
+            model.updateShaderNode()
+        }
     }
 
     override var shouldAutorotate: Bool {

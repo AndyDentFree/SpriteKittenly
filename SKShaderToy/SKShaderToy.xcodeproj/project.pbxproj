@@ -12,6 +12,7 @@
 		42C0C808261AF56A00836629 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42C0C807261AF56A00836629 /* Assets.xcassets */; };
 		42C0C834261B0A7B00836629 /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0C832261B0A7B00836629 /* PlayViewController.swift */; };
 		42C0C835261B0A7B00836629 /* SKShaderToyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0C833261B0A7B00836629 /* SKShaderToyModel.swift */; };
+		42C0C838261B4AF000836629 /* EditShaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0C837261B4AF000836629 /* EditShaderViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		42C0C809261AF56A00836629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42C0C832261B0A7B00836629 /* PlayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; };
 		42C0C833261B0A7B00836629 /* SKShaderToyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKShaderToyModel.swift; sourceTree = "<group>"; };
+		42C0C837261B4AF000836629 /* EditShaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditShaderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				42C0C804261AF56900836629 /* Main.storyboard */,
 				42C0C807261AF56A00836629 /* Assets.xcassets */,
 				42C0C809261AF56A00836629 /* Info.plist */,
+				42C0C837261B4AF000836629 /* EditShaderViewController.swift */,
 			);
 			path = SKShaderToy;
 			sourceTree = "<group>";
@@ -134,6 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42C0C834261B0A7B00836629 /* PlayViewController.swift in Sources */,
+				42C0C838261B4AF000836629 /* EditShaderViewController.swift in Sources */,
 				42C0C835261B0A7B00836629 /* SKShaderToyModel.swift in Sources */,
 				42C0C7FB261AF56900836629 /* AppDelegate.swift in Sources */,
 			);

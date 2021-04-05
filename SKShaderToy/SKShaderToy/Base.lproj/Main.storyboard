@@ -1,33 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oql-n6-Ed2">
+    <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Play View Controller-->
+        <!--Play-->
         <scene sceneID="tXr-a1-R10">
             <objects>
                 <viewController id="BV1-FR-VrT" customClass="PlayViewController" customModule="SKShaderToy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Play" image="play" catalog="system" id="awE-6X-Udl">
+                        <imageReference key="selectedImage" image="play" catalog="system" symbolScale="large" renderingMode="template"/>
+                    </tabBarItem>
                     <connections>
-                        <outlet property="playView" destination="3se-qz-xqx" id="WIe-Ik-G3H"/>
+                        <outlet property="playView" destination="3se-qz-xqx" id="30P-yO-l1J"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="114" y="138"/>
+            <point key="canvasLocation" x="1023.1884057971015" y="137.94642857142856"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="O1s-j7-Ofn">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="oql-n6-Ed2" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WiU-mq-2eP">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BV1-FR-VrT" kind="relationship" relationship="viewControllers" id="LZ6-ME-qRz"/>
+                        <segue destination="gt3-D2-vAN" kind="relationship" relationship="viewControllers" id="Nzw-uT-4KP"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eRG-UJ-fJf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1545" y="73"/>
+        </scene>
+        <!--Edit-->
+        <scene sceneID="7go-3P-KPY">
+            <objects>
+                <viewController id="gt3-D2-vAN" customClass="EditShaderViewController" customModule="SKShaderToy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B0j-Ce-5Hc">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m8g-AE-TGp">
+                                <rect key="frame" x="0.0" y="44" width="428" height="370.33333333333331"/>
+                            </skView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jVG-zQ-EXi">
+                                <rect key="frame" x="20" y="476.33333333333326" width="388" height="366.66666666666674"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BTI-Zy-INB">
+                                <rect key="frame" x="20" y="422.33333333333331" width="106" height="30"/>
+                                <state key="normal" title="Refresh Shader"/>
+                                <connections>
+                                    <action selector="onRefresh:" destination="gt3-D2-vAN" eventType="touchUpInside" id="y1L-bE-vZu"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mkW-dl-CjG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jVG-zQ-EXi" firstAttribute="leading" secondItem="mkW-dl-CjG" secondAttribute="leading" constant="20" id="40v-wa-0no"/>
+                            <constraint firstItem="jVG-zQ-EXi" firstAttribute="top" secondItem="m8g-AE-TGp" secondAttribute="bottom" constant="62" id="4If-KV-G7B"/>
+                            <constraint firstItem="m8g-AE-TGp" firstAttribute="leading" secondItem="mkW-dl-CjG" secondAttribute="leading" id="Ecb-fu-ZLl"/>
+                            <constraint firstItem="BTI-Zy-INB" firstAttribute="top" secondItem="m8g-AE-TGp" secondAttribute="bottom" constant="8" id="IWW-DP-qed"/>
+                            <constraint firstItem="mkW-dl-CjG" firstAttribute="trailing" secondItem="jVG-zQ-EXi" secondAttribute="trailing" constant="20" id="Mcn-d2-mji"/>
+                            <constraint firstItem="BTI-Zy-INB" firstAttribute="leading" secondItem="jVG-zQ-EXi" secondAttribute="leading" id="VHo-zT-wen"/>
+                            <constraint firstItem="mkW-dl-CjG" firstAttribute="bottom" secondItem="jVG-zQ-EXi" secondAttribute="bottom" id="VMm-eE-KGO"/>
+                            <constraint firstItem="m8g-AE-TGp" firstAttribute="top" secondItem="mkW-dl-CjG" secondAttribute="top" id="Vfi-vh-qQK"/>
+                            <constraint firstItem="m8g-AE-TGp" firstAttribute="height" secondItem="B0j-Ce-5Hc" secondAttribute="height" multiplier="0.4" id="WA8-vm-JLg"/>
+                            <constraint firstItem="m8g-AE-TGp" firstAttribute="width" secondItem="B0j-Ce-5Hc" secondAttribute="width" id="orb-Nj-WKb"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Edit" image="note.text" catalog="system" id="chu-Iv-783"/>
+                    <connections>
+                        <outlet property="preview" destination="m8g-AE-TGp" id="dJO-ZG-4NQ"/>
+                        <outlet property="shaderTextEntry" destination="jVG-zQ-EXi" id="bRZ-Vz-Bt8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pDd-iu-7kG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-233.33333333333334" y="-535.04464285714278"/>
         </scene>
     </scenes>
     <resources>
+        <image name="note.text" catalog="system" width="128" height="106"/>
+        <image name="play" catalog="system" width="120" height="128"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

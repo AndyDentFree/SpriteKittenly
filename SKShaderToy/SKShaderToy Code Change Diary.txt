@@ -34,3 +34,15 @@ info.plist
 
 Launch Screen.storyboard - added file via New File using template for launch screen
 (missing when create new iOS games with the XCode base template)
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Tweak editing keyboard so disappears to reveal tabs
+2021-04-05
+
+EditShaderViewController.swift
+- onRefresh - call endEditing
+
+Main.storyboard
+- EditShaderViewController scene
+  keyboard return changed from "Done" to default behaviour - can type return characters!

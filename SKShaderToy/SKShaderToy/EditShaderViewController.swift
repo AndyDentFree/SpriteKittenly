@@ -20,6 +20,7 @@ class EditShaderViewController: UIViewController {
         shaderTextEntry.delegate = self
         editModel.shaderText = sharedModel.shaderText
         shaderTextEntry.text = editModel.shaderText
+        //shaderTextEntry.becomeFirstResponder() // if want keyboard to appear but that hides tab so confuses user too much
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,6 +39,7 @@ class EditShaderViewController: UIViewController {
     }
     
     @IBAction func onRefresh(_ sender: UIButton) {
+        shaderTextEntry.endEditing(true)  // hides keyboard and enables tabs to be visible if have edited
         guard editModel.editDirty else {return}
         editModel.shaderText = shaderTextEntry.text
         editModel.editDirty = false

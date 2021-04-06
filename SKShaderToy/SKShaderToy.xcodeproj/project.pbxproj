@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42A97E09261C259D00D804B5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A97E08261C259D00D804B5 /* Launch Screen.storyboard */; };
 		42C0C7FB261AF56900836629 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0C7FA261AF56900836629 /* AppDelegate.swift */; };
 		42C0C806261AF56900836629 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C0C804261AF56900836629 /* Main.storyboard */; };
 		42C0C808261AF56A00836629 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42C0C807261AF56A00836629 /* Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42A97E08261C259D00D804B5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		42C0C7F7261AF56900836629 /* SKShaderToy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKShaderToy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C0C7FA261AF56900836629 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42C0C805261AF56900836629 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				42C0C807261AF56A00836629 /* Assets.xcassets */,
 				42C0C809261AF56A00836629 /* Info.plist */,
 				42C0C837261B4AF000836629 /* EditShaderViewController.swift */,
+				42A97E08261C259D00D804B5 /* Launch Screen.storyboard */,
 			);
 			path = SKShaderToy;
 			sourceTree = "<group>";
@@ -124,6 +127,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42A97E09261C259D00D804B5 /* Launch Screen.storyboard in Resources */,
 				42C0C806261AF56900836629 /* Main.storyboard in Resources */,
 				42C0C808261AF56A00836629 /* Assets.xcassets in Resources */,
 			);

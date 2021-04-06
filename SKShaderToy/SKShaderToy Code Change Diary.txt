@@ -24,3 +24,13 @@ EditShaderViewController.swift added
 
 PlayViewController.swift
 - update shader if shared model has been edited
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Fix initial size 320x480
+2021-04-05
+
+info.plist
+- added entry "Launch screen interface file base name"
+
+Launch Screen.storyboard - added file via New File using template for launch screen
+(missing when create new iOS games with the XCode base template)

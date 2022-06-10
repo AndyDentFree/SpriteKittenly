@@ -11,6 +11,7 @@ See specific README in each project directory
 * [streakios](./streakios/) which wraps someone else's work and draws a decaying streak, like I was using in Cocos2D-X
 * [ThrobsAndBobs](./ThrobsAndBobs/) different ways to have shapes that _throb_ and animation along paths
 * [FramesAndBackgrounds](./FramesAndBackgrounds/) Exploring tiling backgrounds and using shaders to frame an image.
+* [SKShaderToy](./SKShaderToy/) Little testbed with text entry to edit a GLSL shader & see it recompiled and in action.
 
 
 ## Text oriented

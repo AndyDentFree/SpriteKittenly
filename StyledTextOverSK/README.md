@@ -6,6 +6,11 @@ In particular, mimic typical meme layout with an overlay that stands out against
 
 Tapping the screen will switch to a different rendering technique at the end of the touch. If you tap and drag you will see the trail of rectangles which is standard for an SK game.
 
+## Conclusion
+Using an [SKLabelNode] built with an [NSAttributedString] is dramatically faster than the other approaches. 
+
+There is a _gotcha_ with the values specified for borders - see [this long woeful bug tale][TextBug].
+
 ## The Exploration
 The initial template for an SK game displays a Hello World using an [SKLabelNode] that is constructed in the initial `GameScene.sks` - you can edit it in the Scene visual editor.
 
@@ -55,3 +60,4 @@ Created using XCode 9.4.1 "ios Game" template
 [SKLabelNode]: https://developer.apple.com/documentation/spritekit/sklabelnode
 [NSAttributedString]: https://developer.apple.com/documentation/foundation/nsattributedstring
 [CG]: https://gist.github.com/craiggrummitt/03bfa93c07e247ee9358
+[TextBug]: https://medium.com/touchgram/a-text-tale-my-worst-bug-in-40-years-795f158be8b7?sk=233ba68c9e9a9d291a9204c870ffa308

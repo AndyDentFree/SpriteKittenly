@@ -6,14 +6,21 @@
 //
 
 import SwiftUI
+import SpriteKit
 
 struct ContentView: View {
+    let scenes = [SKScene(fileNamed: "Scene1")!,  SKScene(fileNamed: "Scene2")!]
+    @State var sceneIndex = 0
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            SpriteView(scene: scenes[sceneIndex])
+            Button("Toggle Scene to \(2 - sceneIndex)") {
+                sceneIndex = 1 - sceneIndex
+            }
+            .padding()
+            .buttonStyle(.borderedProminent)
+            
+            Text("Scene changing with re-init of SpriteView")
         }
         .padding()
     }

@@ -1,3 +1,14 @@
 2023-01-26
 Creation
 Setup with XCode Version 14.2 (14C18) as a MultiPlatform app
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Adding basic SpriteView with two scenes - toggle fails to refresh
+2023-01-26
+
+Scene1, Scene2.sks - added basic scene files with a few shapes
+
+ContentView.swift
+- added sceneIndex and scenes vars
+- added Button to toggle sceneIndex
+- added SpriteView loading indexed scene

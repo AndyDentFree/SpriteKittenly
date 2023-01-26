@@ -18,8 +18,9 @@ class SKShaderToyModel {
     private(set) var playingSize = SKShaderToyModel.defaultPlayingSize
     var activeScene: SKScene? = nil
     var activeShaderNode: SKSpriteNode? = nil
-    var shaderText: String = SKShaderToyModel.movingGradientShader
+    var shaderText: String = SKShaderToyModel.throbbingDiscShader  // movingGradientShader
     var editDirty = false
+    var shaderAsOverlay = true
 
     // copied from tgTouchgram.startPlaying
     func startPlaying(onView:SKView) {
@@ -46,8 +47,19 @@ class SKShaderToyModel {
     // from tgShaderSource.makeSpriteNode
     func makeShaderNode(fitting fillSize:CGSize) -> SKSpriteNode? {
         guard let sh = makeShader() else {return nil}
-        let ret = SKSpriteNode(color: .yellow, size: fillSize)
-        ret.shader = sh
+        var ret: SKSpriteNode!
+        if shaderAsOverlay {
+            let overlayDim:CGFloat = 120
+            // yellow here just for debug purposes
+            let overlay = SKSpriteNode(color: .yellow, size: CGSize(width: overlayDim, height: overlayDim))
+            overlay.shader = sh
+            overlay.position = CGPoint(x: (fillSize.width)/2.0, y:fillSize.height-overlayDim-20)
+            ret = SKSpriteNode(color: .magenta, size: fillSize)
+            ret.addChild(overlay)
+        } else {
+            ret = SKSpriteNode(color: .magenta, size: fillSize)
+            ret.shader = sh
+        }
         ret.position = CGPoint(x:0.0, y:0.0)  // for anchor 0,0
         ret.anchorPoint = CGPoint(x: 0.0,y: 0.0)
         return ret
@@ -68,4 +80,20 @@ class SKShaderToyModel {
                                       }
                                       """
 
+    // ThrobbingDisc draws a circle which varies in color and diameter
+    // original from https://www.shadertoy.com/view/XtBcWh
+    static let throbbingDiscShader = """
+        void main(void)
+        {
+            vec2 uv = v_tex_coord;
+            uv = uv*2.0-1.0;
+            // multiply u_time to get faster beat
+            float Length = 0.5 - smoothstep(length(uv),0.0,0.4) / max(0.000000001, abs( sin(u_time)));
+            float sut = abs(sin(u_time));
+            vec3 scol = vec3(sut, sut, 1.0);
+            vec4 hcol = vec4(scol*Length, 0.0);
+            gl_FragColor = hcol;
+        }
+        """
+    
 }

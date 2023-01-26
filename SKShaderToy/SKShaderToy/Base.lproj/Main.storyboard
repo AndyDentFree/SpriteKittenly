@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oql-n6-Ed2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="oql-n6-Ed2">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -61,7 +61,7 @@
                                 <rect key="frame" x="0.0" y="44" width="428" height="370.33333333333331"/>
                             </skView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jVG-zQ-EXi">
-                                <rect key="frame" x="20" y="476.33333333333326" width="388" height="366.66666666666674"/>
+                                <rect key="frame" x="20" y="476.33333333333326" width="388" height="362.66666666666674"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -74,6 +74,14 @@
                                     <action selector="onRefresh:" destination="gt3-D2-vAN" eventType="touchUpInside" id="y1L-bE-vZu"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4TK-kn-0il">
+                                <rect key="frame" x="233" y="422" width="175" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Toggle Emitter as Overlay"/>
+                                <connections>
+                                    <action selector="OnToggleFillMode:" destination="gt3-D2-vAN" eventType="touchUpInside" id="nd0-dC-NTg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mkW-dl-CjG"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -84,7 +92,7 @@
                             <constraint firstItem="BTI-Zy-INB" firstAttribute="top" secondItem="m8g-AE-TGp" secondAttribute="bottom" constant="8" id="IWW-DP-qed"/>
                             <constraint firstItem="mkW-dl-CjG" firstAttribute="trailing" secondItem="jVG-zQ-EXi" secondAttribute="trailing" constant="20" id="Mcn-d2-mji"/>
                             <constraint firstItem="BTI-Zy-INB" firstAttribute="leading" secondItem="jVG-zQ-EXi" secondAttribute="leading" id="VHo-zT-wen"/>
-                            <constraint firstItem="mkW-dl-CjG" firstAttribute="bottom" secondItem="jVG-zQ-EXi" secondAttribute="bottom" id="VMm-eE-KGO"/>
+                            <constraint firstItem="mkW-dl-CjG" firstAttribute="bottom" secondItem="jVG-zQ-EXi" secondAttribute="bottom" constant="4" id="VMm-eE-KGO"/>
                             <constraint firstItem="m8g-AE-TGp" firstAttribute="top" secondItem="mkW-dl-CjG" secondAttribute="top" id="Vfi-vh-qQK"/>
                             <constraint firstItem="m8g-AE-TGp" firstAttribute="height" secondItem="B0j-Ce-5Hc" secondAttribute="height" multiplier="0.4" id="WA8-vm-JLg"/>
                             <constraint firstItem="m8g-AE-TGp" firstAttribute="width" secondItem="B0j-Ce-5Hc" secondAttribute="width" id="orb-Nj-WKb"/>
@@ -92,6 +100,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Edit" image="note.text" catalog="system" id="chu-Iv-783"/>
                     <connections>
+                        <outlet property="bottomOutletToAdjust" destination="VMm-eE-KGO" id="sdf-wD-ehQ"/>
                         <outlet property="preview" destination="m8g-AE-TGp" id="dJO-ZG-4NQ"/>
                         <outlet property="shaderTextEntry" destination="jVG-zQ-EXi" id="bRZ-Vz-Bt8"/>
                     </connections>

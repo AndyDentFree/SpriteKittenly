@@ -1,0 +1,3 @@
+2023-01-26
+Creation
+Setup with XCode Version 14.2 (14C18) as a MultiPlatform app

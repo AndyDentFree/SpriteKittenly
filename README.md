@@ -19,6 +19,7 @@ See specific README in each project directory
 * [FontThraSKing](./FontThraSKing/) simple use of different fonts, picking them and displaying in SpriteKit, mostly created to get understanding of a crash
 
 ## General
+* [SkinSuit](./SkinSuit/) Embedding SpriteKit within SwiftUI, exploring two different approaches.
 * LottieSprite - unfinished exploration, don't bother
 
 

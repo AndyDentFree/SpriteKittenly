@@ -8,15 +8,19 @@
 import UIKit
 import SpriteKit
 
-class EditShaderViewController: UIViewController {
-
+class EditShaderViewController: UIViewController, EditHelper {
     @IBOutlet weak var preview: SKView!
     @IBOutlet weak var shaderTextEntry: UITextView!
     var editModel = SKShaderToyModel()
     lazy var sharedModel = AppDelegate.model!
+    
+    // for EditHelper
+    @IBOutlet var bottomOutletToAdjust: NSLayoutConstraint!
+    var saveOutletOffset: CGFloat = 0.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupScrollForKeyboard()
         shaderTextEntry.delegate = self
         editModel.shaderText = sharedModel.shaderText
         shaderTextEntry.text = editModel.shaderText
@@ -46,7 +50,12 @@ class EditShaderViewController: UIViewController {
         editModel.updateShaderNode()
     }
     
-
+    @IBAction func OnToggleFillMode(_ sender: Any) {
+        shaderTextEntry.endEditing(true)  // hides keyboard and enables tabs to be visible if have edited
+        editModel.shaderAsOverlay = !editModel.shaderAsOverlay
+        editModel.updateShaderNode()
+    }
+    
     /*
     // MARK: - Navigation
 

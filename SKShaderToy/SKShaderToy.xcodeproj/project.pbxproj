@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4265AAD32642C1E8006A8CA0 /* EditHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4265AAD22642C1E8006A8CA0 /* EditHelper.swift */; };
 		42A97E09261C259D00D804B5 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42A97E08261C259D00D804B5 /* Launch Screen.storyboard */; };
 		42C0C7FB261AF56900836629 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0C7FA261AF56900836629 /* AppDelegate.swift */; };
 		42C0C806261AF56900836629 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C0C804261AF56900836629 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4265AAD22642C1E8006A8CA0 /* EditHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHelper.swift; sourceTree = "<group>"; };
 		42A97E08261C259D00D804B5 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		42C0C7F7261AF56900836629 /* SKShaderToy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKShaderToy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C0C7FA261AF56900836629 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				42C0C809261AF56A00836629 /* Info.plist */,
 				42C0C837261B4AF000836629 /* EditShaderViewController.swift */,
 				42A97E08261C259D00D804B5 /* Launch Screen.storyboard */,
+				4265AAD22642C1E8006A8CA0 /* EditHelper.swift */,
 			);
 			path = SKShaderToy;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42C0C834261B0A7B00836629 /* PlayViewController.swift in Sources */,
+				4265AAD32642C1E8006A8CA0 /* EditHelper.swift in Sources */,
 				42C0C838261B4AF000836629 /* EditShaderViewController.swift in Sources */,
 				42C0C835261B0A7B00836629 /* SKShaderToyModel.swift in Sources */,
 				42C0C7FB261AF56900836629 /* AppDelegate.swift in Sources */,
@@ -283,7 +287,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 534LVXBU55;
+				DEVELOPMENT_TEAM = 7MXY472HBV;
 				INFOPLIST_FILE = SKShaderToy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -302,7 +306,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 534LVXBU55;
+				DEVELOPMENT_TEAM = 7MXY472HBV;
 				INFOPLIST_FILE = SKShaderToy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

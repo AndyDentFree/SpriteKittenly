@@ -12,3 +12,17 @@ ContentView.swift
 - added sceneIndex and scenes vars
 - added Button to toggle sceneIndex
 - added SpriteView loading indexed scene
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Experiment to add transitions - not working
+2023-01-28
+
+Scene0, Scene1.sks renamed from Scene1/2 to be clearer in code
+
+Project - set min target 15.0 for more testing than 16.2
+
+ContentView.swift
+- added isFirstScene flag so don't include transition
+- Button clears isFirstScene
+- body has optional view structure to try to init two different ones with transitions

@@ -11,8 +11,8 @@
 		42F1465A298271FF00CDE6E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F14659298271FF00CDE6E7 /* ContentView.swift */; };
 		42F1465C2982720100CDE6E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42F1465B2982720100CDE6E7 /* Assets.xcassets */; };
 		42F146602982720100CDE6E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42F1465F2982720100CDE6E7 /* Preview Assets.xcassets */; };
-		42F146672982896D00CDE6E7 /* Scene1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42F146662982896D00CDE6E7 /* Scene1.sks */; };
-		42F1466929828A3E00CDE6E7 /* Scene2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42F1466829828A3E00CDE6E7 /* Scene2.sks */; };
+		42F146672982896D00CDE6E7 /* Scene0.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42F146662982896D00CDE6E7 /* Scene0.sks */; };
+		42F1466929828A3E00CDE6E7 /* Scene1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42F1466829828A3E00CDE6E7 /* Scene1.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,8 +22,8 @@
 		42F1465B2982720100CDE6E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42F1465D2982720100CDE6E7 /* SkinSuit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SkinSuit.entitlements; sourceTree = "<group>"; };
 		42F1465F2982720100CDE6E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		42F146662982896D00CDE6E7 /* Scene1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene1.sks; sourceTree = "<group>"; };
-		42F1466829828A3E00CDE6E7 /* Scene2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene2.sks; sourceTree = "<group>"; };
+		42F146662982896D00CDE6E7 /* Scene0.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene0.sks; sourceTree = "<group>"; };
+		42F1466829828A3E00CDE6E7 /* Scene1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene1.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +61,8 @@
 				42F1465B2982720100CDE6E7 /* Assets.xcassets */,
 				42F1465D2982720100CDE6E7 /* SkinSuit.entitlements */,
 				42F1465E2982720100CDE6E7 /* Preview Content */,
-				42F146662982896D00CDE6E7 /* Scene1.sks */,
-				42F1466829828A3E00CDE6E7 /* Scene2.sks */,
+				42F146662982896D00CDE6E7 /* Scene0.sks */,
+				42F1466829828A3E00CDE6E7 /* Scene1.sks */,
 			);
 			path = SkinSuit;
 			sourceTree = "<group>";
@@ -134,8 +134,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				42F146602982720100CDE6E7 /* Preview Assets.xcassets in Resources */,
-				42F1466929828A3E00CDE6E7 /* Scene2.sks in Resources */,
-				42F146672982896D00CDE6E7 /* Scene1.sks in Resources */,
+				42F1466929828A3E00CDE6E7 /* Scene1.sks in Resources */,
+				42F146672982896D00CDE6E7 /* Scene0.sks in Resources */,
 				42F1465C2982720100CDE6E7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,7 +287,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
@@ -325,7 +325,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 12.6;

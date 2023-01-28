@@ -26,3 +26,22 @@ ContentView.swift
 - added isFirstScene flag so don't include transition
 - Button clears isFirstScene
 - body has optional view structure to try to init two different ones with transitions
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Add separate tab hosting SKView
+2023-01-28
+
+ContentView.swift
+- added TabView with two tabs
+- factored former body out to SpriteViewApproach
+
+SKViewApproach.swit
+- added to contain an SKView using UIViewRepresentable
+
+Project - set min target 15.0 for more testing than 16.2
+
+ContentView.swift
+- added isFirstScene flag so don't include transition
+- Button clears isFirstScene
+- body has optional view structure to try to init two different ones with transitions

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4212FF352983CA21009BCE26 /* SpriteViewApproach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4212FF342983CA21009BCE26 /* SpriteViewApproach.swift */; };
+		4212FF372983CA50009BCE26 /* SKViewApproach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4212FF362983CA50009BCE26 /* SKViewApproach.swift */; };
 		42F14658298271FF00CDE6E7 /* SkinSuitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F14657298271FF00CDE6E7 /* SkinSuitApp.swift */; };
 		42F1465A298271FF00CDE6E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F14659298271FF00CDE6E7 /* ContentView.swift */; };
 		42F1465C2982720100CDE6E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42F1465B2982720100CDE6E7 /* Assets.xcassets */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4212FF342983CA21009BCE26 /* SpriteViewApproach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteViewApproach.swift; sourceTree = "<group>"; };
+		4212FF362983CA50009BCE26 /* SKViewApproach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKViewApproach.swift; sourceTree = "<group>"; };
 		42F14654298271FF00CDE6E7 /* SkinSuit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkinSuit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42F14657298271FF00CDE6E7 /* SkinSuitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinSuitApp.swift; sourceTree = "<group>"; };
 		42F14659298271FF00CDE6E7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 				42F1465E2982720100CDE6E7 /* Preview Content */,
 				42F146662982896D00CDE6E7 /* Scene0.sks */,
 				42F1466829828A3E00CDE6E7 /* Scene1.sks */,
+				4212FF342983CA21009BCE26 /* SpriteViewApproach.swift */,
+				4212FF362983CA50009BCE26 /* SKViewApproach.swift */,
 			);
 			path = SkinSuit;
 			sourceTree = "<group>";
@@ -148,6 +154,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				42F1465A298271FF00CDE6E7 /* ContentView.swift in Sources */,
+				4212FF352983CA21009BCE26 /* SpriteViewApproach.swift in Sources */,
+				4212FF372983CA50009BCE26 /* SKViewApproach.swift in Sources */,
 				42F14658298271FF00CDE6E7 /* SkinSuitApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

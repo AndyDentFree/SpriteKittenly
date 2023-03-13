@@ -9,8 +9,13 @@
 import SpriteKit
 import SwiftUI
 
+
 // relies on scenes created and passed in already
-struct SpriteKitContainer : UIViewRepresentable {
+struct SpriteKitContainer : AgnosticViewRepresentable {
+    
+    typealias RepresentedViewType = SKView
+
+    
     @Binding var sceneIndex: Int
     let scenes: [SKScene]
     let transitions: [SKTransition]
@@ -26,17 +31,18 @@ struct SpriteKitContainer : UIViewRepresentable {
         return Coordinator()
     }
 
-    func makeUIView(context: Context) -> SKView {
+    func makeView(context: Context) -> SKView {
        return SKView(frame: .zero)
     }
  
-    func updateUIView(_ view: SKView, context: Context) {
+    // triggered on first load and then re-triggered because dependency on @State sceneIndex which is altered by button
+    func updateView(_ view: SKView, context: Context) {
         let index = $sceneIndex.wrappedValue
         if context.coordinator.isFirstScene {
             view.presentScene(scenes[index])
             context.coordinator.isFirstScene = false
             context.coordinator.currentSceneIndex =  index
-        } else {  // use different func that takes concrete SKTransition
+        } else {  // use different presentScene that takes concrete SKTransition
             if context.coordinator.currentSceneIndex !=  index {
                 context.coordinator.currentSceneIndex =  index
                 view.presentScene(scenes[index], transition: transitions[index])
@@ -44,7 +50,7 @@ struct SpriteKitContainer : UIViewRepresentable {
         }
     }
     
-    static func dismantleUIView(view: SKView, coordinator: Self.Coordinator) {
+    static func dismantleView(view: RepresentedViewType, coordinator: Self.Coordinator) {
         view.presentScene(nil)        
     }
 
@@ -73,7 +79,6 @@ struct SKViewApproach: View {
 
 
 // so we can preview just the SKView
-
 struct SKViewApproach_Previews: PreviewProvider {
 
     static var previews: some View {

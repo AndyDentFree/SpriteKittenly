@@ -40,3 +40,19 @@ struct SpriteViewApproach: View {
         .padding()
     }
 }
+
+// so we can preview just the SKView
+struct SpriteViewApproach_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let scenes:[SKScene] = [SKScene(fileNamed: "Scene0")!, SKScene(fileNamed: "Scene1")!].map{
+            $0.scaleMode = .aspectFill
+            return $0
+        }
+        let transitions = [
+            SKTransition.push(with: .up, duration: 2.0),
+            SKTransition.push(with: .down, duration: 1.0)]
+        SpriteViewApproach(scenes: scenes, transitions: transitions)
+    }
+}
+

@@ -45,3 +45,13 @@ ContentView.swift
 - added isFirstScene flag so don't include transition
 - Button clears isFirstScene
 - body has optional view structure to try to init two different ones with transitions
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Building hosting approach for macOS
+2023-03-13
+
+AgnosticViewRepresentable.swift0
+- added
+
+SKViewAppproach.swift
+- use AgnosticViewRepresentable instead of UIVewRepresentable

@@ -46,7 +46,7 @@ class GameScene2LineNodes: SKScene {
         }
         removeChildren(in: _tempNodes) // neaten things up - this has no perceivable performance impact
 
-        var finishedPts = SKShapeNode(splinePoints: &_pointsDrawn, count: _pointsDrawn.count)
+        let finishedPts = SKShapeNode(splinePoints: &_pointsDrawn, count: _pointsDrawn.count)
         finishedPts.lineWidth = 1
         if let drawColor = _colorProvider.next() {
             finishedPts.strokeColor = drawColor
@@ -61,7 +61,7 @@ class GameScene2LineNodes: SKScene {
     func updatePath(_ pos: CGPoint) {
         _pointsDrawn.append(pos)
         // add new node of two points
-        var linesNode = SKShapeNode(points: &_pointsDrawn[_pointsDrawn.count - 2], count: 2)
+        let linesNode = SKShapeNode(points: &_pointsDrawn[_pointsDrawn.count - 2], count: 2)
         linesNode.lineWidth = 1
         linesNode.strokeColor = SKColor.yellow
         if _fillShape {

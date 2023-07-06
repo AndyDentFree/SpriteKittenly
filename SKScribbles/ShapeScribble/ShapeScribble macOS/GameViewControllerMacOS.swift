@@ -24,7 +24,7 @@ class GameViewControllerMacOS: NSViewController {
     let fillLabel =  NSMutableAttributedString(string:"Fill")
 
     // Declare the fonts
-    let coloredLabelFont1 = NSFont(name:"SFUIDisplay-Regular", size:14.0)!
+    let coloredLabelFont1 = NSFont(name:"SFUIDisplay-Regular", size:14.0) ?? NSFont(name: "Arial", size: 14.0)!
     
     // Declare the colors
     let coloredLabelColor2 = NSColor(red: 0.999999, green: 0.999974, blue: 0.999991, alpha: 1.000000)
@@ -59,7 +59,7 @@ class GameViewControllerMacOS: NSViewController {
     }
     
     func makeScene(sceneIndex:Int) {
-        var strokeColorMaker = varColorsOn ? ColorProvider() : ColorProvider(fixedColor: .green)
+        let strokeColorMaker = varColorsOn ? ColorProvider() : ColorProvider(fixedColor: .green)
         switch sceneIndex {
         case 0:
             scene = GameScene2LineNodes.newGameScene(strokeColors: strokeColorMaker, fill:fillOn)

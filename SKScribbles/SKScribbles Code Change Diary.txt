@@ -97,3 +97,23 @@ GameScenePathRebuilding
 - touchUp
   - set the fill color depending on _fillShape
 - updatePath - set the fill color depending on _fillShape
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Minor aesthetics & code cleanups
+2023-07-06
+
+iOS/Main.storyboard
+- GameViewControllerScene
+  - Clear button add leading constraint to suppress a11y warning
+  - optionSeg set background color so labels visible with dark SKView
+
+macO/SMain.storyboard
+- GameViewControllerScene
+  - Fill toggle add leading constraint to align on optionSeg
+  - optionSeg embed in custom effect view so labels clearly visible
+
+Fix some vars that could be lets
+
+GameViewControllerMacOS.swift
+- allocate font with fallback to Arial so doesn't crash if SFUI fonts missing

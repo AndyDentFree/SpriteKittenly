@@ -59,7 +59,7 @@ class GameViewControllerIOS: UIViewController {
     }
 
     func makeScene(sceneIndex:Int) {
-        var strokeColorMaker = varColorsOn ? ColorProvider() : ColorProvider(fixedColor: .green)
+        let strokeColorMaker = varColorsOn ? ColorProvider() : ColorProvider(fixedColor: .green)
         switch sceneIndex {
         case 0:
             scene = GameScene2LineNodes.newGameScene(strokeColors: strokeColorMaker, fill:fillOn)

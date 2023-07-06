@@ -740,8 +740,8 @@
                                     <action selector="clearDrawing:" target="XfG-lQ-9wD" id="2bn-o8-hXZ"/>
                                 </connections>
                             </button>
-                            <customView ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="au0-xH-AJ7" customClass="NSVisualEffectView">
-                                <rect key="frame" x="263" y="530" width="274" height="22"/>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="au0-xH-AJ7" customClass="NSVisualEffectView">
+                                <rect key="frame" x="263" y="526" width="274" height="22"/>
                                 <subviews>
                                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wjF-id-i6d">
                                         <rect key="frame" x="1" y="1" width="272" height="20"/>
@@ -773,7 +773,9 @@
                             <constraint firstItem="CMW-WZ-NOI" firstAttribute="leading" secondItem="eUE-M7-8cT" secondAttribute="trailing" constant="12" id="WjL-A2-dl3"/>
                             <constraint firstAttribute="trailing" secondItem="75z-Fl-Azs" secondAttribute="trailing" constant="8" id="hRg-1O-BIG"/>
                             <constraint firstItem="eUE-M7-8cT" firstAttribute="leading" secondItem="au0-xH-AJ7" secondAttribute="leading" id="lFS-AD-KT6"/>
+                            <constraint firstItem="au0-xH-AJ7" firstAttribute="top" secondItem="eUE-M7-8cT" secondAttribute="bottom" constant="16" id="pcQ-l1-0tL"/>
                             <constraint firstItem="75z-Fl-Azs" firstAttribute="top" secondItem="CMW-WZ-NOI" secondAttribute="top" id="stX-lA-xJF"/>
+                            <constraint firstItem="75z-Fl-Azs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="CMW-WZ-NOI" secondAttribute="trailing" constant="180" id="tL9-uU-eJW"/>
                         </constraints>
                     </view>
                     <connections>

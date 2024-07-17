@@ -117,3 +117,18 @@ Fix some vars that could be lets
 
 GameViewControllerMacOS.swift
 - allocate font with fallback to Arial so doesn't crash if SFUI fonts missing
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Minor drawing tweaks
+2024-06-25
+
+GameSceneParticleCrayon
+- touchDown set the particleBirthrate to zero so only starts drawing as move
+- touchUp clear particleBirthrate before any other actions to minimise blob
+
+Crayon.sks adjust so doesn't fade so fast
+- Alpha Speed reduced from -0.15 to -0.02 so doesn't fade as fast
+- Scale reduced from 0.3 to 0.2 and Rnge increased from 0.05 to 0.1 so get more ragged bits
+
+  

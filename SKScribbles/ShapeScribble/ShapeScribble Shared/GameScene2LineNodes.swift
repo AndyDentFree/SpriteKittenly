@@ -44,7 +44,7 @@ class GameScene2LineNodes: SKScene {
         if _fillShape {
             _pointsDrawn.append(_pointsDrawn.first!)  // close it because we use the SKShapeNode(splinePoints...) init which can smooth the close
         }
-        removeChildren(in: _tempNodes) // neaten things up - this has no perceivable performance impact
+        removeChildren(in: _tempNodes) // neaten things up - this has no perceivable performance impact but might cause faint shadowing of sharp corners
 
         let finishedPts = SKShapeNode(splinePoints: &_pointsDrawn, count: _pointsDrawn.count)
         finishedPts.lineWidth = 1

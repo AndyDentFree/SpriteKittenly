@@ -14,6 +14,7 @@ class GameSceneParticleCrayon: SKScene {
     var _emitter:SKEmitterNode? = nil
     var _lastPointDrawn = CGPoint()
     var _firstMove = false
+    var _specifiedBirthRate: CGFloat = 0.0  // save from the crayon.sks file on touchDown
 
     class func newGameScene(strokeColors:AnyIterator<SKColor>) -> GameSceneParticleCrayon {
         return GameSceneParticleCrayon(size: CGSize(width: 1366, height: 1024), strokeColors:strokeColors)
@@ -28,25 +29,29 @@ class GameSceneParticleCrayon: SKScene {
     }
     
     func touchDown(atPoint pos: CGPoint) {
-        _emitter = SKEmitterNode(fileNamed:"Crayon.sks")
+        guard let em = SKEmitterNode(fileNamed:"Crayon.sks") else {return}
         _lastPointDrawn = pos
-        _emitter?.position = pos
-        addChild(_emitter!)
-        _emitter?.targetNode = self // GOTCHA! - many getting stated pages miss this! Just adding the node gives you a draggable node but not its output
-        _firstMove = true
+        _emitter = em
+        em.position = pos
+        _specifiedBirthRate = em.particleBirthRate  // save to set in touchMoved
+        em.particleBirthRate = 0  // don't start drawing until move a smidge so don't start with black blob
+        addChild(em)
+        em.targetNode = self // GOTCHA! - many getting started pages miss this! Just adding the node gives you a draggable node but not its output
+        _firstMove = true  // flag to change touchMoved behaviour
     }
 
     func touchMoved(toPoint pos: CGPoint) {
         if _firstMove {
+            guard pos.notCloseTo(_lastPointDrawn) else { return }  // don't start drawing until move a tiny bit
             _firstMove = false
-            _emitter?.particleBirthRate = 400
+            _emitter?.particleBirthRate = _specifiedBirthRate
         }
         updatePath(pos)
     }
 
     func touchUp(atPoint pos: CGPoint) {
+        _emitter?.particleBirthRate = 0  // stop emitting before any other computation
         updatePath(pos)
-        _emitter?.particleBirthRate = 0
     }
 
     func updatePath(_ pos: CGPoint) {

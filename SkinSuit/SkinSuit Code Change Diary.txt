@@ -55,3 +55,20 @@ AgnosticViewRepresentable.swift0
 
 SKViewAppproach.swift
 - use AgnosticViewRepresentable instead of UIVewRepresentable
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Fixing bug and ensuring demo dismantleView being called
+2023-11-14
+
+AgnosticViewRepresentable
+- platform-specific extension default methods dismantleView renamed to dismantleUIView and dismantleNSView so they are ACTUALLY OVERRIDES that are invoked
+
+ContentView
+- expanded to have a button to completely hide SKView tabs, to demonstrate cleanup
+- isShowingSpriteKit state added
+
+SKViewApproach
+- InitLogger added
+- struct SKViewApproach added an InitLogger property so can see calls when destroyed
+- message added to dismantleView
+

@@ -17,16 +17,33 @@ struct ContentView: View {
         SKTransition.push(with: .up, duration: 2.0),
         SKTransition.push(with: .down, duration: 1.0)]
     
+    @State var isShowingSpriteKit = false
+    
     var body: some View {
-        TabView {
-            SKViewApproach(scenes: scenes, transitions: transitions)
-                .tabItem {
-                    Label("Wrapped SKView", systemImage: "play.rectangle.on.rectangle")
+        VStack {
+            Spacer()
+            Button((isShowingSpriteKit ? "Hide " : "Show ") + "SpriteKit Demos") {
+                isShowingSpriteKit.toggle()
+            }
+            .buttonStyle(.borderedProminent)
+            Spacer()
+            if isShowingSpriteKit {
+                TabView {
+                    SKViewApproach(scenes: scenes, transitions: transitions)
+                        .tabItem {
+                            Label("Wrapped SKView", systemImage: "play.rectangle.on.rectangle")
+                        }
+                    SpriteViewApproach(scenes: scenes, transitions: transitions)
+                        .tabItem {
+                            Label("SpriteView", systemImage: "rectangle.on.rectangle")
+                        }
                 }
-            SpriteViewApproach(scenes: scenes, transitions: transitions)
-                .tabItem {
-                    Label("SpriteView", systemImage: "rectangle.on.rectangle")
-                }
+            } else {
+                Text("Dummy view so SKView can vanish\nto demonstrate calling\ndismantleUIView")
+                    .font(.largeTitle)
+                    .multilineTextAlignment(.center)
+                Spacer()
+            }
         }
     }
 }

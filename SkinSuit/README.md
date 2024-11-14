@@ -23,7 +23,26 @@ The escape hatch of [UIViewRepresentable][rep] is used by `SKViewApproach`.
 
 Note some weird behaviour when this was the 2nd tab, it didn't appear to do the presentScene, **unless** the first tab had interacted. This may be the [transition bug][sb] in action. I recommend strongly against mixing using `SpriteView` in an app that also uses `SKView` even if on different screens.
 
-Using different tabs as shown here is a bit more problematic for cleanup - it shouldn't be a problem but note [dismantleUIView][dv] is **not** invoked just changing tabs - it would only be when going to another screen.
+### Cleanup logic
+Using different tabs as shown here is a bit more problematic for cleanup - it shouldn't be a problem but note [dismantleUIView][dv] is **not** invoked just changing tabs - it would only be when going to another screen or if the entire content is dropped from the view. 
+
+The sample was changed so in `ContentView` now we can use the **Hide SpriteKit Demos** button to ensure destruction happens.
+
+````
+    if isShowingSpriteKit {
+        TabView {
+            SKViewApproach...
+
+```
+
+Going to the SpriteKit view and back out again with **Hide SpriteKit Demos** will show the following in the debug console in Xcode.
+
+```
+InitLogger init - SKContainer
+dismantleView invoked in SKViewApproach
+InitLogger deinit - SKContainer
+```
+
 
 [HWS]: https://www.hackingwithswift.com/quick-start/swiftui/how-to-integrate-spritekit-using-spriteview
 [SV]: https://developer.apple.com/documentation/spritekit/spriteview

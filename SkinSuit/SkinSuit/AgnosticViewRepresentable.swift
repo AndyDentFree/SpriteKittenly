@@ -27,7 +27,7 @@ public protocol AgnosticViewRepresentable: UIViewRepresentable where UIViewType 
     func updateView(_ view: RepresentedViewType, context: Context)
     
     @MainActor
-    static func dismantleView(view: RepresentedViewType, coordinator: Self.Coordinator)
+    static func dismantleView(_ view: RepresentedViewType, coordinator: Self.Coordinator)
 }
 
 extension AgnosticViewRepresentable {
@@ -42,8 +42,8 @@ extension AgnosticViewRepresentable {
     }
     
     @MainActor
-    static func dismantleView(view: RepresentedViewType, coordinator: Self.Coordinator) {
-        dismantleUIView(view, coordinator: coordinator)
+    static func dismantleUIView(_ view: RepresentedViewType, coordinator: Self.Coordinator) {
+        dismantleView(view, coordinator: coordinator)
     }
 }
 #elseif os(macOS)
@@ -58,6 +58,9 @@ public protocol AgnosticViewRepresentable: NSViewRepresentable where NSViewType 
     
     @MainActor
     func updateView(_ view: RepresentedViewType, context: Context)
+    
+    @MainActor
+    static func dismantleView(_ view: RepresentedViewType, coordinator: Self.Coordinator)
 }
 
 extension AgnosticViewRepresentable {
@@ -73,8 +76,8 @@ extension AgnosticViewRepresentable {
     }
     
     @MainActor
-    static func dismantleView(view: RepresentedViewType, coordinator: Self.Coordinator) {
-        dismantleNSView(view, coordinator: coordinator)
+    static func dismantleNSView(_ view: RepresentedViewType, coordinator: Self.Coordinator) {
+        dismantleView(view, coordinator: coordinator)
     }
 }
 #endif

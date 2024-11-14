@@ -9,6 +9,18 @@
 import SpriteKit
 import SwiftUI
 
+/// helper class to be used in a struct so we can detect destruction
+class InitLogger {
+    var msg: String
+    init(msg: String) {
+        self.msg = msg
+        print("InitLogger init - \(msg)")
+    }
+    deinit {
+        print("InitLogger deinit - \(msg)")
+    }
+}
+
 
 // relies on scenes created and passed in already
 struct SpriteKitContainer : AgnosticViewRepresentable {
@@ -19,6 +31,7 @@ struct SpriteKitContainer : AgnosticViewRepresentable {
     @Binding var sceneIndex: Int
     let scenes: [SKScene]
     let transitions: [SKTransition]
+    let logger = InitLogger(msg: "SKContainer")
     
 
     // memoizes state to be passed back in via updateUIView context
@@ -50,8 +63,9 @@ struct SpriteKitContainer : AgnosticViewRepresentable {
         }
     }
     
-    static func dismantleView(view: RepresentedViewType, coordinator: Self.Coordinator) {
-        view.presentScene(nil)        
+    static func dismantleView(_ view: RepresentedViewType, coordinator: Self.Coordinator) {
+        print("dismantleView invoked in SKViewApproach")
+        view.presentScene(nil)
     }
 
 }

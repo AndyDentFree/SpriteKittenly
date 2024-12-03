@@ -7,29 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4212FF352983CA21009BCE26 /* SpriteViewApproach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4212FF342983CA21009BCE26 /* SpriteViewApproach.swift */; };
-		4212FF372983CA50009BCE26 /* SKViewApproach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4212FF362983CA50009BCE26 /* SKViewApproach.swift */; };
+		4212FF372983CA50009BCE26 /* SKViewWithResizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4212FF362983CA50009BCE26 /* SKViewWithResizes.swift */; };
+		422BA6132CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BA6122CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift */; };
+		422BA6152CED075B00FD52BE /* EmitterSceneMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BA6142CED074D00FD52BE /* EmitterSceneMaker.swift */; };
 		42C72B9729BEE3A700147CFB /* AgnosticViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */; };
+		42EE09392CFF1D9D00425F0C /* LayoutSensingSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EE09382CFF1D9D00425F0C /* LayoutSensingSKView.swift */; };
 		42F14658298271FF00CDE6E7 /* ResizingRemitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F14657298271FF00CDE6E7 /* ResizingRemitApp.swift */; };
 		42F1465A298271FF00CDE6E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F14659298271FF00CDE6E7 /* ContentView.swift */; };
 		42F1465C2982720100CDE6E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42F1465B2982720100CDE6E7 /* Assets.xcassets */; };
 		42F146602982720100CDE6E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42F1465F2982720100CDE6E7 /* Preview Assets.xcassets */; };
-		42F146672982896D00CDE6E7 /* Scene0.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42F146662982896D00CDE6E7 /* Scene0.sks */; };
-		42F1466929828A3E00CDE6E7 /* Scene1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 42F1466829828A3E00CDE6E7 /* Scene1.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4212FF342983CA21009BCE26 /* SpriteViewApproach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteViewApproach.swift; sourceTree = "<group>"; };
-		4212FF362983CA50009BCE26 /* SKViewApproach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKViewApproach.swift; sourceTree = "<group>"; };
+		4212FF362983CA50009BCE26 /* SKViewWithResizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKViewWithResizes.swift; sourceTree = "<group>"; };
+		422BA6122CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitContainerWithGen.swift; sourceTree = "<group>"; };
+		422BA6142CED074D00FD52BE /* EmitterSceneMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterSceneMaker.swift; sourceTree = "<group>"; };
 		42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgnosticViewRepresentable.swift; sourceTree = "<group>"; };
+		42EE09382CFF1D9D00425F0C /* LayoutSensingSKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSensingSKView.swift; sourceTree = "<group>"; };
 		42F14654298271FF00CDE6E7 /* ResizingRemit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResizingRemit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42F14657298271FF00CDE6E7 /* ResizingRemitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingRemitApp.swift; sourceTree = "<group>"; };
 		42F14659298271FF00CDE6E7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		42F1465B2982720100CDE6E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42F1465D2982720100CDE6E7 /* ResizingRemit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ResizingRemit.entitlements; sourceTree = "<group>"; };
 		42F1465F2982720100CDE6E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		42F146662982896D00CDE6E7 /* Scene0.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene0.sks; sourceTree = "<group>"; };
-		42F1466829828A3E00CDE6E7 /* Scene1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene1.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,15 +62,15 @@
 		42F14656298271FF00CDE6E7 /* ResizingRemit */ = {
 			isa = PBXGroup;
 			children = (
+				422BA6142CED074D00FD52BE /* EmitterSceneMaker.swift */,
 				42F14657298271FF00CDE6E7 /* ResizingRemitApp.swift */,
 				42F14659298271FF00CDE6E7 /* ContentView.swift */,
 				42F1465B2982720100CDE6E7 /* Assets.xcassets */,
 				42F1465D2982720100CDE6E7 /* ResizingRemit.entitlements */,
 				42F1465E2982720100CDE6E7 /* Preview Content */,
-				42F146662982896D00CDE6E7 /* Scene0.sks */,
-				42F1466829828A3E00CDE6E7 /* Scene1.sks */,
-				4212FF342983CA21009BCE26 /* SpriteViewApproach.swift */,
-				4212FF362983CA50009BCE26 /* SKViewApproach.swift */,
+				4212FF362983CA50009BCE26 /* SKViewWithResizes.swift */,
+				422BA6122CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift */,
+				42EE09382CFF1D9D00425F0C /* LayoutSensingSKView.swift */,
 				42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */,
 			);
 			path = ResizingRemit;
@@ -143,8 +143,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				42F146602982720100CDE6E7 /* Preview Assets.xcassets in Resources */,
-				42F1466929828A3E00CDE6E7 /* Scene1.sks in Resources */,
-				42F146672982896D00CDE6E7 /* Scene0.sks in Resources */,
 				42F1465C2982720100CDE6E7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,9 +154,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				422BA6132CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift in Sources */,
 				42F1465A298271FF00CDE6E7 /* ContentView.swift in Sources */,
-				4212FF352983CA21009BCE26 /* SpriteViewApproach.swift in Sources */,
-				4212FF372983CA50009BCE26 /* SKViewApproach.swift in Sources */,
+				4212FF372983CA50009BCE26 /* SKViewWithResizes.swift in Sources */,
+				422BA6152CED075B00FD52BE /* EmitterSceneMaker.swift in Sources */,
+				42EE09392CFF1D9D00425F0C /* LayoutSensingSKView.swift in Sources */,
 				42F14658298271FF00CDE6E7 /* ResizingRemitApp.swift in Sources */,
 				42C72B9729BEE3A700147CFB /* AgnosticViewRepresentable.swift in Sources */,
 			);
@@ -299,10 +299,10 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = test.touchgram.ResizingRemit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -337,10 +337,10 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = test.touchgram.ResizingRemit;
 				PRODUCT_NAME = "$(TARGET_NAME)";

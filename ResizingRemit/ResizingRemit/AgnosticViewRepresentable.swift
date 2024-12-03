@@ -25,7 +25,11 @@ public protocol AgnosticViewRepresentable: UIViewRepresentable where UIViewType 
     
     @MainActor
     func updateView(_ view: RepresentedViewType, context: Context)
-    
+/*
+   // optional informative call
+    @MainActor @preconcurrency
+    func sizeThatFits(_ proposal: ProposedViewSize, view: UIViewType, context: Context) -> CGSize?
+ */
     @MainActor
     static func dismantleView(_ view: RepresentedViewType, coordinator: Self.Coordinator)
 }
@@ -41,6 +45,14 @@ extension AgnosticViewRepresentable {
         updateView(uiView, context: context)
     }
     
+    /*
+    @MainActor @preconcurrency
+    func sizeThatFits(_ proposal: ProposedViewSize, uiView: UIViewType, context: Context) -> CGSize?
+    {
+        return sizeThatFits(proposal, view: uiView, context: context)
+    }
+     */
+
     @MainActor
     static func dismantleUIView(_ view: RepresentedViewType, coordinator: Self.Coordinator) {
         dismantleView(view, coordinator: coordinator)
@@ -58,6 +70,10 @@ public protocol AgnosticViewRepresentable: NSViewRepresentable where NSViewType 
     
     @MainActor
     func updateView(_ view: RepresentedViewType, context: Context)
+    /*
+    @MainActor @preconcurrency
+    func sizeThatFits(_ proposal: ProposedViewSize, view: RepresentedViewType, context: Context) -> CGSize?
+    */
     
     @MainActor
     static func dismantleView(_ view: RepresentedViewType, coordinator: Self.Coordinator)
@@ -74,6 +90,13 @@ extension AgnosticViewRepresentable {
     public func updateNSView(_ nsView: NSViewType, context: Context) {
         updateView(nsView, context: context)
     }
+    /*
+    @MainActor @preconcurrency
+    func sizeThatFits(_ proposal: ProposedViewSize, nsView: NSViewType, context: Context) -> CGSize?
+    {
+        return sizeThatFits(proposal, view: nsView, context: context)
+    }
+     */
     
     @MainActor
     static func dismantleNSView(_ view: RepresentedViewType, coordinator: Self.Coordinator) {

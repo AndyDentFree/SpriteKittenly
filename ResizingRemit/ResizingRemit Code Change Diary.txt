@@ -1,3 +1,43 @@
 2024-11-17
 Creation
 Copied from SkinSuit and renamed files and identifiers
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Change UI for resizable views
+
+ContentView
+- remove scenes and transitions locals
+- remove SKViewApproach logic
+- add SKViewWithResizes
+
+SKViewWithResizes
+- added 
+
+
+SpriteKitContainerWithGen
+- rename from SpriteKitContainer
+- scenes, sceneIndex, transitions removed
+- sceneMaker added
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Fix to handle actual resizing
+2024-12-03
+
+SKViewWithResizes
+- pass instance of EmitterSceneMaker to SpriteKitContainerWithGen, instead of lambda
+
+LayoutSensindSKView pulled out into its own file to make it easier for reuse
+
+SpriteKitContainerWithGen
+- ResizeableSceneMaker protocol added
+- sceneMaker property taking lambda replaced with sceneMaker taking ResizeableSceneMaker
+- makeView - onLayout lambda created which detects size changes
+- updateView invoke makeScene on ResizeableSceneMaker rather than just invoking lambda 
+
+EmitterSceneMaker
+- conform to ResizeableSceneMaker
+- added SKEmitterNode properties to point to 
+- changed struct to class so can conform to ResizeableSceneMaker
+- viewResized added
+

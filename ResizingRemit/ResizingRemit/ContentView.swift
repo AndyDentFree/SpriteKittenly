@@ -9,14 +9,6 @@ import SwiftUI
 import SpriteKit
 
 struct ContentView: View {
-    let scenes = [SKScene(fileNamed: "Scene0")!,  SKScene(fileNamed: "Scene1")!].map{
-        $0.scaleMode = .aspectFill
-        return $0
-    }
-    let transitions = [
-        SKTransition.push(with: .up, duration: 2.0),
-        SKTransition.push(with: .down, duration: 1.0)]
-    
     @State var isShowingSpriteKit = false
     
     var body: some View {
@@ -28,18 +20,9 @@ struct ContentView: View {
             .buttonStyle(.borderedProminent)
             Spacer()
             if isShowingSpriteKit {
-                TabView {
-                    SKViewApproach(scenes: scenes, transitions: transitions)
-                        .tabItem {
-                            Label("Wrapped SKView", systemImage: "play.rectangle.on.rectangle")
-                        }
-                    SpriteViewApproach(scenes: scenes, transitions: transitions)
-                        .tabItem {
-                            Label("SpriteView", systemImage: "rectangle.on.rectangle")
-                        }
-                }
+                SKViewWithResizes()
             } else {
-                Text("Dummy view so SKView can vanish\nto demonstrate calling\ndismantleUIView")
+                Text("Dummy view so can easily breakpoint the SpriteKit stuff after launch and see dismantleView being invoked")
                     .font(.largeTitle)
                     .multilineTextAlignment(.center)
                 Spacer()

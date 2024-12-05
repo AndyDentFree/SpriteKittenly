@@ -3,6 +3,8 @@ Exploring cute and sometimes scratchy corners of SpriteKit with Swift.
 
 Main motivation finding ways to do things for touch feedback and rendering in [Touchgram][tg] which was initially ported from C++ and the Cocos2D-X game framework. Touchgram lets you compose multi-page interactive messages within Apple iMessage.
 
+The SwiftUI samples mostly built as part of the [Purrticles][p1] Particle Editor app which is a companion to Touchgram but also a developer and designer tool in its own right.
+
 See specific README in each project directory
 
 
@@ -18,10 +20,14 @@ See specific README in each project directory
 * [StyledTextOverSK](./StyledTextOverSK/) long discussion of how to combine SpriteKit with styled text. I went with an SKLabelNode using NSAttributedString in [Touchgram](https://www.touchgram.com/) because of the  performance issues this sample shows.
 * [FontThraSKing](./FontThraSKing/) simple use of different fonts, picking them and displaying in SpriteKit, mostly created to get understanding of a crash
 
-## General
+## SwiftUI
 * [SkinSuit](./SkinSuit/) Embedding SpriteKit within SwiftUI, exploring two different approaches.
+* [ResizingRemit](./ResizingRemit/) Using within SwiftUI responding to a resized area by adjusting the scene.
+
+
+## General
 * LottieSprite - unfinished exploration, don't bother
 
 
 [tg]: https://www.touchgram.com
-
+[p1]: https://www.touchgram.com/purrticles

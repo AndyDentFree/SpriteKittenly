@@ -11,10 +11,38 @@ It acts as a simpler case for debugging, especially should I have decided that s
 ## Detecting size changes
 Typical code managing `SKView` relies on detecting things in `UIViewRepresentable.updateUIView`, as shown in our cross-platform `AgnosticViewRepresentable`.
 
-However, for the specific case of the `SKView` being resized by SwiftUI's layout changing, that function doesn't get called with the new size.
+However, for the specific case of the `SKView` being resized by SwiftUI's layout changing, that function **doesn't get called with the new size.**
+
+The most efficient and least-intrusive solution is subclassing SKView to handle `layoutSubviews`:
+
+```
+// helper class so can invoke a lambda onLayout, typically when SKView has been resized
+class LayoutSensingSKView: SKView {
+    
+    @MainActor
+    var onLayout: ((SKView) -> Void)!
+    
+    #if os(iOS)
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        onLayout?(self)
+    }
+    #elseif os(macOS)
+    override func layout() {
+        super.layout()
+        onLayout?(self)
+    }
+    #endif
+}
+```
 
 ### sizeThatFits ignored
 Note that this is called **many** times with a variety of different sizes, often with one dimension being zero. The `AgnosticViewRepresentable` code to use `sizeThatFits` was left in, commented out, if you want to test it further.
+
+### Alternative with GeometryReader
+There's an alternative using a `GeometryReader` documented with a snippet in [issue 4][sk4].
+
+I just didn't have time after getting the `onLayout` approach going, to integrate it in here.
 
 ## Designing and Creating Emitters
 Three emitters are created in code. These were designed in Purrticles using the code export it provides, which only specifies values for the overrides of default SpriteKit parameters. So, compared to other SKEmitter creation in code, they may seem shorter.
@@ -93,3 +121,4 @@ func createEmitter() -> SKEmitterNode {
 
 
 [p1]: https://www.touchgram.com/purrticles
+[sk4]: https://github.com/AndyDentFree/SpriteKittenly/issues/4

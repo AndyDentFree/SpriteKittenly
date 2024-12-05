@@ -8,6 +8,18 @@ This sample was created when the [Purrticles app][p1] full-size preview was havi
 
 It acts as a simpler case for debugging, especially should I have decided that some weird behaviour is actually an Apple bug (not that anyone really expects them to fix things in SpriteKit at this stage). It also avoids reliance on any of the Touchgram infrastructure, even the subset used in Purrticles.
 
+## Example
+
+### App before expanding
+
+![<# Phone screenshot showing multiple particle emitters taking up about half the screen #>](img/RR%20Start%20-%20iPhone%2016%20Pro%20Max%20-%202024-12-05%2050pc.png "RR Start - iPhone 16 Pro Max - 2024-12-05 50pc.png")
+
+### App after expanding - emitters other than centre have all been moved
+
+![<# Phone screenshot showing multiple particle emitters taking up most of the screen #>](img/RR%20Expanded%20-%20iPhone%2016%20Pro%20Max%20-%202024-12-05%2050pc.png "RR Expanded - iPhone 16 Pro Max - 2024-12-05 50pc.png")
+
+
+
 ## Detecting size changes
 Typical code managing `SKView` relies on detecting things in `UIViewRepresentable.updateUIView`, as shown in our cross-platform `AgnosticViewRepresentable`.
 

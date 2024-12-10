@@ -28,7 +28,7 @@ Using different tabs as shown here is a bit more problematic for cleanup - it sh
 
 The sample was changed so in `ContentView` now we can use the **Hide SpriteKit Demos** button to ensure destruction happens.
 
-````
+```
     if isShowingSpriteKit {
         TabView {
             SKViewApproach...

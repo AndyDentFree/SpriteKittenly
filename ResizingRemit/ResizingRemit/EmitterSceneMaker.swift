@@ -41,6 +41,7 @@ class EmitterSceneMaker: ResizeableSceneMaker {
             print("viewResized called before made emitters")
             return
         }
+        //leftFire?.position not reassigned as it's two constant values, relative to bottom-left
         rightFire?.position = CGPoint(x: newSize.width - 56, y: 37)
         confetti?.position = CGPoint(x: newSize.width / 2, y: newSize.height - 8)
         minSpray?.position = CGPoint(x: newSize.width/2, y: newSize.height/2)

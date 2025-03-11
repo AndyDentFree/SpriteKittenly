@@ -14,7 +14,8 @@ It acts as a simpler case for debugging, especially should I have decided that s
 
 ![<# Phone screenshot showing multiple particle emitters taking up about half the screen #>](img/RR%20Start%20-%20iPhone%2016%20Pro%20Max%20-%202024-12-05%2050pc.png "RR Start - iPhone 16 Pro Max - 2024-12-05 50pc.png")
 
-### App after expanding - emitters other than centre have all been moved
+### App after expanding - emitters have all been moved
+Even centred emitters need moving depending on how they have been initially positioned.
 
 ![<# Phone screenshot showing multiple particle emitters taking up most of the screen #>](img/RR%20Expanded%20-%20iPhone%2016%20Pro%20Max%20-%202024-12-05%2050pc.png "RR Expanded - iPhone 16 Pro Max - 2024-12-05 50pc.png")
 

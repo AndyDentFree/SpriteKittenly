@@ -27,6 +27,7 @@ See specific README in each project directory
 
 ## General
 * LottieSprite - unfinished exploration, don't bother
+* [ToP3orNotToP3](./ToP3orNotToP3) Testing how P3 color space affects simple rendering in SpriteKit.
 
 
 [tg]: https://www.touchgram.com

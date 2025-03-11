@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4212FF372983CA50009BCE26 /* SKViewWithResizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4212FF362983CA50009BCE26 /* SKViewWithResizes.swift */; };
 		422BA6132CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BA6122CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift */; };
-		422BA6152CED075B00FD52BE /* EmitterSceneMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BA6142CED074D00FD52BE /* EmitterSceneMaker.swift */; };
+		422BA6152CED075B00FD52BE /* ColoredShapeSceneMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BA6142CED074D00FD52BE /* ColoredShapeSceneMaker.swift */; };
+		427F78A32D80263000618D9E /* TappableScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 427F78A22D80262E00618D9E /* TappableScene.swift */; };
 		42C72B9729BEE3A700147CFB /* AgnosticViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */; };
 		42EE09392CFF1D9D00425F0C /* LayoutSensingSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EE09382CFF1D9D00425F0C /* LayoutSensingSKView.swift */; };
 		42F14658298271FF00CDE6E7 /* ToP3orNotToP3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F14657298271FF00CDE6E7 /* ToP3orNotToP3App.swift */; };
@@ -19,9 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4212FF362983CA50009BCE26 /* SKViewWithResizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKViewWithResizes.swift; sourceTree = "<group>"; };
 		422BA6122CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitContainerWithGen.swift; sourceTree = "<group>"; };
-		422BA6142CED074D00FD52BE /* EmitterSceneMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterSceneMaker.swift; sourceTree = "<group>"; };
+		422BA6142CED074D00FD52BE /* ColoredShapeSceneMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredShapeSceneMaker.swift; sourceTree = "<group>"; };
+		427F78A22D80262E00618D9E /* TappableScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableScene.swift; sourceTree = "<group>"; };
 		42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgnosticViewRepresentable.swift; sourceTree = "<group>"; };
 		42EE09382CFF1D9D00425F0C /* LayoutSensingSKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSensingSKView.swift; sourceTree = "<group>"; };
 		42F14654298271FF00CDE6E7 /* ToP3orNotToP3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToP3orNotToP3.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,13 +62,13 @@
 		42F14656298271FF00CDE6E7 /* ToP3orNotToP3 */ = {
 			isa = PBXGroup;
 			children = (
-				422BA6142CED074D00FD52BE /* EmitterSceneMaker.swift */,
+				427F78A22D80262E00618D9E /* TappableScene.swift */,
+				422BA6142CED074D00FD52BE /* ColoredShapeSceneMaker.swift */,
 				42F14657298271FF00CDE6E7 /* ToP3orNotToP3App.swift */,
 				42F14659298271FF00CDE6E7 /* ContentView.swift */,
 				42F1465B2982720100CDE6E7 /* Assets.xcassets */,
 				42F1465D2982720100CDE6E7 /* ToP3orNotToP3.entitlements */,
 				42F1465E2982720100CDE6E7 /* Preview Content */,
-				4212FF362983CA50009BCE26 /* SKViewWithResizes.swift */,
 				422BA6122CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift */,
 				42EE09382CFF1D9D00425F0C /* LayoutSensingSKView.swift */,
 				42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */,
@@ -156,8 +156,8 @@
 			files = (
 				422BA6132CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift in Sources */,
 				42F1465A298271FF00CDE6E7 /* ContentView.swift in Sources */,
-				4212FF372983CA50009BCE26 /* SKViewWithResizes.swift in Sources */,
-				422BA6152CED075B00FD52BE /* EmitterSceneMaker.swift in Sources */,
+				427F78A32D80263000618D9E /* TappableScene.swift in Sources */,
+				422BA6152CED075B00FD52BE /* ColoredShapeSceneMaker.swift in Sources */,
 				42EE09392CFF1D9D00425F0C /* LayoutSensingSKView.swift in Sources */,
 				42F14658298271FF00CDE6E7 /* ToP3orNotToP3App.swift in Sources */,
 				42C72B9729BEE3A700147CFB /* AgnosticViewRepresentable.swift in Sources */,

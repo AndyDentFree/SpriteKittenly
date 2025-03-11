@@ -1,3 +1,17 @@
 2025-03-11
 Creation
 Copied from ResizingRemit and renamed files and identifiers
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Cleanup so SKView visible immediately and add color pickers
+2025-03-11
+
+ContentView
+- remove isShowingSpriteKit
+- replace SKViewWithResizes with SpriteKitContainerWithGen 
+
+SKViewWithResizes 
+EmitterSceneMaker
+- removed
+
+ColoredShapeSceneMaker added

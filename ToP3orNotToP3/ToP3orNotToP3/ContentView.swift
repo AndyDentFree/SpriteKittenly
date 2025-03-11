@@ -9,24 +9,22 @@ import SwiftUI
 import SpriteKit
 
 struct ContentView: View {
-    @State var isShowingSpriteKit = false
+    @State fileprivate var NextShapeColor = Color.red
     
     var body: some View {
         VStack {
             Spacer()
-            Button((isShowingSpriteKit ? "Hide " : "Show ") + "SpriteKit Demos") {
-                isShowingSpriteKit.toggle()
-            }
-            .buttonStyle(.borderedProminent)
+            SpriteKitContainerWithGen(sceneMaker: ColoredShapeSceneMaker(colored: {$NextShapeColor.wrappedValue}))
+                .frame(minHeight: 100,  maxHeight: .infinity)
             Spacer()
-            if isShowingSpriteKit {
-                SKViewWithResizes()
-            } else {
-                Text("Dummy view so can easily breakpoint the SpriteKit stuff after launch and see dismantleView being invoked")
-                    .font(.largeTitle)
-                    .multilineTextAlignment(.center)
-                Spacer()
+            Group{
+                Text("Pick a color and try varying between P3 and sRGB color spaces")
+                HStack {
+                    ColorPicker("Next shape color", selection: $NextShapeColor)
+                }
             }
+            .padding(.horizontal)
+
         }
     }
 }

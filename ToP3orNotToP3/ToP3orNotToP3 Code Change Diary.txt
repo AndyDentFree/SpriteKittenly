@@ -15,3 +15,20 @@ EmitterSceneMaker
 - removed
 
 ColoredShapeSceneMaker added
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Trying different conversion logic - direct init vs cgColor
+2025-03-11
+
+ContentView
+- add convertDirectly state and toggle to set it
+- pass convertDirectly to scenemaker
+- minor layout changes
+- initial color of red set with explicit values rather than `Color.red` as that cause failure to draw dots if you tapped screen without picking a new colour
+
+ColoredShapeSceneMaker
+- change return type of lambda to expect a convertDirectly flag
+- makeScene pass in a lambda that does iOS compensation, depending on convertDirectly flag, to ensure values stay in sRGB space rather than wrapping.
+
+screenshots and README updated to show the wraparound bug

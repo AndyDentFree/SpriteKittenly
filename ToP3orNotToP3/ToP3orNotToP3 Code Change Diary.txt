@@ -32,3 +32,10 @@ ColoredShapeSceneMaker
 - makeScene pass in a lambda that does iOS compensation, depending on convertDirectly flag, to ensure values stay in sRGB space rather than wrapping.
 
 screenshots and README updated to show the wraparound bug
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+UI tweak to tell people to tap to see colors drawn!
+2025-03-11
+
+ContentView
+- add minor explanation

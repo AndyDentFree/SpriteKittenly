@@ -1,5 +1,10 @@
 # ToP3orNotToP3
 
+A sample program that draws colored dots on a SpriteKit surface, to explore how picking and DisplayP3 space interact with the conversion.
+
+If you're not familiar with SpriteKit, it has an [SKColor][a2] which is a simple `typealias` for the original app types `UIColor` and `NSColor`. This makes life more interesting in a SwiftUI world.
+
+
 ## Background
 I was evaluating using extended colors in [Touchgram][tg] and [Purrticles][p1] because the iOS colour picker allows picking Display P3 Hex in its slider view.
 
@@ -46,6 +51,7 @@ if let asCG = pickedColor.cgColor {
 The fix relies on [Color.cgColor][a1] which is marked as _Deprecated in iOS 18.4 and macOS 15.4_ - see [issue 5][gh1].
 
 [a1]: https://developer.apple.com/documentation/swiftui/color/cgcolor
+[a2]: https://developer.apple.com/documentation/spritekit/skcolor-swift.typealias
 [tg]: https://www.touchgram.com
 [gh1]: https://github.com/AndyDentFree/SpriteKittenly/issues/5
 [o1]: http://www.openradar.me/31581040

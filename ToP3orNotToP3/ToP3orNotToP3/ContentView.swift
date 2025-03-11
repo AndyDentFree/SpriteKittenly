@@ -19,7 +19,7 @@ struct ContentView: View {
                 .frame(minHeight: 100,  maxHeight: .infinity)
             Spacer()
             Group{
-                Text("Pick a color and try varying between P3 and sRGB color spaces")
+                Text("Pick a color and tap above to get dots on the SpriteKit surface. Try varying between P3 and sRGB color spaces")
                     ColorPicker("Next shape color", selection: $NextShapeColor)
                     Toggle("Convert directly to SKColor", isOn: $convertDirectly)
             }

@@ -1,0 +1,12 @@
+2025-03-18
+Creation
+Copied from ResizingRemit and renamed files and identifiers
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Cleanup so SKView visible immediately 
+2025-03-18
+
+ContentView
+- remove isShowingSpriteKit
+- replace SKViewWithResizes with SpriteKitContainerWithGen 

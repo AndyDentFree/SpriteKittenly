@@ -24,7 +24,7 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
     typealias RepresentedViewType = SKView
     let sceneMaker: ResizeableSceneMaker
     
-    // memoizes state to be passed back in via updateUIView context
+    // memoizes state to be passed back in via updateView context
     class Coordinator: NSObject {
         var isFirstScene = true
         var lastViewSize = CGSize.zero
@@ -53,7 +53,7 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
                 let newSize = $0.bounds.size
                 let oldSize = context.coordinator.lastViewSize
                 if newSize != oldSize {
-                    print("onLayout resized from (\(oldSize.width),  \(oldSize.height)) to (\(newSize.width), \(newSize.height)")
+                    //print("onLayout resized from (\(oldSize.width),  \(oldSize.height)) to (\(newSize.width), \(newSize.height)")
                     context.coordinator.lastViewSize = newSize
                     sceneMaker.viewResized(from: oldSize, to: newSize)
                 } else {

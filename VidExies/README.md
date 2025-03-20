@@ -23,11 +23,19 @@ or `UIViewController`. So we use a similar `AgnosticViewRepresentable` as used f
 [This StackOverflow question][so1] helped.
 
 
+## Wrapping ViewControllers
+Unlike most of the samples, as well as wrapping an `SKView` we also need to present ViewControllers so this sample introduces `AgnosticViewControllerRepresentable` which is a _facade_ for [UIViewControllerRepresentable][a6] or [NSViewControllerRepresentable][a7].
+
+### Getting the PreviewController back out
+To stop, we eventually have to invoke `RPScreenRecorder.shared().stopRecording` with a closure that receives an instance of `RPPreviewViewController`. That's handled by having the `ExportSKVideo` class both provide the `stopRecording()` function and, in there, provide a closure to save the PreviewController. With the exporter also providing `makePreview()`, it can use the saved PreviewController.
+
 [a1]: https://developer.apple.com/documentation/replaykit/rpscreenrecorder/startrecording(handler:)
 [a2]: https://developer.apple.com/documentation/replaykit/rpscreenrecorder/stoprecording(handler:)
 [a3]: https://developer.apple.com/documentation/replaykit/
 [a4]: https://developer.apple.com/documentation/replaykit/recording-and-streaming-your-macos-app
 [a5]: https://developer.apple.com/documentation/replaykit/rppreviewviewcontroller
+[a6]: https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable
+[a7]: https://developer.apple.com/documentation/swiftui/nsviewcontrollerrepresentable
 
 [p1]: https://www.touchgram.com/purrticles
 [so1]: https://stackoverflow.com/questions/59842682/replaykit-with-swiftui

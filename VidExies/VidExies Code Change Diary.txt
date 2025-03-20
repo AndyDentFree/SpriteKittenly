@@ -10,3 +10,27 @@ Cleanup so SKView visible immediately
 ContentView
 - remove isShowingSpriteKit
 - replace SKViewWithResizes with SpriteKitContainerWithGen 
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Add simple ReplayKit recording
+2025-03-19..20
+
+ContentView
+- isShowingReplayView state added
+- pass closure to TappableScene to call stopRecording
+- Button added to export
+- Text added to overlay button with fade, reminding people results saved in Photos
+- sheet added for export preview
+- minor layout
+
+EmitterSceneMaker
+- renamed TapppableEmitterSceneMaker
+- makeScene create a TappableScene passing in closure
+
+AgnosticViewControllerRepresentable
+ExportSKVideo
+ReplayKitRecorder
+PreviewContainer
+TappableScene
+- added

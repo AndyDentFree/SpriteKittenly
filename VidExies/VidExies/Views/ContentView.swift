@@ -56,7 +56,7 @@ struct ContentView: View {
             }
         }
         .edgesIgnoringSafeArea(isFullScreenSK ? .all : .init())
-        .sheet(isPresented: $isShowingReplayPreview) {
+        .fullScreenCover(isPresented: $isShowingReplayPreview) {
             exporter.makePreview()
                 .onDisappear {
                     // if a message left from preview, fade it out

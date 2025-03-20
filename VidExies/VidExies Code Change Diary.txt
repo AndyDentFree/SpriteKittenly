@@ -34,3 +34,14 @@ ReplayKitRecorder
 PreviewContainer
 TappableScene
 - added
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Fix ReplayKit preview sizing on iOS
+2025-03-20
+
+PreviewContainer
+- iOS-specific changes to representedtype as plain UIViewController
+- makeViewController create a wrapper VC and use it to present
+
+ContentView
+- use fullScreenCover instead of sheet

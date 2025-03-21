@@ -45,3 +45,13 @@ PreviewContainer
 
 ContentView
 - use fullScreenCover instead of sheet
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Fix ReplayKit preview sizing on macOS - broken by iOS fullscreen
+2025-03-21
+
+ContentView
+- hoist the content from .fullScreenCover to PreviewContent
+- conditional build using .fullScreenCover or .sheet
+

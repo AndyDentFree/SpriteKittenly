@@ -13,6 +13,8 @@ This sample was created when the [Purrticles app][p1] video export was being add
 
 It even supports Mac - see [Recording and Streaming Your macOS App][a4].
 
+**WARNING: you must test ReplayKit on real devices. The iOS simulators won't prompt and won't record.**
+
 
 ### Simple whole screen capture
 The pair of [startRecording][a1] and [stopRecording][a2] are used.

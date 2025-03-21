@@ -13,6 +13,23 @@ enum RecordType: Int {
     case replayKitFiltering
     case other
 }
+
+// little helper pulled out because need to use .sheet or .fullScreenCover depending on platform
+struct PreviewContent: View {
+    let exporter: ExportSKVideo
+    let onDisappear:  () -> Void
+    
+    // @escaping @Sendable @convention(block) () -> Void
+    var body: some View {
+        exporter.makePreview()
+            .onDisappear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                    self.onDisappear() }
+            }
+    }
+}
+
+    
 struct ContentView: View {
     
     @State var isFullScreenSK = false
@@ -56,17 +73,25 @@ struct ContentView: View {
             }
         }
         .edgesIgnoringSafeArea(isFullScreenSK ? .all : .init())
+        #if os(iOS)
+        //note anything other than .fullScreenCover fails on iOS as the embedded VC stubbornly refuses to resize
+        //this also has to be used in combination with UIViewController.present in makeViewController
         .fullScreenCover(isPresented: $isShowingReplayPreview) {
-            exporter.makePreview()
-                .onDisappear {
-                    // if a message left from preview, fade it out
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        withAnimation {
-                            resultMessage = ""
-                        }
-                    }
+            PreviewContent(exporter: exporter) {
+                withAnimation {
+                    resultMessage = ""
                 }
-    }  // sheet
+            }
+        }
+        #else
+        .sheet(isPresented: $isShowingReplayPreview) {
+            PreviewContent(exporter: exporter) {
+                withAnimation {
+                    resultMessage = ""
+                }
+            }
+        }  //sheet
+        #endif
     }
 }
 

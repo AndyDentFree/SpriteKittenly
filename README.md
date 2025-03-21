@@ -23,7 +23,7 @@ See specific README in each project directory
 ## SwiftUI
 * [SkinSuit](./SkinSuit/) Embedding SpriteKit within SwiftUI, exploring two different approaches.
 * [ResizingRemit](./ResizingRemit/) Using within SwiftUI responding to a resized area by adjusting the scene.
-
+* [VidExies](./VidExies/) SpriteKit export to video, within a SwiftUI app.
 
 ## General
 * LottieSprite - unfinished exploration, don't bother

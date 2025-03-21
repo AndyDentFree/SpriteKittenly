@@ -1,0 +1,57 @@
+2025-03-18
+Creation
+Copied from ResizingRemit and renamed files and identifiers
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Cleanup so SKView visible immediately 
+2025-03-18
+
+ContentView
+- remove isShowingSpriteKit
+- replace SKViewWithResizes with SpriteKitContainerWithGen 
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Add simple ReplayKit recording
+2025-03-19..20
+
+ContentView
+- isShowingReplayView state added
+- pass closure to TappableScene to call stopRecording
+- Button added to export
+- Text added to overlay button with fade, reminding people results saved in Photos
+- sheet added for export preview
+- minor layout
+
+EmitterSceneMaker
+- renamed TapppableEmitterSceneMaker
+- makeScene create a TappableScene passing in closure
+
+AgnosticViewControllerRepresentable
+ExportSKVideo
+ReplayKitRecorder
+PreviewContainer
+TappableScene
+- added
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Fix ReplayKit preview sizing on iOS
+2025-03-20
+
+PreviewContainer
+- iOS-specific changes to representedtype as plain UIViewController
+- makeViewController create a wrapper VC and use it to present
+
+ContentView
+- use fullScreenCover instead of sheet
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Fix ReplayKit preview sizing on macOS - broken by iOS fullscreen
+2025-03-21
+
+ContentView
+- hoist the content from .fullScreenCover to PreviewContent
+- conditional build using .fullScreenCover or .sheet
+

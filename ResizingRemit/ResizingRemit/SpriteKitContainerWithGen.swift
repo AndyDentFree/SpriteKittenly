@@ -41,16 +41,18 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
     
     func makeView(context: Context) -> SKView {
         let ret = LayoutSensingSKView(frame: .zero)
-        ret.onLayout = {
-            guard $0.hasSize else {
+        ret.onLayout = { (skv: SKView) in
+            guard skv.hasSize else {
                 print("onLayout called with zero size view")
                 return
             }
             if context.coordinator.isFirstScene {
-                context.coordinator.lastViewSize = $0.frame.size
-                print("onLayout saving size for first scene")
+                skv.presentScene(sceneMaker.makeScene(sizedTo: skv.bounds.size))
+                context.coordinator.isFirstScene = false
+                context.coordinator.lastViewSize = skv.bounds.size
+                print("onLayout sbout to presentScene size \(skv.bounds.size) for first scene")
             } else {
-                let newSize = $0.bounds.size
+                let newSize = skv.bounds.size
                 let oldSize = context.coordinator.lastViewSize
                 if newSize != oldSize {
                     print("onLayout resized from (\(oldSize.width),  \(oldSize.height)) to (\(newSize.width), \(newSize.height)")
@@ -68,23 +70,14 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
     func updateView(_ view: SKView, context: Context) {
         if context.coordinator.isFirstScene {
             if view.hasSize {
-                print("updateView invoked with size, about to makeScene")
+                print("updateView invoked with size, about to presentScene(makeScene())")
                 // Now that we have the size, we can set up the scene
                 view.presentScene(sceneMaker.makeScene(sizedTo: view.bounds.size))
                 context.coordinator.isFirstScene = false
                 context.coordinator.lastViewSize = view.frame.size
             } else {
                 // Layout hasn't occurred yet, schedule the scene presentation for later
-                print("updateView first scene has no size so defer to async")
-                DispatchQueue.main.async {
-                    if view.hasSize {
-                        print("updateView invoked async now with size, about to makeScene")
-                        view.presentScene(sceneMaker.makeScene(sizedTo: view.bounds.size))
-                        context.coordinator.isFirstScene = false
-                    } else {
-                        print("updateView deferred async still has no size so give up")  // never hits this case
-                    }
-                }
+                print("updateView first scene has no size so leave for onLayout to start")
             }
         } else {
             // tempting to think we can capture a resize here but only place detecting a resize is onLayout

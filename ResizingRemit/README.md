@@ -20,7 +20,6 @@ Even centred emitters need moving depending on how they have been initially posi
 ![<# Phone screenshot showing multiple particle emitters taking up most of the screen #>](img/RR%20Expanded%20-%20iPhone%2016%20Pro%20Max%20-%202024-12-05%2050pc.png "RR Expanded - iPhone 16 Pro Max - 2024-12-05 50pc.png")
 
 
-
 ## Detecting size changes
 Typical code managing `SKView` relies on detecting things in `UIViewRepresentable.updateUIView`, as shown in our cross-platform `AgnosticViewRepresentable`.
 

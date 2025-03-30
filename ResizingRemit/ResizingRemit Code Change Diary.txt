@@ -41,3 +41,13 @@ EmitterSceneMaker
 - changed struct to class so can conform to ResizeableSceneMaker
 - viewResized added
 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Simplify launching - cope with no size but onLayout invoked with size
+2025-03-30
+
+SpriteKitContainerWithGen
+- onLayout 
+  - presentScene if needed
+  - fix some inconsistencies using frame.size - now all bounds.size
+- updateView - remove all the dispatch logic to run a *later* presentScene - can reliably rely on onLayout

@@ -45,16 +45,38 @@ struct SpriteKitContainer : AgnosticViewRepresentable {
     }
 
     func makeView(context: Context) -> SKView {
-       return SKView(frame: .zero)
+        let ret = LayoutSensingSKView(frame: .zero)
+        ret.onLayout = { (skv: SKView) in
+            guard skv.hasSize else {
+                print("onLayout called with zero size view")
+                return
+            }
+            if context.coordinator.isFirstScene {
+                let index = context.coordinator.currentSceneIndex
+                skv.presentScene(scenes[index])
+                context.coordinator.isFirstScene = false
+                print("onLayout sbout to presentScene size \(skv.bounds.size) for first scene")
+            } else {
+                // see ResizingRemit for handling resizes at this point
+                print("onLayout called for SKView after first scene started")
+            }
+        }
+        return ret
     }
  
     // triggered on first load and then re-triggered because dependency on @State sceneIndex which is altered by button
     func updateView(_ view: SKView, context: Context) {
         let index = $sceneIndex.wrappedValue
         if context.coordinator.isFirstScene {
-            view.presentScene(scenes[index])
-            context.coordinator.isFirstScene = false
             context.coordinator.currentSceneIndex =  index
+            // stash even if we don't present, so if onLayout presents, knowws the scene
+            if view.hasSize {
+                view.presentScene(scenes[index])
+                context.coordinator.isFirstScene = false
+            } else {
+                // Layout hasn't occurred yet, schedule the scene presentation for later
+                print("updateView first scene has no size so leave for onLayout to start")
+            }
         } else {  // use different presentScene that takes concrete SKTransition
             if context.coordinator.currentSceneIndex !=  index {
                 context.coordinator.currentSceneIndex =  index
@@ -107,3 +129,10 @@ struct SKViewApproach_Previews: PreviewProvider {
     }
 }
 
+
+extension SKView {
+    var hasSize: Bool {get{
+        let sz = self.frame.size
+        return !sz.width.isZero && !sz.height.isZero
+    }}
+}

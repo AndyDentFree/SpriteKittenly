@@ -10,6 +10,7 @@
 		4212FF352983CA21009BCE26 /* SpriteViewApproach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4212FF342983CA21009BCE26 /* SpriteViewApproach.swift */; };
 		4212FF372983CA50009BCE26 /* SKViewApproach.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4212FF362983CA50009BCE26 /* SKViewApproach.swift */; };
 		428F332E2D9936C900773EA9 /* LayoutSensingSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428F332D2D9936C900773EA9 /* LayoutSensingSKView.swift */; };
+		429FC1342D9BCFF7006CA73E /* SceneProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429FC1332D9BCFF7006CA73E /* SceneProvider.swift */; };
 		42C72B9729BEE3A700147CFB /* AgnosticViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */; };
 		42F14658298271FF00CDE6E7 /* SkinSuitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F14657298271FF00CDE6E7 /* SkinSuitApp.swift */; };
 		42F1465A298271FF00CDE6E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F14659298271FF00CDE6E7 /* ContentView.swift */; };
@@ -23,6 +24,7 @@
 		4212FF342983CA21009BCE26 /* SpriteViewApproach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteViewApproach.swift; sourceTree = "<group>"; };
 		4212FF362983CA50009BCE26 /* SKViewApproach.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKViewApproach.swift; sourceTree = "<group>"; };
 		428F332D2D9936C900773EA9 /* LayoutSensingSKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSensingSKView.swift; sourceTree = "<group>"; };
+		429FC1332D9BCFF7006CA73E /* SceneProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneProvider.swift; sourceTree = "<group>"; };
 		42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgnosticViewRepresentable.swift; sourceTree = "<group>"; };
 		42F14654298271FF00CDE6E7 /* SkinSuit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkinSuit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42F14657298271FF00CDE6E7 /* SkinSuitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinSuitApp.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 		42F14656298271FF00CDE6E7 /* SkinSuit */ = {
 			isa = PBXGroup;
 			children = (
+				429FC1332D9BCFF7006CA73E /* SceneProvider.swift */,
 				42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */,
 				42F1465B2982720100CDE6E7 /* Assets.xcassets */,
 				42F14659298271FF00CDE6E7 /* ContentView.swift */,
@@ -161,6 +164,7 @@
 			files = (
 				42F1465A298271FF00CDE6E7 /* ContentView.swift in Sources */,
 				4212FF352983CA21009BCE26 /* SpriteViewApproach.swift in Sources */,
+				429FC1342D9BCFF7006CA73E /* SceneProvider.swift in Sources */,
 				4212FF372983CA50009BCE26 /* SKViewApproach.swift in Sources */,
 				42F14658298271FF00CDE6E7 /* SkinSuitApp.swift in Sources */,
 				428F332E2D9936C900773EA9 /* LayoutSensingSKView.swift in Sources */,

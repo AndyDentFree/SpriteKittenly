@@ -11,7 +11,7 @@ import SpriteKit
 enum RecordType: Int {
     case replayKitInMemory
     case replayKitFiltering
-    case other
+    case frameWise
 }
 
 // little helper pulled out because need to use .sheet or .fullScreenCover depending on platform
@@ -52,18 +52,18 @@ struct ContentView: View {
                 Picker("", selection: $exportTabSelection) {
                     Text("ReplayKit Full screen").tag(RecordType.replayKitInMemory)
                     Text("ReplayKit Cropped").tag(RecordType.replayKitFiltering)
-                    Text("Framewise").tag(RecordType.other)
+                    Text("Framewise").tag(RecordType.frameWise)
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding()
                 if resultMessage.isEmpty {
                     Button("Export video") {
-                        exporter.export(mode: exportTabSelection,
+                        exporter.export(mode: exportTabSelection,  // actually do the video export
                                         fullScreenFlag: $isFullScreenSK,
                                         previewFlag: $isShowingReplayPreview,
                                         resultIn: $resultMessage)
                     }
-                    .disabled(exportTabSelection != .replayKitInMemory)  // first sample just in memory
+                    .disabled(exportTabSelection == .replayKitFiltering)
                     .buttonStyle(.borderedProminent)
                 } else {
                     Text(resultMessage)

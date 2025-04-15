@@ -55,3 +55,23 @@ ContentView
 - hoist the content from .fullScreenCover to PreviewContent
 - conditional build using .fullScreenCover or .sheet
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Copy onLayout fixes back from ResizingRemit
+2025-04-04
+
+SpriteKitContainerWithGen
+  - onLayout added to presentScene if needed
+  - updateView - check if has size & do nothing for first scene
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Record without ReplayKit - Fixes #8
+2025-04-04
+ContentView
+- enable picker to choose Framewise capture
+- RecordType.other renamed .frameWise
+
+ExportSKVideo
+- export changed if to switch now we're also handling .frameWise
+
+FrameCaptureRecorder added
+

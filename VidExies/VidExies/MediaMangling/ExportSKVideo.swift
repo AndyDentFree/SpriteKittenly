@@ -18,14 +18,22 @@ class ExportSKVideo {
 
     public func export(mode: RecordType, fullScreenFlag: Binding<Bool>, previewFlag: Binding<Bool>, resultIn: Binding<String>) {
         currentMode = mode
-        if mode == .replayKitInMemory {
+        switch mode {
+            
+        case .replayKitInMemory:
             fullScreenFlag.wrappedValue = true
             isShowingContentToRecord = fullScreenFlag  // save so final completion can toggle
             self.isShowingPreview = previewFlag
             replayRecorder = ReplayKitRecorder()
             replayRecorder?.startRecording()
             resultMessage = resultIn
-        } else {
+        
+        case .frameWise:
+            fullScreenFlag.wrappedValue = true
+            isShowingContentToRecord = fullScreenFlag  // save so final completion can toggle
+            self.isShowingPreview = previewFlag
+
+        default:
             print("unknown export mode")
             self.isShowingPreview = nil
             isShowingContentToRecord = nil

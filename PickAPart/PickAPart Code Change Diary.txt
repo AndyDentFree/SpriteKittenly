@@ -1,3 +1,29 @@
 2025-04-23
 Creation
 Copied from ResizingRemit and renamed files and identifiers
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Add fake doc browser - choice of new or existing doc
+2025-04-24..30 (slow dev on holiday)
+
+PaPDocument
+PaPView
+PreviewView
+TemplateModel
+TemplatePickerView
+TemplatePickerModel
+TemplateView
+- added
+
+ContentView
+- changed to NavigationView wrapped around picking a template or fake existing doc
+
+EmitterSceneMaker
+- make only one emitter instead of four
+- take an index number to make 4 variants of the 4 emitters so can make 16 different for 
+
+SpriteKitContainerWithGen
+- isFirstScene renamed isYetToMakeScene
+
+
+TODO something that keeps current doc in memory after create from picker, NavigationLink doesn't recreate for some reason

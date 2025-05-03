@@ -26,7 +26,7 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
     
     // memoizes state to be passed back in via updateUIView context
     class Coordinator: NSObject {
-        var isFirstScene = true
+        var isYetToMakeScene = true
         var lastViewSize = CGSize.zero
         var sceneMaker: ResizeableSceneMaker
         
@@ -46,9 +46,9 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
                 print("onLayout called with zero size view")
                 return
             }
-            if context.coordinator.isFirstScene {
+            if context.coordinator.isYetToMakeScene {
                 skv.presentScene(sceneMaker.makeScene(sizedTo: skv.bounds.size))
-                context.coordinator.isFirstScene = false
+                context.coordinator.isYetToMakeScene = false
                 context.coordinator.lastViewSize = skv.bounds.size
                 print("onLayout sbout to presentScene size \(skv.bounds.size) for first scene")
             } else {
@@ -68,12 +68,12 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
     
     // triggered on first load and then re-triggered because dependency on @State sceneIndex which may be altered externally
     func updateView(_ view: SKView, context: Context) {
-        if context.coordinator.isFirstScene {
+        if context.coordinator.isYetToMakeScene {
             if view.hasSize {
                 print("updateView invoked with size, about to presentScene(makeScene())")
                 // Now that we have the size, we can set up the scene
                 view.presentScene(sceneMaker.makeScene(sizedTo: view.bounds.size))
-                context.coordinator.isFirstScene = false
+                context.coordinator.isYetToMakeScene = false
                 context.coordinator.lastViewSize = view.frame.size
             } else {
                 // Layout hasn't occurred yet, schedule the scene presentation for later

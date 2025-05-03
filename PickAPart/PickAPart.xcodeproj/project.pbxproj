@@ -3,34 +3,28 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4212FF372983CA50009BCE26 /* SKViewWithResizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4212FF362983CA50009BCE26 /* SKViewWithResizes.swift */; };
-		422BA6132CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BA6122CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift */; };
-		422BA6152CED075B00FD52BE /* EmitterSceneMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 422BA6142CED074D00FD52BE /* EmitterSceneMaker.swift */; };
-		42C72B9729BEE3A700147CFB /* AgnosticViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */; };
-		42EE09392CFF1D9D00425F0C /* LayoutSensingSKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42EE09382CFF1D9D00425F0C /* LayoutSensingSKView.swift */; };
 		42F14658298271FF00CDE6E7 /* PickAPartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F14657298271FF00CDE6E7 /* PickAPartApp.swift */; };
-		42F1465A298271FF00CDE6E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F14659298271FF00CDE6E7 /* ContentView.swift */; };
 		42F1465C2982720100CDE6E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42F1465B2982720100CDE6E7 /* Assets.xcassets */; };
 		42F146602982720100CDE6E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42F1465F2982720100CDE6E7 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4212FF362983CA50009BCE26 /* SKViewWithResizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKViewWithResizes.swift; sourceTree = "<group>"; };
-		422BA6122CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitContainerWithGen.swift; sourceTree = "<group>"; };
-		422BA6142CED074D00FD52BE /* EmitterSceneMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterSceneMaker.swift; sourceTree = "<group>"; };
-		42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgnosticViewRepresentable.swift; sourceTree = "<group>"; };
-		42EE09382CFF1D9D00425F0C /* LayoutSensingSKView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutSensingSKView.swift; sourceTree = "<group>"; };
 		42F14654298271FF00CDE6E7 /* PickAPart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PickAPart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42F14657298271FF00CDE6E7 /* PickAPartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickAPartApp.swift; sourceTree = "<group>"; };
-		42F14659298271FF00CDE6E7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		42F1465B2982720100CDE6E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42F1465D2982720100CDE6E7 /* PickAPart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PickAPart.entitlements; sourceTree = "<group>"; };
 		42F1465F2982720100CDE6E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		4215765B2DC18D5600F04E48 /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
+		4215765C2DC18D8700F04E48 /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
+		4215765D2DC18D8F00F04E48 /* SKStuff */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SKStuff; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		42F14651298271FF00CDE6E7 /* Frameworks */ = {
@@ -62,16 +56,13 @@
 		42F14656298271FF00CDE6E7 /* PickAPart */ = {
 			isa = PBXGroup;
 			children = (
-				422BA6142CED074D00FD52BE /* EmitterSceneMaker.swift */,
-				42F14657298271FF00CDE6E7 /* PickAPartApp.swift */,
-				42F14659298271FF00CDE6E7 /* ContentView.swift */,
 				42F1465B2982720100CDE6E7 /* Assets.xcassets */,
+				4215765C2DC18D8700F04E48 /* Models */,
 				42F1465D2982720100CDE6E7 /* PickAPart.entitlements */,
+				42F14657298271FF00CDE6E7 /* PickAPartApp.swift */,
 				42F1465E2982720100CDE6E7 /* Preview Content */,
-				4212FF362983CA50009BCE26 /* SKViewWithResizes.swift */,
-				422BA6122CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift */,
-				42EE09382CFF1D9D00425F0C /* LayoutSensingSKView.swift */,
-				42C72B9629BEE3A700147CFB /* AgnosticViewRepresentable.swift */,
+				4215765D2DC18D8F00F04E48 /* SKStuff */,
+				4215765B2DC18D5600F04E48 /* Views */,
 			);
 			path = PickAPart;
 			sourceTree = "<group>";
@@ -98,6 +89,11 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4215765B2DC18D5600F04E48 /* Views */,
+				4215765C2DC18D8700F04E48 /* Models */,
+				4215765D2DC18D8F00F04E48 /* SKStuff */,
 			);
 			name = PickAPart;
 			productName = PickAPart;
@@ -154,13 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				422BA6132CEA3F4600FD52BE /* SpriteKitContainerWithGen.swift in Sources */,
-				42F1465A298271FF00CDE6E7 /* ContentView.swift in Sources */,
-				4212FF372983CA50009BCE26 /* SKViewWithResizes.swift in Sources */,
-				422BA6152CED075B00FD52BE /* EmitterSceneMaker.swift in Sources */,
-				42EE09392CFF1D9D00425F0C /* LayoutSensingSKView.swift in Sources */,
 				42F14658298271FF00CDE6E7 /* PickAPartApp.swift in Sources */,
-				42C72B9729BEE3A700147CFB /* AgnosticViewRepresentable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

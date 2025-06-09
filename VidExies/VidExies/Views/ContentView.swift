@@ -11,7 +11,7 @@ import SpriteKit
 enum RecordType: Int {
     case replayKitInMemory
     case replayKitFiltering
-    case other
+    case frameWise
 }
 
 // little helper pulled out because need to use .sheet or .fullScreenCover depending on platform
@@ -29,11 +29,12 @@ struct PreviewContent: View {
     }
 }
 
-    
+
 struct ContentView: View {
     
     @State var isFullScreenSK = false
     @State var isShowingReplayPreview = false
+    @State var isDirectRecording = false
     @State var exporter = ExportSKVideo()
     @State private var exportTabSelection = RecordType.replayKitInMemory
     @State var resultMessage = ""
@@ -52,28 +53,45 @@ struct ContentView: View {
                 Picker("", selection: $exportTabSelection) {
                     Text("ReplayKit Full screen").tag(RecordType.replayKitInMemory)
                     Text("ReplayKit Cropped").tag(RecordType.replayKitFiltering)
-                    Text("Framewise").tag(RecordType.other)
+                    Text("Framewise").tag(RecordType.frameWise)
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding()
-                if resultMessage.isEmpty {
-                    Button("Export video") {
-                        exporter.export(mode: exportTabSelection,
-                                        fullScreenFlag: $isFullScreenSK,
-                                        previewFlag: $isShowingReplayPreview,
-                                        resultIn: $resultMessage)
-                    }
-                    .disabled(exportTabSelection != .replayKitInMemory)  // first sample just in memory
-                    .buttonStyle(.borderedProminent)
+                if exportTabSelection == .frameWise {
+                    if isDirectRecording {
+                        Button("Stop exporting (framewise)") {
+                            exporter.stopRecording()
+                        }
+                    } else {
+                        Button("Export video (framewise)") {
+                            exporter.exportDirectRender(isRecordingFlag: $isDirectRecording,
+                                                        resultIn: $resultMessage,
+                                                        exportSize: CGSize(width: 400, height: 400),
+                                                        sceneMaker: TapppableEmitterSceneMaker(onTouch: {}))
+                        }}
                 } else {
-                    Text(resultMessage)
-                        .font(.subheadline)
+                    if resultMessage.isEmpty {  // bit of a hack
+                        Button("Export video") {
+                            // using ReplayKit so keep playing
+                            exporter.export(mode: exportTabSelection,  // actually do the video export
+                                            fullScreenFlag: $isFullScreenSK,
+                                            previewFlag: $isShowingReplayPreview,
+                                            resultIn: $resultMessage)
+                            
+                        }
+                        .disabled(exportTabSelection == .replayKitFiltering)
+                        .buttonStyle(.borderedProminent)
+                    } else {
+                        Text(resultMessage)
+                            .font(.subheadline)
+                    }
+                    
                 }
                 Spacer()
             }
         }
         .edgesIgnoringSafeArea(isFullScreenSK ? .all : .init())
-        #if os(iOS)
+#if os(iOS)
         //note anything other than .fullScreenCover fails on iOS as the embedded VC stubbornly refuses to resize
         //this also has to be used in combination with UIViewController.present in makeViewController
         .fullScreenCover(isPresented: $isShowingReplayPreview) {
@@ -83,7 +101,7 @@ struct ContentView: View {
                 }
             }
         }
-        #else
+#else
         .sheet(isPresented: $isShowingReplayPreview) {
             PreviewContent(exporter: exporter) {
                 withAnimation {
@@ -91,7 +109,7 @@ struct ContentView: View {
                 }
             }
         }  //sheet
-        #endif
+#endif
     }
 }
 

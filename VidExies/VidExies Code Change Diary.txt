@@ -62,3 +62,22 @@ Copy onLayout fixes back from ResizingRemit
 SpriteKitContainerWithGen
   - onLayout added to presentScene if needed
   - updateView - check if has size & do nothing for first scene
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Record without ReplayKit - Fixes #8
+2025-04-04, 06-10
+
+ContentView
+- enable picker to choose Framewise capture
+- RecordType.other renamed .frameWise
+- isDirectRecording added
+- make buttons conditional on .framewise mode so have stop button, no preview (for now)
+
+ExportSKVideo
+- export - changed if to switch now we're also handling .frameWise
+- exportDirectRender added, currently incomplete as needs to drive game loop to generate frames
+- makeVideoFileURL added
+
+
+FrameCaptureRecorder added
+

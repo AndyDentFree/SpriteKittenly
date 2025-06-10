@@ -68,16 +68,26 @@ Record without ReplayKit - Fixes #8
 2025-04-04, 06-10
 
 ContentView
+- var wrappedSKView added
 - enable picker to choose Framewise capture
+- remove unused "ReplayKit Cropped" option
 - RecordType.other renamed .frameWise
 - isDirectRecording added
 - make buttons conditional on .framewise mode so have stop button, no preview (for now)
+- sub-caption content conditional on .framewise mode
 
 ExportSKVideo
+- state vars added for framewise export 
+  framewiseRecorder
+  framewiseWriter
+  framewiseTimer
 - export - changed if to switch now we're also handling .frameWise
-- exportDirectRender added, currently incomplete as needs to drive game loop to generate frames
+- exportFrameWise added, currently incomplete as needs to drive game loop to generate frames
 - makeVideoFileURL added
-
+- stopRecordingFramewise added
 
 FrameCaptureRecorder added
 
+SpriteKitContainerWithGen
+- SKViewOwner helper class added
+- added playsOn so can pass back our SKView

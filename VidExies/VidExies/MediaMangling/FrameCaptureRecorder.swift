@@ -11,6 +11,7 @@ import AVFoundation
 import CoreVideo
 
 class FrameCaptureRecorder {
+    let renderSize: CGSize
     // Metal and SpriteKit properties.
     let device: MTLDevice = MTLCreateSystemDefaultDevice()!
     let commandQueue: MTLCommandQueue
@@ -23,12 +24,13 @@ class FrameCaptureRecorder {
     // The scene you want to record.
     let scene: SKScene
     
-    init(scene: SKScene, pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor) {
+    init(scene: SKScene, pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor, size: CGSize) {
+        self.renderSize = size
         self.scene = scene
         self.pixelBufferAdaptor = pixelBufferAdaptor
         commandQueue = device.makeCommandQueue()!
         renderer = SKRenderer(device: device)
-        renderer.scene = scene
+        renderer.scene = scene  // do we need to do anything else, is this eqivalent to SKView.presentScene?
         
         // Create a Metal texture cache for converting CVPixelBuffer to Metal textures.
         CVMetalTextureCacheCreate(nil, nil, device, nil, &textureCache)
@@ -37,9 +39,8 @@ class FrameCaptureRecorder {
     func captureFrame(at time: CMTime) {
         // 1. Create a CVPixelBuffer for the frame.
         var pixelBuffer: CVPixelBuffer?
-        // Use the scene's size (or your specific recording area) in pixels.
-        let width = Int(scene.size.width)
-        let height = Int(scene.size.height)
+        let width = Int(renderSize.width)
+        let height = Int(renderSize.height)
         let attributes: [String: Any] = [
             kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA,
             kCVPixelBufferWidthKey as String: width,
@@ -49,8 +50,7 @@ class FrameCaptureRecorder {
         
         let status = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_32BGRA, attributes as CFDictionary, &pixelBuffer)
         guard status == kCVReturnSuccess, let buffer = pixelBuffer, let textureCache = textureCache else {
-            print("Failed to create pixel buffer")
-            return
+            fatalError("Failed to create pixel buffer, status: \(status)")
         }
         
         // 2. Create a Metal texture from the CVPixelBuffer.
@@ -92,6 +92,8 @@ class FrameCaptureRecorder {
         // 5. Append the rendered pixel buffer to AVAssetWriter.
         if pixelBufferAdaptor.assetWriterInput.isReadyForMoreMediaData {
             pixelBufferAdaptor.append(buffer, withPresentationTime: time)
+        } else {
+            print("Unable to append to pixel buffer at time \(time)")
         }
     }
 }

@@ -25,6 +25,10 @@ class TappableScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func update(_ currentTime: TimeInterval) {
+        super.update(currentTime)
+    }
+    
 #if os(iOS)
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let _ = touches.first else { return }

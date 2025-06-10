@@ -16,9 +16,11 @@ class ExportSKVideo {
     private var isShowingPreview: Binding<Bool>? = nil
     private var resultMessage: Binding<String>? = nil
     private var currentMode = RecordType.replayKitInMemory
-    private var framewiseRecorder: FrameCaptureRecorder? = nil
     private var exportingScene: SKScene? = nil
+    private var previewPlayer: SKView? = nil
+    private var framewiseRecorder: FrameCaptureRecorder? = nil
     private var framewiseWriter: AVAssetWriter? = nil  // need member to finalise on stop
+    private var framewiseTimer: OffscreenRenderTimer? = nil
     
     public func export(mode: RecordType, fullScreenFlag: Binding<Bool>, previewFlag: Binding<Bool>, resultIn: Binding<String>, exportSize: CGSize = CGSize(width: 400, height: 400)) {
         currentMode = mode
@@ -44,18 +46,27 @@ class ExportSKVideo {
         
     }
     
-    public func exportDirectRender(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, exportSize: CGSize, sceneMaker: ResizeableSceneMaker) {
+    public func exportFrameWise(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, exportSize: CGSize, fromView: SKView) {
+        guard let activeScene = fromView.scene else {
+            print("No active scene to export")  // something very weirdly wrong
+            return
+        }
         let videoURL = makeVideoFileURL()
         do {
-            
-            let (writer, writerInput, pixelBufferAdaptor) = try makeAssetWriter(for: videoURL, size: exportSize)
+            let (writer, _, pixelBufferAdaptor) = try makeAssetWriter(for: videoURL, size: exportSize)
             writer.startWriting()
-            writer.startSession(atSourceTime: .zero)
-            exportingScene = sceneMaker.makeScene(sizedTo: exportSize)
-            framewiseRecorder = FrameCaptureRecorder(scene: exportingScene!,
-                                                     pixelBufferAdaptor: pixelBufferAdaptor)
+            writer.startSession(atSourceTime: .zero)  // this source time bothers me if we're picking up a scene that's already run a while
+            previewPlayer = fromView
+            fromView.presentScene(nil)  // stop it playing on the main SKView (wrapped in SpriteKitContainerWithGen)
+            exportingScene = activeScene
+            framewiseRecorder = FrameCaptureRecorder(scene: activeScene, pixelBufferAdaptor: pixelBufferAdaptor, size: exportSize)
             framewiseWriter = writer
-            isShowingContentToRecord = isRecordingFlag  // save so final completion can toggle
+            framewiseTimer = OffscreenRenderTimer(recorder: framewiseRecorder!)
+            framewiseTimer?.startRendering()
+            exportingScene?.isPaused = false  // undo being paused by presentScene(nil)
+            resultMessage = resultIn
+            isShowingContentToRecord = isRecordingFlag  // save so final completion can toggle, eg to hide a Stop button
+            isRecordingFlag.wrappedValue = true
             print("Recording to: \(videoURL)")
         } catch {
             print("Error setting up video writer: \(error.localizedDescription) for URL \(videoURL)")
@@ -64,22 +75,37 @@ class ExportSKVideo {
     
     // invoked by tap on preview movie
     public func stopRecording() {
-        if let rr = replayRecorder {
-            rr.stopRecording() { previewVC in
-                self.isShowingContentToRecord?.wrappedValue = false  // cancel full screen regqrdless
-                self.replayPreviewer = previewVC
-                self.isShowingPreview?.wrappedValue = previewVC != nil  // should make sheet aqppear
-                if self.currentMode == .replayKitInMemory {
-                    self.resultMessage?.wrappedValue = "Saved movies appear in Photos"
-                }
-            }
-        } else if let toStop = framewiseWriter {
-            self.isShowingContentToRecord?.wrappedValue = false  // hide buttons
-            toStop.finishWriting {
-                print("finished export")
-            }
-        } else {
+        guard let rr = replayRecorder else {
             print("stopRecording invoked when not recording")
+            return
+        }
+        rr.stopRecording() { previewVC in
+            self.isShowingContentToRecord?.wrappedValue = false  // cancel full screen regqrdless
+            self.replayPreviewer = previewVC
+            self.isShowingPreview?.wrappedValue = previewVC != nil  // should make sheet aqppear
+            if self.currentMode == .replayKitInMemory {
+                self.resultMessage?.wrappedValue = "Saved movies appear in Photos"
+            }
+        }
+    }
+    
+    // invoked by tap on preview movie
+    public func stopRecordingFramewise() {
+        guard let toStop = framewiseWriter  else {
+            print("stopRecordingFramewise invoked when not recording")
+            return
+        }
+        self.isShowingContentToRecord?.wrappedValue = false  // hide buttons
+        exportingScene?.isPaused = true
+        framewiseTimer?.stopRendering {
+            toStop.finishWriting {  // only after timer stops generating!
+                let filename = toStop.outputURL.lastPathComponent
+                self.framewiseWriter = nil
+                self.framewiseRecorder = nil
+                self.framewiseTimer = nil
+                self.resultMessage?.wrappedValue = "Saved to \(filename)"
+                self.previewPlayer?.presentScene(self.exportingScene)  // give it back to preview on main screen
+            }
         }
     }
     

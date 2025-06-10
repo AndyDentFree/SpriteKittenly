@@ -17,13 +17,20 @@ protocol ResizeableSceneMaker {
 }
 
 
+// simple ref class to own a view made in here, so caller can pass around
+// much like what happens inside Coordinator but exposed at higher level
+class SKViewOwner {
+    public var ownedView: SKView? = nil
+}
+
 // Container taking a generator function, expects to only show one scene
 // Tries to be fairly reusable so parameterised with a couple of lambdas
 struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
     
     typealias RepresentedViewType = SKView
     let sceneMaker: ResizeableSceneMaker
-    
+    let playsOn: SKViewOwner
+
     // memoizes state to be passed back in via updateView context
     class Coordinator: NSObject {
         var isFirstScene = true
@@ -41,6 +48,7 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
     
     func makeView(context: Context) -> SKView {
         let ret = LayoutSensingSKView(frame: .zero)
+        playsOn.ownedView = ret
         ret.onLayout = { (skv: SKView) in
             guard skv.hasSize else {
                 print("onLayout called with zero size view")

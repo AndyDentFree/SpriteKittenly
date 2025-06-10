@@ -155,7 +155,7 @@ class ReplayKitRecorder: NSObject {
             self.videoInput?.markAsFinished()
             self.audioInput?.markAsFinished()
             if let writer = self.assetWriter {
-                self.assetWriter?.finishWriting {
+                writer.finishWriting {
                     completion(nil)
                 }
             } else {

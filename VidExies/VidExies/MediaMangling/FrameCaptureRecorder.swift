@@ -11,11 +11,12 @@ import AVFoundation
 import CoreVideo
 
 class FrameCaptureRecorder {
+    let renderSize: CGSize
     // Metal and SpriteKit properties.
     let device: MTLDevice = MTLCreateSystemDefaultDevice()!
     let commandQueue: MTLCommandQueue
     let renderer: SKRenderer
-    var textureCache: CVMetalTextureCache?
+    var textureCache: CVMetalTextureCache!
     
     // AVAssetWriter pixel buffer adaptor.
     let pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor
@@ -23,7 +24,8 @@ class FrameCaptureRecorder {
     // The scene you want to record.
     let scene: SKScene
     
-    init(scene: SKScene, pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor) {
+    init(scene: SKScene, pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor, size: CGSize) {
+        self.renderSize = size
         self.scene = scene
         self.pixelBufferAdaptor = pixelBufferAdaptor
         commandQueue = device.makeCommandQueue()!
@@ -35,27 +37,26 @@ class FrameCaptureRecorder {
     }
     
     func captureFrame(at time: CMTime) {
-        // 1. Create a CVPixelBuffer for the frame.
-        var pixelBuffer: CVPixelBuffer?
-        // Use the scene's size (or your specific recording area) in pixels.
-        let width = Int(scene.size.width)
-        let height = Int(scene.size.height)
-        let attributes: [String: Any] = [
-            kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA,
-            kCVPixelBufferWidthKey as String: width,
-            kCVPixelBufferHeightKey as String: height,
-            kCVPixelBufferMetalCompatibilityKey as String: true
-        ]
-        
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_32BGRA, attributes as CFDictionary, &pixelBuffer)
-        guard status == kCVReturnSuccess, let buffer = pixelBuffer, let textureCache = textureCache else {
-            print("Failed to create pixel buffer")
-            return
+        guard scene.size.width > 0.0 && scene.size.height > 0.0 else {
+            return // skip some weird transitory state getting at least one capture with zero size frame
         }
+        let width = Int(renderSize.width)
+        let height = Int(renderSize.height)
+
+        // 1. Get a CVPixelBuffer for the frame, from the adaptor's pool
+        guard let pool = pixelBufferAdaptor.pixelBufferPool else {
+          fatalError("No pixelBufferPool on adaptor")
+        }
+        var bufferOut: CVPixelBuffer?
+        CVPixelBufferPoolCreatePixelBuffer(nil, pool, &bufferOut)
+        guard let buffer = bufferOut else {
+          fatalError("Couldn’t get a buffer from the pool")
+        }
+
         
         // 2. Create a Metal texture from the CVPixelBuffer.
         var cvTextureOut: CVMetalTexture?
-        CVMetalTextureCacheCreateTextureFromImage(nil,
+        let metalStatus = CVMetalTextureCacheCreateTextureFromImage(nil,
                                                   textureCache,
                                                   buffer,
                                                   nil,
@@ -64,13 +65,18 @@ class FrameCaptureRecorder {
                                                   height,
                                                   0,
                                                   &cvTextureOut)
-        guard let cvTexture = cvTextureOut, let texture = CVMetalTextureGetTexture(cvTexture) else {
-            print("Failed to create Metal texture from pixel buffer")
+        guard let cvTexture = cvTextureOut,
+              let texture = CVMetalTextureGetTexture(cvTexture),
+              metalStatus == kCVReturnSuccess else {
+            print("Failed to create Metal texture from pixel buffer, status \(metalStatus)")
             return
         }
-        
+
         // 3. Set up a command buffer and render pass descriptor.
-        guard let commandBuffer = commandQueue.makeCommandBuffer() else { return }
+        guard let commandBuffer = commandQueue.makeCommandBuffer() else {
+            print("Failed to create Metal command buffer")
+            return
+        }
         
         let renderPassDescriptor = MTLRenderPassDescriptor()
         renderPassDescriptor.colorAttachments[0].texture = texture
@@ -92,6 +98,12 @@ class FrameCaptureRecorder {
         // 5. Append the rendered pixel buffer to AVAssetWriter.
         if pixelBufferAdaptor.assetWriterInput.isReadyForMoreMediaData {
             pixelBufferAdaptor.append(buffer, withPresentationTime: time)
+        } else {
+            print("Unable to append to pixel buffer at time \(time)")
         }
+    }
+    
+    func markAsFinished() {
+        pixelBufferAdaptor.assetWriterInput.markAsFinished()
     }
 }

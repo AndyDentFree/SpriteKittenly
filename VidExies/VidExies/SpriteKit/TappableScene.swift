@@ -12,7 +12,7 @@ import UIKit
 import AppKit
 #endif
 
-class TappableScene: SKScene {
+class TappableScene: RecordableScene {
     var onTouch: ()->Void
 
     init(size: CGSize, onTouch: @escaping () -> Void) {

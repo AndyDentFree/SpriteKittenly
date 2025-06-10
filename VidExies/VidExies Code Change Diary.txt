@@ -64,7 +64,7 @@ SpriteKitContainerWithGen
   - updateView - check if has size & do nothing for first scene
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Record without ReplayKit - Fixes #8
+Record without ReplayKit - See #8
 2025-04-04, 06-10
 
 ContentView
@@ -91,3 +91,24 @@ FrameCaptureRecorder added
 SpriteKitContainerWithGen
 - SKViewOwner helper class added
 - added playsOn so can pass back our SKView
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Fix blank video framewise Record without ReplayKit - See #8
+2025-06-11
+
+FrameCaptureRecorder
+- markAsFinished added to cleanup assetWriterInput
+
+RecordableScene
+- added to capture lastFrameTime
+
+TappableScene
+- make child of RecordableScene
+
+OffscreenRenderTimer
+- startRendering - take fromTime param
+
+ExportSKVideo
+- stopRecordingFramewise call markAsFinished
+- exportFrameWise grab lastFrameTime and pass to startRendering(fromTime:)

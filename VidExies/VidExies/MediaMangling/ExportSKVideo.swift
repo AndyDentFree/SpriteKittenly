@@ -47,7 +47,7 @@ class ExportSKVideo {
     }
     
     public func exportFrameWise(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, exportSize: CGSize, fromView: SKView) {
-        guard let activeScene = fromView.scene else {
+        guard let activeScene = fromView.scene as? RecordableScene else {
             print("No active scene to export")  // something very weirdly wrong
             return
         }
@@ -57,13 +57,15 @@ class ExportSKVideo {
             writer.startWriting()
             writer.startSession(atSourceTime: .zero)  // this source time bothers me if we're picking up a scene that's already run a while
             previewPlayer = fromView
+            activeScene.isPaused = true
             fromView.presentScene(nil)  // stop it playing on the main SKView (wrapped in SpriteKitContainerWithGen)
             exportingScene = activeScene
             framewiseRecorder = FrameCaptureRecorder(scene: activeScene, pixelBufferAdaptor: pixelBufferAdaptor, size: exportSize)
             framewiseWriter = writer
             framewiseTimer = OffscreenRenderTimer(recorder: framewiseRecorder!)
-            framewiseTimer?.startRendering()
-            exportingScene?.isPaused = false  // undo being paused by presentScene(nil)
+            framewiseTimer?.startRendering(fromTime: activeScene.lastFrameTime)
+            activeScene.isPaused = false  // undo being paused by presentScene(nil)
+            activeScene.size = exportSize
             resultMessage = resultIn
             isShowingContentToRecord = isRecordingFlag  // save so final completion can toggle, eg to hide a Stop button
             isRecordingFlag.wrappedValue = true
@@ -98,6 +100,7 @@ class ExportSKVideo {
         self.isShowingContentToRecord?.wrappedValue = false  // hide buttons
         exportingScene?.isPaused = true
         framewiseTimer?.stopRendering {
+            self.framewiseRecorder?.markAsFinished()
             toStop.finishWriting {  // only after timer stops generating!
                 let filename = toStop.outputURL.lastPathComponent
                 self.framewiseWriter = nil

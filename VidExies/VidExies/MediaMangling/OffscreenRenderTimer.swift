@@ -8,9 +8,6 @@
 import Foundation
 import AVFoundation
 
-// Assume frameCaptureRecorder is an instance of your FrameCaptureRecorder
-// and has been properly configured with an SKScene and pixel buffer adaptor.
-
 class OffscreenRenderTimer {
     private let frameRate: Double = 30.0 // desired FPS
     private let frameDuration: Double
@@ -23,7 +20,7 @@ class OffscreenRenderTimer {
         frameDuration = 1.0 / frameRate
     }
     
-    func startRendering() {
+    func startRendering(fromTime: TimeInterval) {
         // Create a timer that fires at our desired frame rate.
         timer = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "FrameCaptureTimer"))
         timer?.schedule(deadline: .now(), repeating: frameDuration)
@@ -31,14 +28,15 @@ class OffscreenRenderTimer {
             guard let self = self else { return }
             
             // Calculate the presentation time for the current frame.
-            let seconds = Double(self.frameIndex) * self.frameDuration
-            let presentationTime = CMTime(seconds: seconds, preferredTimescale: 600)
+            let elapsed = Double(self.frameIndex) * self.frameDuration
+            let rendererTime = fromTime + elapsed  // offset matches our paused SKScene
+            let movieTime = CMTime(seconds: elapsed, preferredTimescale: 600)  // movie started from 0
             
             // Manually drive the scene update.
-            self.recorder.renderer.update(atTime: seconds)
+            self.recorder.renderer.update(atTime: rendererTime)
             
             // Capture and append the frame.
-            self.recorder.captureFrame(at: presentationTime)
+            self.recorder.captureFrame(at: movieTime)
             
             self.frameIndex += 1
         }

@@ -12,7 +12,7 @@ import UIKit
 import AppKit
 #endif
 
-class TappableScene: SKScene {
+class TappableScene: RecordableScene {
     var onTouch: ()->Void
 
     init(size: CGSize, onTouch: @escaping () -> Void) {
@@ -23,10 +23,6 @@ class TappableScene: SKScene {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func update(_ currentTime: TimeInterval) {
-        super.update(currentTime)
     }
     
 #if os(iOS)

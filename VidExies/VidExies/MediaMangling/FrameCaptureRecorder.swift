@@ -16,7 +16,7 @@ class FrameCaptureRecorder {
     let device: MTLDevice = MTLCreateSystemDefaultDevice()!
     let commandQueue: MTLCommandQueue
     let renderer: SKRenderer
-    var textureCache: CVMetalTextureCache?
+    var textureCache: CVMetalTextureCache!
     
     // AVAssetWriter pixel buffer adaptor.
     let pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor
@@ -37,25 +37,26 @@ class FrameCaptureRecorder {
     }
     
     func captureFrame(at time: CMTime) {
-        // 1. Create a CVPixelBuffer for the frame.
-        var pixelBuffer: CVPixelBuffer?
+        guard scene.size.width > 0.0 && scene.size.height > 0.0 else {
+            return // skip some weird transitory state getting at least one capture with zero size frame
+        }
         let width = Int(renderSize.width)
         let height = Int(renderSize.height)
-        let attributes: [String: Any] = [
-            kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA,
-            kCVPixelBufferWidthKey as String: width,
-            kCVPixelBufferHeightKey as String: height,
-            kCVPixelBufferMetalCompatibilityKey as String: true
-        ]
-        
-        let status = CVPixelBufferCreate(kCFAllocatorDefault, width, height, kCVPixelFormatType_32BGRA, attributes as CFDictionary, &pixelBuffer)
-        guard status == kCVReturnSuccess, let buffer = pixelBuffer, let textureCache = textureCache else {
-            fatalError("Failed to create pixel buffer, status: \(status)")
+
+        // 1. Get a CVPixelBuffer for the frame, from the adaptor's pool
+        guard let pool = pixelBufferAdaptor.pixelBufferPool else {
+          fatalError("No pixelBufferPool on adaptor")
         }
+        var bufferOut: CVPixelBuffer?
+        CVPixelBufferPoolCreatePixelBuffer(nil, pool, &bufferOut)
+        guard let buffer = bufferOut else {
+          fatalError("Couldn’t get a buffer from the pool")
+        }
+
         
         // 2. Create a Metal texture from the CVPixelBuffer.
         var cvTextureOut: CVMetalTexture?
-        CVMetalTextureCacheCreateTextureFromImage(nil,
+        let metalStatus = CVMetalTextureCacheCreateTextureFromImage(nil,
                                                   textureCache,
                                                   buffer,
                                                   nil,
@@ -64,13 +65,18 @@ class FrameCaptureRecorder {
                                                   height,
                                                   0,
                                                   &cvTextureOut)
-        guard let cvTexture = cvTextureOut, let texture = CVMetalTextureGetTexture(cvTexture) else {
-            print("Failed to create Metal texture from pixel buffer")
+        guard let cvTexture = cvTextureOut,
+              let texture = CVMetalTextureGetTexture(cvTexture),
+              metalStatus == kCVReturnSuccess else {
+            print("Failed to create Metal texture from pixel buffer, status \(metalStatus)")
             return
         }
-        
+
         // 3. Set up a command buffer and render pass descriptor.
-        guard let commandBuffer = commandQueue.makeCommandBuffer() else { return }
+        guard let commandBuffer = commandQueue.makeCommandBuffer() else {
+            print("Failed to create Metal command buffer")
+            return
+        }
         
         let renderPassDescriptor = MTLRenderPassDescriptor()
         renderPassDescriptor.colorAttachments[0].texture = texture
@@ -82,6 +88,11 @@ class FrameCaptureRecorder {
         // Define the viewport to match the texture dimensions.
         let viewport = CGRect(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height))
         
+        // logging put in to find that the SKScene is being resized to half, before captureFrame
+        //print("▶️ Metal texture: \(texture.width)x\(texture.height)")
+        //print("▶️ SKScene size:  \(scene.size.width)x\(scene.size.height)")
+        //print("▶️ viewport:      \(viewport.width)x\(viewport.height)")
+
         // 4. Render the SKScene into the Metal texture.
         renderer.render(withViewport: viewport, commandBuffer: commandBuffer, renderPassDescriptor: renderPassDescriptor)
         
@@ -95,5 +106,9 @@ class FrameCaptureRecorder {
         } else {
             print("Unable to append to pixel buffer at time \(time)")
         }
+    }
+    
+    func markAsFinished() {
+        pixelBufferAdaptor.assetWriterInput.markAsFinished()
     }
 }

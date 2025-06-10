@@ -27,7 +27,9 @@ or `UIViewController`. So we use a similar `AgnosticViewRepresentable` as used f
 
 ## Direct frame capture
 
-**Currently broken - it runs without crashing but renders black movies**
+Saves a video direct to the Documents folder as a file, without any need to authorise recording.
+
+This first version just saves at the same size as the current playing view, which is paused for the duration.
 
 This is vastly more complicated than using ReplayKit, because it's replacing the role of `SKView`. 
 
@@ -38,6 +40,8 @@ The main components used by `ExportSKView.exportFrameWise` are:
 
 ### Ugly SKView passed around
 As quick hack to get this working, the SKView created inside the `SpriteKitContainerWithGen` is passed back to the calling context so that it can be then passed down and manipulated in `exportFrameWise` and `stopRecordingFramewise`. We use a trivial wrapper class `SKViewOwner` for this.
+
+
 
 ## Wrapping ViewControllers
 Unlike most of the samples, as well as wrapping an `SKView` we also need to present ViewControllers so this sample introduces `AgnosticViewControllerRepresentable` which is a _facade_ for [UIViewControllerRepresentable][a6] or [NSViewControllerRepresentable][a7].

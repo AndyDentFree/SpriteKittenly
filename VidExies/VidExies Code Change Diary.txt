@@ -112,3 +112,18 @@ OffscreenRenderTimer
 ExportSKVideo
 - stopRecordingFramewise call markAsFinished
 - exportFrameWise grab lastFrameTime and pass to startRendering(fromTime:)
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Fix half-scale video framewise Record without ReplayKit - Fixes #8
+2025-06-11
+
+ExportSKVideo
+- saveScaleMode added
+- exportFrameWise
+  - set saveScaleMode
+  - change scene to .fill so won't resize when use SKRenderer
+- stopRecordingFramewise - reset scaleMode from saveScaleMode  
+
+ContentView
+- rearrange view logic so resultMessage always displayed when it is set, so can see filenames exported

@@ -21,6 +21,7 @@ class ExportSKVideo {
     private var framewiseRecorder: FrameCaptureRecorder? = nil
     private var framewiseWriter: AVAssetWriter? = nil  // need member to finalise on stop
     private var framewiseTimer: OffscreenRenderTimer? = nil
+    private var saveScaleMode: SKSceneScaleMode = .aspectFit
     
     public func export(mode: RecordType, fullScreenFlag: Binding<Bool>, previewFlag: Binding<Bool>, resultIn: Binding<String>, exportSize: CGSize = CGSize(width: 400, height: 400)) {
         currentMode = mode
@@ -58,8 +59,10 @@ class ExportSKVideo {
             writer.startSession(atSourceTime: .zero)  // this source time bothers me if we're picking up a scene that's already run a while
             previewPlayer = fromView
             activeScene.isPaused = true
+            saveScaleMode = activeScene.scaleMode
             fromView.presentScene(nil)  // stop it playing on the main SKView (wrapped in SpriteKitContainerWithGen)
             exportingScene = activeScene
+            activeScene.scaleMode = .fill  // prevent resize now not rendering to Retina surface
             framewiseRecorder = FrameCaptureRecorder(scene: activeScene, pixelBufferAdaptor: pixelBufferAdaptor, size: exportSize)
             framewiseWriter = writer
             framewiseTimer = OffscreenRenderTimer(recorder: framewiseRecorder!)
@@ -102,11 +105,11 @@ class ExportSKVideo {
         framewiseTimer?.stopRendering {
             self.framewiseRecorder?.markAsFinished()
             toStop.finishWriting {  // only after timer stops generating!
-                let filename = toStop.outputURL.lastPathComponent
                 self.framewiseWriter = nil
                 self.framewiseRecorder = nil
                 self.framewiseTimer = nil
-                self.resultMessage?.wrappedValue = "Saved to \(filename)"
+                self.resultMessage?.wrappedValue = "Saved to \(toStop.outputURL.absoluteString)"
+                self.exportingScene?.scaleMode = self.saveScaleMode
                 self.previewPlayer?.presentScene(self.exportingScene)  // give it back to preview on main screen
             }
         }

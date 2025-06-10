@@ -43,9 +43,9 @@ struct ContentView: View {
     var body: some View {
         VStack {
             SpriteKitContainerWithGen(sceneMaker: TapppableEmitterSceneMaker(onTouch: {
-                    self.exporter.stopRecording()
-                }),
-                playsOn: wrappedSKView
+                self.exporter.stopRecording()
+            }),
+                                      playsOn: wrappedSKView
             )
             // controls below the video, may be hidden by it expanding
             if !isFullScreenSK {
@@ -53,8 +53,8 @@ struct ContentView: View {
                     .font(.subheadline)
                 Text(exportTabSelection == .frameWise ?
                      "Videos are exported to your Documents folder" :
-                    "Tap full-screen views to stop recording")
-                    .font(.caption)
+                        "Tap full-screen views to stop recording")
+                .font(.caption)
                 Picker("", selection: $exportTabSelection) {
                     Text("ReplayKit Full screen").tag(RecordType.replayKitInMemory)
                     //Text("ReplayKit Cropped").tag(RecordType.replayKitFiltering)
@@ -64,7 +64,7 @@ struct ContentView: View {
                 .padding()
                 if exportTabSelection == .frameWise {
                     if isDirectRecording {
-                        Button("Stop exporting (framewise)", systemImage: "stop.circle") {  // 
+                        Button("Stop exporting (framewise)", systemImage: "stop.circle") {  //
                             exporter.stopRecordingFramewise()
                         }
                     } else {
@@ -75,29 +75,27 @@ struct ContentView: View {
                             // force a different size from the current view just to see what happens
                             let exportSize = skv.bounds.size  // CGSize(width: 400, height: 400)
                             exporter.exportFrameWise(isRecordingFlag: $isDirectRecording,
-                                                        resultIn: $resultMessage,
+                                                     resultIn: $resultMessage,
                                                      exportSize: exportSize, fromView:skv
                             )
                         }
                         .buttonStyle(.borderedProminent)
                     }
                 } else {
-                    if resultMessage.isEmpty {  // bit of a hack
-                        Button("Export video") {
-                            // using ReplayKit so keep playing
-                            exporter.export(mode: exportTabSelection,  // actually do the video export
-                                            fullScreenFlag: $isFullScreenSK,
-                                            previewFlag: $isShowingReplayPreview,
-                                            resultIn: $resultMessage)
-                            
-                        }
-                        .disabled(exportTabSelection == .replayKitFiltering)
-                        .buttonStyle(.borderedProminent)
-                    } else {
-                        Text(resultMessage)
-                            .font(.subheadline)
+                    Button("Export video") {
+                        // using ReplayKit so keep playing
+                        exporter.export(mode: exportTabSelection,  // actually do the video export
+                                        fullScreenFlag: $isFullScreenSK,
+                                        previewFlag: $isShowingReplayPreview,
+                                        resultIn: $resultMessage)
+                        
                     }
-                    
+                    .disabled(exportTabSelection == .replayKitFiltering)
+                    .buttonStyle(.borderedProminent)
+                }
+                if !resultMessage.isEmpty {  // only after a video export
+                    Text(resultMessage)
+                        .font(.subheadline)
                 }
                 Spacer()
             }

@@ -2,7 +2,7 @@
 //  FrameCaptureRecorder.swift
 //  VidExies
 //
-//  Created by Andrew Dent on 10/6/2025.
+//  Created by Andrew Dent on 5/4/2025.
 //
 
 import SpriteKit
@@ -30,7 +30,7 @@ class FrameCaptureRecorder {
         self.pixelBufferAdaptor = pixelBufferAdaptor
         commandQueue = device.makeCommandQueue()!
         renderer = SKRenderer(device: device)
-        renderer.scene = scene  // do we need to do anything else, is this eqivalent to SKView.presentScene?
+        renderer.scene = scene
         
         // Create a Metal texture cache for converting CVPixelBuffer to Metal textures.
         CVMetalTextureCacheCreate(nil, nil, device, nil, &textureCache)
@@ -88,11 +88,6 @@ class FrameCaptureRecorder {
         // Define the viewport to match the texture dimensions.
         let viewport = CGRect(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height))
         
-        // logging put in to find that the SKScene is being resized to half, before captureFrame
-        //print("▶️ Metal texture: \(texture.width)x\(texture.height)")
-        //print("▶️ SKScene size:  \(scene.size.width)x\(scene.size.height)")
-        //print("▶️ viewport:      \(viewport.width)x\(viewport.height)")
-
         // 4. Render the SKScene into the Metal texture.
         renderer.render(withViewport: viewport, commandBuffer: commandBuffer, renderPassDescriptor: renderPassDescriptor)
         

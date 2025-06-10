@@ -14,52 +14,70 @@ class InitLogger {
     var msg: String
     init(msg: String) {
         self.msg = msg
-        print("InitLogger init - \(msg)")
+        print("InitLogger init - \(msg) created")
     }
     deinit {
-        print("InitLogger deinit - \(msg)")
+        print("InitLogger deinit - \(msg) has been destroyed")
     }
 }
 
 
-// relies on scenes created and passed in already
+// This struct will be recreated regularly but the view it owns is passed on
 struct SpriteKitContainer : AgnosticViewRepresentable {
     
     typealias RepresentedViewType = SKView
-
+    let sceneFrom: SceneProvider
+    var logger = InitLogger(msg: "SKContainer")  // if you make this a let, will see this deinit then init again indicates the SpriteKitContainer struct has been recreated
     
-    @Binding var sceneIndex: Int
-    let scenes: [SKScene]
-    let transitions: [SKTransition]
-    let logger = InitLogger(msg: "SKContainer")
+    init(sceneFrom: SceneProvider) {
+        self.sceneFrom = sceneFrom
+    }
     
-
     // memoizes state to be passed back in via updateUIView context
     class Coordinator: NSObject {
         var isFirstScene = true
         var currentSceneIndex = -1  // use to compare so don't try to do transitions to same scene
     }
-
+    
     func makeCoordinator() -> Coordinator {
         return Coordinator()
     }
-
+    
     func makeView(context: Context) -> SKView {
-       return SKView(frame: .zero)
-    }
- 
-    // triggered on first load and then re-triggered because dependency on @State sceneIndex which is altered by button
-    func updateView(_ view: SKView, context: Context) {
-        let index = $sceneIndex.wrappedValue
-        if context.coordinator.isFirstScene {
-            view.presentScene(scenes[index])
-            context.coordinator.isFirstScene = false
-            context.coordinator.currentSceneIndex =  index
-        } else {  // use different presentScene that takes concrete SKTransition
-            if context.coordinator.currentSceneIndex !=  index {
-                context.coordinator.currentSceneIndex =  index
-                view.presentScene(scenes[index], transition: transitions[index])
+        let ret = LayoutSensingSKView(frame: .zero)
+        print("makeView has created a new SKView")
+        ret.onLayout = { (skv: SKView) in
+            guard skv.hasSize else {
+                print("onLayout called with zero size view")
+                return
             }
+            if context.coordinator.isFirstScene {
+                skv.presentScene(sceneFrom.scene)
+                context.coordinator.isFirstScene = false
+                context.coordinator.currentSceneIndex = sceneFrom.sceneIndex
+                print("onLayout sbout to presentScene size \(skv.bounds.size) for first scene")
+            } else {
+                // see ResizingRemit for handling resizes at this point
+                print("onLayout called for SKView after first scene started")
+            }
+        }
+        return ret
+    }
+    
+    // triggered on first load
+    func updateView(_ view: SKView, context: Context) {
+        if context.coordinator.isFirstScene {
+            // stash even if we don't present, so if onLayout presents, knowws the scene
+            if view.hasSize {
+                view.presentScene(sceneFrom.scene)
+                context.coordinator.isFirstScene = false
+            } else {
+                // Layout hasn't occurred yet, schedule the scene presentation for later
+                print("updateView first scene has no size so leave for onLayout to start")
+            }
+        } else if context.coordinator.currentSceneIndex != sceneFrom.sceneIndex {
+            sceneFrom.presentScene(refreshing: view)
+            context.coordinator.currentSceneIndex = sceneFrom.sceneIndex
         }
     }
     
@@ -67,24 +85,24 @@ struct SpriteKitContainer : AgnosticViewRepresentable {
         print("dismantleView invoked in SKViewApproach")
         view.presentScene(nil)
     }
-
+    
 }
 
 struct SKViewApproach: View {
-    // local state for sceneIndex so no interference testing each approach
-    @State var sceneIndex = 0
-    let scenes: [SKScene]
-    let transitions: [SKTransition]
+    @StateObject var sceneFrom = SceneProvider()
+    @State var withTransitions = false
     
     var body: some View {
         VStack {
-            SpriteKitContainer(sceneIndex: $sceneIndex, scenes: scenes, transitions: transitions)
-            Button("Toggle Scene to \(2 - sceneIndex)") {
-                sceneIndex = 1 - sceneIndex
+            SpriteKitContainer(sceneFrom: sceneFrom)
+            HStack {
+                Button("Toggle Scene to \(sceneFrom.nextScene1Based)") {
+                    sceneFrom.toggleSceneIndex(withTransitions, withImmediatePresentScene: false)  // presentScene will be triggered from an updateView callback
+                }
+                .padding()
+                .buttonStyle(.borderedProminent)
+                Toggle("with Transitions", isOn: $withTransitions)
             }
-            .padding()
-            .buttonStyle(.borderedProminent)
-            
             Text("Using wrapped SKView to change scene")
         }
         .padding()
@@ -94,16 +112,19 @@ struct SKViewApproach: View {
 
 // so we can preview just the SKView
 struct SKViewApproach_Previews: PreviewProvider {
-
+    
     static var previews: some View {
-        let scenes:[SKScene] = [SKScene(fileNamed: "Scene0")!,  SKScene(fileNamed: "Scene1")!].map{
-            $0.scaleMode = .aspectFill
-            return $0
+        VStack {
+            SpriteKitContainer(sceneFrom: SceneProvider(initialIndex: 0))
+            SpriteKitContainer(sceneFrom: SceneProvider(initialIndex: 1))
         }
-        let transitions = [
-            SKTransition.push(with: .up, duration: 2.0),
-            SKTransition.push(with: .down, duration: 1.0)]
-        SKViewApproach(scenes: scenes, transitions: transitions)
     }
 }
 
+
+extension SKView {
+    var hasSize: Bool {get{
+        let sz = self.frame.size
+        return !sz.width.isZero && !sz.height.isZero
+    }}
+}

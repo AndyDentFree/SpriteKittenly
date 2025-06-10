@@ -72,3 +72,39 @@ SKViewApproach
 - struct SKViewApproach added an InitLogger property so can see calls when destroyed
 - message added to dismantleView
 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Copy onLayout fixes back from ResizingRemit
+2025-03-30
+
+SKViewApproach.swift
+- SpriteKitContainer
+  - onLayout added to presentScene if needed
+  - updateView - check if has size & do nothing for first scene
+  - makeView
+    - create a LayoutSensingSKView with onLayout that can start presenting scene
+- SKView extension hasSize() added
+
+LayoutSensingSKView.swift
+- copied from ResizingRemit
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Be able to cope with changing tabs, currently not playing Fixes #3 
+2025-04-01
+
+SceneProvider
+- factored out common logic used in both approaches
+
+ContentView
+- scenes and transitions arrays replaced by global generator functions to avoid reuse
+- added toggle to swap which approach goes first
+
+SpriteViewApproach
+SKViewApproach
+- use global generator functions replacing local sceneIndex and scene, transition arrays
+- rely on SceneProvider to do the presentScene rather than re-build SpriteView
+
+SKViewApproach
+- take a SceneProvider rather than premade objects
+- call scene provider to presentScreen embedding the logic to show transitions or not

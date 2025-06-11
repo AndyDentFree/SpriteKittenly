@@ -127,3 +127,25 @@ ExportSKVideo
 
 ContentView
 - rearrange view logic so resultMessage always displayed when it is set, so can see filenames exported
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Framewise status counter - Fixes #12
+2025-06-11
+
+OffscreenRenderTimer
+- added properties timeLogger, logInterval
+- init take timeLogger & logInterval default 60fps
+- startRendering
+  - setup logging in timer eventHandler
+
+ExportSKVideo
+- exportFrameWise 
+  - add binding to string to put counter in
+  - pass lambda to timeLogger
+
+ContentView
+- exportStatus added state
+- added Text view to use for counter & pass to exportFrameWise
+- Stop Exporting button - clears exportStatus
+

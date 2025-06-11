@@ -8,15 +8,19 @@
 import Foundation
 import AVFoundation
 
+typealias TimeLogger = (CMTime)->Void
+
 class OffscreenRenderTimer {
     private let frameRate: Double = 30.0 // desired FPS
     private let frameDuration: Double
     private var frameIndex: Int = 0
     private var timer: DispatchSourceTimer?
     private let recorder: FrameCaptureRecorder
+    private let timeLogger: TimeLogger?
 
-    init(recorder: FrameCaptureRecorder) {
+    init(recorder: FrameCaptureRecorder, timeLogger: TimeLogger? = nil) {
         self.recorder = recorder
+        self.timeLogger = timeLogger
         frameDuration = 1.0 / frameRate
     }
     
@@ -24,6 +28,7 @@ class OffscreenRenderTimer {
         // Create a timer that fires at our desired frame rate.
         timer = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "FrameCaptureTimer"))
         timer?.schedule(deadline: .now(), repeating: frameDuration)
+        let isLogging = timeLogger != nil // flag may have other reasons to prevent
         timer?.setEventHandler { [weak self] in
             guard let self = self else { return }
             
@@ -37,6 +42,10 @@ class OffscreenRenderTimer {
             
             // Capture and append the frame.
             self.recorder.captureFrame(at: movieTime)
+            
+            if isLogging {
+                timeLogger!(movieTime)
+            }
             
             self.frameIndex += 1
         }

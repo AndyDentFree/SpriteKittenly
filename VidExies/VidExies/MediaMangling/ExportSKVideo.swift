@@ -47,12 +47,13 @@ class ExportSKVideo {
         
     }
     
-    public func exportFrameWise(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, exportSize: CGSize, fromView: SKView) {
+    public func exportFrameWise(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, logIn: Binding<String>, exportSize: CGSize, fromView: SKView) {
         guard let activeScene = fromView.scene as? RecordableScene else {
             print("No active scene to export")  // something very weirdly wrong
             return
         }
         let videoURL = makeVideoFileURL()
+        resultMessage = resultIn
         do {
             let (writer, _, pixelBufferAdaptor) = try makeAssetWriter(for: videoURL, size: exportSize)
             writer.startWriting()
@@ -65,11 +66,14 @@ class ExportSKVideo {
             activeScene.scaleMode = .fill  // prevent resize now not rendering to Retina surface
             framewiseRecorder = FrameCaptureRecorder(scene: activeScene, pixelBufferAdaptor: pixelBufferAdaptor, size: exportSize)
             framewiseWriter = writer
-            framewiseTimer = OffscreenRenderTimer(recorder: framewiseRecorder!)
+            framewiseTimer = OffscreenRenderTimer(recorder: framewiseRecorder!) { (atTime: CMTime) in
+                DispatchQueue.main.async {
+                    logIn.wrappedValue = atTime.toMinuteSecondString()
+                }
+            }
             framewiseTimer?.startRendering(fromTime: activeScene.lastFrameTime)
             activeScene.isPaused = false  // undo being paused by presentScene(nil)
             activeScene.size = exportSize
-            resultMessage = resultIn
             isShowingContentToRecord = isRecordingFlag  // save so final completion can toggle, eg to hide a Stop button
             isRecordingFlag.wrappedValue = true
             print("Recording to: \(videoURL)")
@@ -166,4 +170,25 @@ class ExportSKVideo {
         return (writer, input, adaptor)
     }
     
+}
+
+import CoreMedia
+
+extension CMTime {
+    /// Formats the time as "MM:SS.mmm"
+    func toMinuteSecondString() -> String {
+        // Convert to seconds as a Double
+        let totalSeconds = CMTimeGetSeconds(self)
+        guard totalSeconds.isFinite else {
+            return "invalid time"
+        }
+
+        // Break into integer seconds and fractional milliseconds
+        let minutes = Int(totalSeconds) / 60
+        let seconds = Int(totalSeconds) % 60
+        let milliseconds = Int((totalSeconds - floor(totalSeconds)) * 1000)
+
+        // Format with leading zeros: 02d for minutes/seconds, 03d for millis
+        return String(format: "%02d:%02d.%03d", minutes, seconds, milliseconds)
+    }
 }

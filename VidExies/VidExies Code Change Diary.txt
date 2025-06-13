@@ -149,3 +149,18 @@ ContentView
 - added Text view to use for counter & pass to exportFrameWise
 - Stop Exporting button - clears exportStatus
 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Framewise add video settings - Fixes #14
+2025-06-12
+
+ContentView
+- add settings button
+- add states frameWiseConfig & showingConfigEditor
+
+MovieExportConfiguration
+ExportConfigEditorView
+- added
+
+ExportSKVideo
+- exportFrameWise take MovieExportConfiguration instead of exportSize

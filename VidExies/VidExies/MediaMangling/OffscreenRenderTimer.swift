@@ -11,14 +11,13 @@ import AVFoundation
 typealias TimeLogger = (CMTime)->Void
 
 class OffscreenRenderTimer {
-    private let frameRate: Double = 30.0 // desired FPS
     private let frameDuration: Double
     private var frameIndex: Int = 0
     private var timer: DispatchSourceTimer?
     private let recorder: FrameCaptureRecorder
     private let timeLogger: TimeLogger?
 
-    init(recorder: FrameCaptureRecorder, timeLogger: TimeLogger? = nil) {
+    init(recorder: FrameCaptureRecorder, frameRate: Double, timeLogger: TimeLogger? = nil) {
         self.recorder = recorder
         self.timeLogger = timeLogger
         frameDuration = 1.0 / frameRate

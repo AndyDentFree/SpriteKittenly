@@ -47,26 +47,35 @@ class ExportSKVideo {
         
     }
     
-    public func exportFrameWise(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, logIn: Binding<String>, exportSize: CGSize, fromView: SKView) {
-        guard let activeScene = fromView.scene as? RecordableScene else {
+    public func exportFrameWise(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, logIn: Binding<String>, config: MovieExportConfiguration, fromView viewOwner: SKViewOwner) {
+        guard let skv = viewOwner.ownedView,
+                let activeScene = skv.scene as? RecordableScene else {
             print("No active scene to export")  // something very weirdly wrong
             return
         }
         let videoURL = makeVideoFileURL()
         resultMessage = resultIn
         do {
+            let exportSize = config.resolution.asCGSize()
             let (writer, _, pixelBufferAdaptor) = try makeAssetWriter(for: videoURL, size: exportSize)
             writer.startWriting()
             writer.startSession(atSourceTime: .zero)  // this source time bothers me if we're picking up a scene that's already run a while
-            previewPlayer = fromView
+            previewPlayer = skv
             activeScene.isPaused = true
             saveScaleMode = activeScene.scaleMode
-            fromView.presentScene(nil)  // stop it playing on the main SKView (wrapped in SpriteKitContainerWithGen)
+            skv.presentScene(nil)  // stop it playing on the main SKView (wrapped in SpriteKitContainerWithGen)
             exportingScene = activeScene
-            activeScene.scaleMode = .fill  // prevent resize now not rendering to Retina surface
-            framewiseRecorder = FrameCaptureRecorder(scene: activeScene, pixelBufferAdaptor: pixelBufferAdaptor, size: exportSize)
+            if activeScene.size != exportSize {
+                let oldSize = activeScene.size
+                activeScene.size = exportSize
+                // MANUALLY FORCE RESIZE
+                viewOwner.resizer?(oldSize, exportSize)
+                
+            }
+            activeScene.scaleMode = .fill    // .resizeFill // prevent resize now not rendering to Retina surface
+            framewiseRecorder = FrameCaptureRecorder(scene: activeScene, pixelBufferAdaptor: pixelBufferAdaptor, config: config)
             framewiseWriter = writer
-            framewiseTimer = OffscreenRenderTimer(recorder: framewiseRecorder!) { (atTime: CMTime) in
+            framewiseTimer = OffscreenRenderTimer(recorder: framewiseRecorder!, frameRate: config.fps) { (atTime: CMTime) in
                 DispatchQueue.main.async {
                     logIn.wrappedValue = atTime.toMinuteSecondString()
                 }

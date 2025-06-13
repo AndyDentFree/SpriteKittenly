@@ -40,14 +40,14 @@ struct ContentView: View {
     @State var resultMessage = ""
     @State var exportStatus = ""
     var wrappedSKView = SKViewOwner() // hacky way for exporter to be able to affect preview
+    private var frameWiseConfig = MovieExportConfiguration.zero  // defer getting size from view then remember
+    @State private var showingConfigEditor = false
     
     var body: some View {
         VStack {
             SpriteKitContainerWithGen(sceneMaker: TapppableEmitterSceneMaker(onTouch: {
                 self.exporter.stopRecording()
-            }),
-                                      playsOn: wrappedSKView
-            )
+            }), playsOn: wrappedSKView)
             // controls below the video, may be hidden by it expanding
             if !isFullScreenSK {
                 if isDirectRecording {  // replace instructional labels with big counter
@@ -78,29 +78,44 @@ struct ContentView: View {
                         }
                         .buttonStyle(.bordered)
                     } else {
-                        Button("Export video (framewise)") {
-                            guard let skv = wrappedSKView.ownedView else {
-                                return
+                        ZStack {
+                            Button("Export video (framewise)") {
+                                guard let skv = wrappedSKView.ownedView else {
+                                    return
+                                }
+                                ensureHaveExportSize()
+                                exporter.exportFrameWise(isRecordingFlag: $isDirectRecording,
+                                                         resultIn: $resultMessage, logIn: $exportStatus,
+                                                         config: frameWiseConfig, fromView: wrappedSKView
+                                )
                             }
-                            // force a different size from the current view just to see what happens
-                            let exportSize = skv.bounds.size  // CGSize(width: 400, height: 400)
-                            exporter.exportFrameWise(isRecordingFlag: $isDirectRecording,
-                                                     resultIn: $resultMessage, logIn: $exportStatus,
-                                                     exportSize: exportSize, fromView:skv
-                            )
-                        }
-                        .buttonStyle(.borderedProminent)
+                            .buttonStyle(.borderedProminent)
+                            HStack {
+                                Spacer()
+                                // export settings
+                                Button("", systemImage: "slider.horizontal.3") {
+                                    ensureHaveExportSize()
+                                    showingConfigEditor.toggle()
+                                }
+                                .popover(isPresented: $showingConfigEditor) {
+                                    ExportConfigEditorView(configuration: frameWiseConfig)
+                                        .frame(width: 300, height: 360)
+                                        .padding()
+                                }
+                                .font(.title)
+                                Spacer().frame(width: 8)
+                            }
+                        } // ZStack to put controls at right
                     }
                 } else {
                     Button("Export video") {
-                        // using ReplayKit so keep playing
+                        // using ReplayKit so keep playing, we're going to expand to fullscreen and capture the entire phone
                         exporter.export(mode: exportTabSelection,  // actually do the video export
                                         fullScreenFlag: $isFullScreenSK,
                                         previewFlag: $isShowingReplayPreview,
                                         resultIn: $resultMessage)
                         
                     }
-                    .disabled(exportTabSelection == .replayKitFiltering)
                     .buttonStyle(.borderedProminent)
                 }
                 if !resultMessage.isEmpty {  // only during or after a video export
@@ -131,6 +146,13 @@ struct ContentView: View {
             }
         }  //sheet
 #endif
+    }
+    
+    private func ensureHaveExportSize() {
+        if frameWiseConfig.needsSizing && showingConfigEditor == false {
+            guard let skv = wrappedSKView.ownedView else { return }
+            frameWiseConfig.useSizeIfNotSet(skv.bounds.size)
+        }
     }
 }
 

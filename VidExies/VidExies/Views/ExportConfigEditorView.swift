@@ -23,11 +23,19 @@ struct ExportConfigEditorView: View {
     private let maxWidth = 4096
     private let maxHeight = 2160
     
+    // social media thanks https://sproutsocial.com/insights/social-media-video-specs-guide/
     private let commonResolutions: [MovieRez] = [
-        .init(width: 1920, height: 1080, title: "1080p"),
-        .init(width: 1280, height: 720, title: "720p"),
+        .init(width: 3840, height: 2160, title: "4K 2160p 1:1.9"),
+        .init(width: 2560, height: 1440, title: "1440p Quad HD 16:9"),
+        .init(width: 2048, height: 1080, title: "2K 1:1.77"),
+        .init(width: 1920, height: 1080, title: "1080p Full HD 16:9"),
+        .init(width: 1280, height:  720, title: "720p HD, Facebook 16:9"),
+        .init(width:  854, height:  480, title: "480p SD 16:9"),
+        .init(width:  640, height:  360, title: "360p SD 16:9"),
+        .init(width:  462, height:  240, title: "240p SD 16:9"),
+        .init(width:  720, height: 1280, title: "Facebook Vertical 9:16"),
         .init(width: 1080, height: 1080, title: "Instagram square"),
-        .init(width: 1080, height: 1920, title: "Portrait TikTok/Reels"),
+        .init(width: 1080, height: 1920, title: "TikTok/Reels 9:16"),
         .init(width: 1200, height: 630, title:  "Facebook/Twitter preview"),
     ]
 

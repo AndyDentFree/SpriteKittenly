@@ -151,7 +151,7 @@ ContentView
 
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Framewise add video settings - Fixes #14
+Framewise add video settings - See #14
 2025-06-12
 
 ContentView
@@ -163,4 +163,31 @@ ExportConfigEditorView
 - added
 
 ExportSKVideo
-- exportFrameWise take MovieExportConfiguration instead of exportSize
+- exportFrameWise 
+  - take MovieExportConfiguration instead of exportSize
+  - pass config to FrameCaptureRecorder
+  - pass config.fps to OffscreenRenderTimer(...frameRate)
+
+FrameCaptureRecorder
+  - take MovieExportConfiguration instead of exportSize
+  - renderSize property replaced by caching width, height
+
+OffscreenRenderTimer
+- remove frameRate property
+- init take frameRate art
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Framewise finish video settings - See #14
+2025-06-19
+
+ExportConfigEditorView
+- commonResolutions expanded list
+- width, height renamed movieWidth/Height to avoid confusion with view props
+- aspectRatio added so keep local one matching any choices from known video formats
+- editingWidth/Height flags added
+- onCommit removed unused code
+- onEditingChanged just set flag to indicate if inside edit mode for width/height
+- onChangeOf blocks added to call updateDimensions
+- commonResolutions menu added label with down caret
+- updateDimensions() simplified to just correct to aspect ratio, no clamping as people may edit to outside ranges whilst editing
+

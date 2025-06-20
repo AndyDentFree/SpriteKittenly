@@ -13,11 +13,14 @@ struct ExportConfigEditorView: View {
     var configuration: MovieExportConfiguration
     let configSourceRes: String
 
-    @State private var width: Int
-    @State private var height: Int
-    @State private var keepAspectRatio = false
+    @State private var movieWidth: Int
+    @State private var movieHeight: Int
+    @State private var keepAspectRatio = true // expecting they will usually pick a standard format
     @State private var fps: Double
-    
+    @State private var aspectRatio: CGFloat = 1.0  // keep local copy because reset if pick a known movie size
+    @State private var editingWidth: Bool = false
+    @State private var editingHeight: Bool = false
+
     private let minWidth = 192
     private let minHeight = 144
     private let maxWidth = 4096
@@ -36,14 +39,15 @@ struct ExportConfigEditorView: View {
         .init(width:  720, height: 1280, title: "Facebook Vertical 9:16"),
         .init(width: 1080, height: 1080, title: "Instagram square"),
         .init(width: 1080, height: 1920, title: "TikTok/Reels 9:16"),
-        .init(width: 1200, height: 630, title:  "Facebook/Twitter preview"),
+        .init(width: 1200, height:  630, title:  "Facebook/Twitter preview"),
     ]
 
     init(configuration: MovieExportConfiguration) {
         self.configuration = configuration
         let res = configuration.resolution
-        width  = res.width
-        height = res.height
+        movieWidth  = res.width
+        movieHeight = res.height
+        aspectRatio = configuration.aspectRatio
         fps = configuration.fps
         configSourceRes = "Source: \(configuration.sourceResolution.width) × \(configuration.sourceResolution.height)"
     }
@@ -51,7 +55,6 @@ struct ExportConfigEditorView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(configSourceRes)
-                .font(.headline)
 
             Toggle("Keep Aspect Ratio", isOn: $keepAspectRatio)
 
@@ -60,39 +63,56 @@ struct ExportConfigEditorView: View {
                     Text("Width")
                     TextField(
                         "",
-                        value: $width,
+                        value: $movieWidth,
                         formatter: NumberFormatter(),
-                        onEditingChanged: { _ in },
-                        onCommit: { updateDimensions(changed: .width) }
+                        onEditingChanged: {editingWidth = $0}
                     )
+                    .onChangeOf(movieWidth) { _ in
+                        updateDimensions()
+                    }
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+#if os(iOS)
                     .keyboardType(.numberPad)
+#endif
                 }
                 VStack(alignment: .leading) {
                     Text("Height")
                     TextField(
                         "",
-                        value: $height,
+                        value: $movieHeight,
                         formatter: NumberFormatter(),
-                        onEditingChanged: { _ in },
-                        onCommit: { updateDimensions(changed: .height) }
+                        onEditingChanged: {editingHeight = $0}
                     )
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .onChangeOf(movieHeight) { _ in
+                        updateDimensions()
+                    }
+#if os(iOS)
                     .keyboardType(.numberPad)
+#endif
                 }
             }
 
-            Menu("Common Resolutions") {  // arrowtriangle.down.fill
-                ForEach(commonResolutions, id: \.self) { rez in
-                    Button("\(rez.width) × \(rez.height) \(rez.title)") {
-                        width = rez.width
-                        height = rez.height
-                        applyConstraints()
+            Menu {
+                // reverse because SwiftUI reverses on display
+                ForEach(commonResolutions.reversed(), id: \.self) { rez in
+                    Button("\(String(rez.width)) × \(String(rez.height))\n\(rez.title)") {
+                        movieWidth = rez.width
+                        movieHeight = rez.height
+                        aspectRatio = CGFloat(rez.width) / CGFloat(rez.height)
                     }
                 }
+            }  label: {
+                HStack(spacing: 4) {
+                    Text("Common Resolutions")
+#if os(iOS)
+                    Image(systemName: "chevron.down")  // Mac has own down-chevron
+#endif
+                }
+                //.font(.body)                    // DynamicType–aware font
+                .foregroundColor(.accentColor)      // or whatever color you need
             }
 
-            Spacer()
             HStack {
                 Text("fps")
                 TextField(
@@ -101,15 +121,14 @@ struct ExportConfigEditorView: View {
                     formatter: NumberFormatter()
                 )
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+#if os(iOS)
                 .keyboardType(.decimalPad)
+#endif
             }
             Spacer()
 
             Button("Done") {
-                // clamp and commit back
-                let w = clamp(width,  min: minWidth, max: maxWidth)
-                let h = clamp(height, min: minHeight, max: maxHeight)
-                configuration.resolution = MovieRez(width: w, height: h)
+                configuration.resolution = MovieRez(width: movieWidth, height: movieHeight)
                 configuration.fps = fps
                 dismiss()
             }
@@ -118,38 +137,15 @@ struct ExportConfigEditorView: View {
         }
     }
 
-    private enum Changed { case width, height }
+    private func updateDimensions() {
+        guard keepAspectRatio else {return}
 
-    private func updateDimensions(changed: Changed) {
-        var w = clamp(width,  min: minWidth, max: maxWidth)
-        var h = clamp(height, min: minHeight, max: maxHeight)
-
-        if keepAspectRatio {
-            switch changed {
-            case .width:
-                // recalc height
-                h = Int(CGFloat(w) / configuration.aspectRatio)
-            case .height:
-                // recalc width
-                w = Int(CGFloat(h) * configuration.aspectRatio)
-            }
+        // using flags only true when have actually started editing a field to guard against setters
+        if editingWidth {
+            movieHeight = Int(CGFloat(movieWidth) / aspectRatio)
+        } else if editingHeight {
+            movieWidth = Int(CGFloat(movieHeight) * aspectRatio)
         }
-
-        width  = clamp(w, min: minWidth, max: maxWidth)
-        height = clamp(h, min: minHeight, max: maxHeight)
-    }
-
-    private func applyConstraints() {
-        if keepAspectRatio {
-            // recalc height from width for simplicity
-            height = Int(CGFloat(width) / configuration.aspectRatio)
-        }
-        width  = clamp(width,  min: minWidth, max: maxWidth)
-        height = clamp(height, min: minHeight, max: maxHeight)
-    }
-
-    private func clamp(_ value: Int, min: Int, max: Int) -> Int {
-        Swift.max(min, Swift.min(value, max))
     }
 }
 

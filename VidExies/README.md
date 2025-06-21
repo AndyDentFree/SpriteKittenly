@@ -11,7 +11,12 @@ This sample was created when the [Purrticles app][p1] video export was being add
 ## ReplayKit whole screen capture
 [ReplayKit][a3] is the simple approach to recording your whole screen.
 
-It even supports Mac - see [Recording and Streaming Your macOS App][a4].
+It even supports Mac - see [Recording and Streaming Your macOS App][a4], although with some horrible sizing woes.
+
+Note that with ReplayKit you are [prompted for permission to record][a8]:
+
+>Before recording starts, ReplayKit presents a user consent alert requesting that the user acknowledge their intent to record the screen, the microphone and the front-facing camera. This alert is presented once per app process and it’s presented again if the app is left in the background for longer than 8 minutes.
+
 
 **WARNING: you must test ReplayKit on real devices. The iOS simulators won't prompt and won't record.**
 
@@ -56,6 +61,7 @@ To stop, we eventually have to invoke `RPScreenRecorder.shared().stopRecording` 
 [a5]: https://developer.apple.com/documentation/replaykit/rppreviewviewcontroller
 [a6]: https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable
 [a7]: https://developer.apple.com/documentation/swiftui/nsviewcontrollerrepresentable
+[a8]: https://support.apple.com/en-au/guide/security/seca5fc039dd/web
 
 [p1]: https://www.touchgram.com/purrticles
 [so1]: https://stackoverflow.com/questions/59842682/replaykit-with-swiftui

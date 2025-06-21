@@ -191,3 +191,27 @@ ExportConfigEditorView
 - commonResolutions menu added label with down caret
 - updateDimensions() simplified to just correct to aspect ratio, no clamping as people may edit to outside ranges whilst editing
 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Framewise video react properly to video settings - Fixes #14
+2025-06-20
+
+RecordableScene
+- id & isPlaying added
+- override didMove(to) so can log starting on an SKView
+- update(time) log state transitions
+
+TappableEmitterSceneMaker
+- viewResized - scale the positionRange & particleSize as well
+- id prop added
+
+ContentView
+- move maker out from inline in SpriteKitContainerWithGen view to a local var, to avoid recreation when view hierarchy rebuilt
+- onAppear added to set maker.onTouch (for ReplayKit mode) because need exporter prop instantiated
+
+SpriteKitContainerWithGen
+- move sceneMaker out to a local var as view rebuild is triggered by counter and inline init expression was being triggered every counter update
+- added onAppear to assign the onTouch: lambda to the sceneMaker
+
+
+

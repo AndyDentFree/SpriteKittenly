@@ -42,12 +42,11 @@ struct ContentView: View {
     var wrappedSKView = SKViewOwner() // hacky way for exporter to be able to affect preview
     private var frameWiseConfig = MovieExportConfiguration.zero  // defer getting size from view then remember
     @State private var showingConfigEditor = false
+    private var maker = TapppableEmitterSceneMaker(onTouch: {})
     
     var body: some View {
         VStack {
-            SpriteKitContainerWithGen(sceneMaker: TapppableEmitterSceneMaker(onTouch: {
-                self.exporter.stopRecording()
-            }), playsOn: wrappedSKView)
+            SpriteKitContainerWithGen(sceneMaker: maker, playsOn: wrappedSKView)
             // controls below the video, may be hidden by it expanding
             if !isFullScreenSK {
                 if isDirectRecording {  // replace instructional labels with big counter
@@ -118,12 +117,15 @@ struct ContentView: View {
                     }
                     .buttonStyle(.borderedProminent)
                 }
-                if !resultMessage.isEmpty {  // only during or after a video export
-                    Spacer()
-                    Text(resultMessage)
-                        .font(.subheadline)
-                }
+                Spacer()
+                Text(resultMessage) // only has content during or after a video export
+                    .font(.subheadline)
                 Spacer(minLength: 40)
+            }
+        }
+        .onAppear {
+            maker.onTouch = {
+                exporter.stopRecording()
             }
         }
         .edgesIgnoringSafeArea(isFullScreenSK ? .all : .init())

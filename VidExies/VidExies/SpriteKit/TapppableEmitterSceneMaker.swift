@@ -10,6 +10,7 @@ import SpriteKit
 // using a class so can have a ref instance shared between SpriteKitContainerWithGen and its nested Coordinator class
 // makes a resizeable scene with emitters that can be tapped, eg: to stop recording
 class TapppableEmitterSceneMaker: ResizeableSceneMaker {
+    let id = UUID()  // for debugging only to detect different versions being created
     
     var leftFire: SKEmitterNode? = nil
     var rightFire: SKEmitterNode? = nil
@@ -52,6 +53,28 @@ class TapppableEmitterSceneMaker: ResizeableSceneMaker {
         rightFire?.position = CGPoint(x: newSize.width - 56, y: 37)
         confetti?.position = CGPoint(x: newSize.width / 2, y: newSize.height - 8)
         minSpray?.position = CGPoint(x: newSize.width/2, y: newSize.height/2)
+        
+        // for this demo, unlike ResizingRemit, as can be rendering on vastly bigger also resize particlePositionRange
+        let widthScale = newSize.width / 402.0
+        let heightScale = newSize.height / 874.0
+        leftFire?.particlePositionRange = CGVector(dx: 56 * widthScale, dy:  5 * heightScale)
+        rightFire?.particlePositionRange = CGVector(dx: 56 * widthScale, dy:  50 * heightScale)
+        // minSpray centred
+        confetti?.particlePositionRange = CGVector(dx: 400 * widthScale, dy:  2 * heightScale)
+        
+        let textureScale = min(widthScale, heightScale)
+        if textureScale > 1.5 {  // only bother if much bigger movies
+            leftFire?.particleScale = textureScale
+            rightFire?.particleScale = textureScale
+            // no-texture particles we adjust size as is simple shader filling rect
+            confetti?.particleSize = CGSize(width: 8 * widthScale, height: 16 * heightScale)
+            minSpray?.particleSize = CGSize(width: 8 * widthScale, height: 8 * heightScale)
+        }  else {
+            leftFire?.particleScale = 1.0
+            rightFire?.particleScale = 1.0
+            confetti?.particleSize = CGSize(width: 8, height: 16)
+            minSpray?.particleSize = CGSize(width: 8, height: 8)
+        }
     }
     
     func forgetScene() {

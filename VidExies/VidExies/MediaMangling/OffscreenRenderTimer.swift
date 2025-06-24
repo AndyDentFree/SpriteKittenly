@@ -16,11 +16,15 @@ class OffscreenRenderTimer {
     private var timer: DispatchSourceTimer?
     private let recorder: FrameCaptureRecorder
     private let timeLogger: TimeLogger?
+    private let baseScale = CMTimeScale(600)  // usual base multiple of 6, 10, 12, 15, 24, 30, 60, 120
+    private var logEveryFrames: Int
+    private var lastLogFrameIndex: Int = 0
 
-    init(recorder: FrameCaptureRecorder, frameRate: Double, timeLogger: TimeLogger? = nil) {
+    init(recorder: FrameCaptureRecorder, frameRate: Double, timeLogger: TimeLogger? = nil, logEverySeconds: Double = 1/15.0) {
         self.recorder = recorder
         self.timeLogger = timeLogger
         frameDuration = 1.0 / frameRate
+        logEveryFrames = Int(round(frameRate * logEverySeconds))
     }
     
     func startRendering(fromTime: TimeInterval) {
@@ -34,7 +38,7 @@ class OffscreenRenderTimer {
             // Calculate the presentation time for the current frame.
             let elapsed = Double(self.frameIndex) * self.frameDuration
             let rendererTime = fromTime + elapsed  // offset matches our paused SKScene
-            let movieTime = CMTime(seconds: elapsed, preferredTimescale: 600)  // movie started from 0
+            let movieTime = CMTime(seconds: elapsed, preferredTimescale: baseScale)  // movie started from 0
             
             // Manually drive the scene update.
             self.recorder.renderer.update(atTime: rendererTime)
@@ -43,7 +47,10 @@ class OffscreenRenderTimer {
             self.recorder.captureFrame(at: movieTime)
             
             if isLogging {
-                timeLogger!(movieTime)
+                if frameIndex > (lastLogFrameIndex + logEveryFrames) {
+                    timeLogger!(movieTime)
+                    lastLogFrameIndex = frameIndex
+                }
             }
             
             self.frameIndex += 1

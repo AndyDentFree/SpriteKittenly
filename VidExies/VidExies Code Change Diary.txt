@@ -226,3 +226,15 @@ stopRecordingFramewise
 SpriteKitContainerWithGen
 - onLayout - suppress resize if view isn't presenting. This was the cause of the main resize bug - it was triggered by layout changes and had direct refs to the emitters we were still using, so resized AFTER the movie size was set.
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+WIP - Framewise video exporting polish - exposing movies & throttling counter - See #14
+2025-06-23
+
+info.plist
+- added with keys UIFileSharingEnabled & LSSupportsOpeningDocumentsInPlacef so documents exposed in Files app (sandboxed doc folder accessible)
+
+OffscreenRenderTimer
+- added properties logEveryFrames, lastLogFrameIndex
+- init take logEverySeconds default 0.033 (30fps) to calc logEveryFrames
+- baseScale added instead of magic number 600
+- startRendering - timer event handler use lastLogFrameIndex to decide if should update logger

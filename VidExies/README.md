@@ -40,8 +40,8 @@ This is vastly more complicated than using ReplayKit, because it's replacing the
 
 The main components used by `ExportSKView.exportFrameWise` are:
 - `FrameCaptureRecorder` which captures each frame of the scene
-- a `OffscreenRenderTimer` which manages the timing to update and capture the scene
-- an `AVAssetWriter` converts the pixel buffer and writes it to the movie on disk
+- `OffscreenRenderTimer` which manages the timing to update and capture the scene
+- `AVAssetWriter` converts the pixel buffer and writes it to the movie on disk
 
 ### Ugly SKView passed around
 As quick hack to get this working, the SKView created inside the `SpriteKitContainerWithGen` is passed back to the calling context so that it can be then passed down and manipulated in `exportFrameWise` and `stopRecordingFramewise`. We use a trivial wrapper class `SKViewOwner` for this.

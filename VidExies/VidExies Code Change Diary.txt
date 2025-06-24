@@ -134,8 +134,8 @@ Framewise status counter - Fixes #12
 2025-06-11
 
 OffscreenRenderTimer
-- added properties timeLogger, logInterval
-- init take timeLogger & logInterval default 60fps
+- added property timeLogger
+- init take timeLogger
 - startRendering
   - setup logging in timer eventHandler
 
@@ -193,8 +193,8 @@ ExportConfigEditorView
 
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Framewise video react properly to video settings - Fixes #14
-2025-06-20
+WIP - Framewise video exporting at different sizes works - See #14
+2025-06-20..22
 
 RecordableScene
 - id & isPlaying added
@@ -213,5 +213,16 @@ SpriteKitContainerWithGen
 - move sceneMaker out to a local var as view rebuild is triggered by counter and inline init expression was being triggered every counter update
 - added onAppear to assign the onTouch: lambda to the sceneMaker
 
+ExportSKView
+- CGSize extension added with equalsRounded and rounded
+- saveSKSize added
+- exportFrameWise 
+  - use rounded sizes to avoid trivial ResizingRemit
+  - saveSKSize stashed
 
+stopRecordingFramewise
+- restore size with saveSKSize
+
+SpriteKitContainerWithGen
+- onLayout - suppress resize if view isn't presenting. This was the cause of the main resize bug - it was triggered by layout changes and had direct refs to the emitters we were still using, so resized AFTER the movie size was set.
 

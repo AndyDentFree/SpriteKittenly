@@ -22,7 +22,8 @@ class ExportSKVideo {
     private var framewiseWriter: AVAssetWriter? = nil  // need member to finalise on stop
     private var framewiseTimer: OffscreenRenderTimer? = nil
     private var saveScaleMode: SKSceneScaleMode = .aspectFit
-    
+    private var saveSKViewSize = CGSize.zero
+
     public func export(mode: RecordType, fullScreenFlag: Binding<Bool>, previewFlag: Binding<Bool>, resultIn: Binding<String>, exportSize: CGSize = CGSize(width: 400, height: 400)) {
         currentMode = mode
         switch mode {
@@ -63,16 +64,14 @@ class ExportSKVideo {
             previewPlayer = skv
             activeScene.isPaused = true
             saveScaleMode = activeScene.scaleMode
+            saveSKViewSize = activeScene.size
             skv.presentScene(nil)  // stop it playing on the main SKView (wrapped in SpriteKitContainerWithGen)
             exportingScene = activeScene
-            if activeScene.size != exportSize {
-                let oldSize = activeScene.size
-                activeScene.size = exportSize
-                // MANUALLY FORCE RESIZE
-                viewOwner.resizer?(oldSize, exportSize)
-                
-            }
-            activeScene.scaleMode = .fill    // .resizeFill // prevent resize now not rendering to Retina surface
+            activeScene.scaleMode = .fill // .resizeFill causes empty movie, not compatible with SKRenderer
+            // AppleDocs: The scene is not scaled to match the view. Instead, the scene is automatically resized so that its dimensions always match those of the view.
+            // this seems to work out that, if you are using SKRenderer instead of an SKView to present the scene, it won't resize?
+            let activeRounded = activeScene.size.rounded
+            let exportRounded = exportSize.rounded
             framewiseRecorder = FrameCaptureRecorder(scene: activeScene, pixelBufferAdaptor: pixelBufferAdaptor, config: config)
             framewiseWriter = writer
             framewiseTimer = OffscreenRenderTimer(recorder: framewiseRecorder!, frameRate: config.fps) { (atTime: CMTime) in
@@ -82,7 +81,14 @@ class ExportSKVideo {
             }
             framewiseTimer?.startRendering(fromTime: activeScene.lastFrameTime)
             activeScene.isPaused = false  // undo being paused by presentScene(nil)
-            activeScene.size = exportSize
+            // experiment - see if resuming prior to resize fixes anything
+            if activeRounded != exportRounded {
+                let oldSize = activeScene.size  // save with awkward fractional pixels
+                activeScene.size = exportRounded
+                // MANUALLY FORCE RESIZE
+                viewOwner.resizer?(oldSize, exportSize)
+                
+            }
             isShowingContentToRecord = isRecordingFlag  // save so final completion can toggle, eg to hide a Stop button
             isRecordingFlag.wrappedValue = true
             print("Recording to: \(videoURL)")
@@ -123,9 +129,11 @@ class ExportSKVideo {
                 self.framewiseTimer = nil
                 self.resultMessage?.wrappedValue = "Saved to \(toStop.outputURL.absoluteString)"
                 self.exportingScene?.scaleMode = self.saveScaleMode
+                self.exportingScene?.size = self.saveSKViewSize
                 self.previewPlayer?.presentScene(self.exportingScene)  // give it back to preview on main screen
             }
         }
+        framewiseTimer = nil
     }
     
     public func makePreview() -> PreviewContainer {
@@ -199,5 +207,16 @@ extension CMTime {
 
         // Format with leading zeros: 02d for minutes/seconds, 03d for millis
         return String(format: "%02d:%02d.%03d", minutes, seconds, milliseconds)
+    }
+}
+
+
+extension CGSize {
+    func equalsRounded(_ rhs: CGSize) -> Bool {
+        self.rounded == rhs.rounded
+    }
+    
+    var rounded: CGSize {
+        CGSize(width: self.width.rounded(.toNearestOrEven), height: self.height.rounded(.toNearestOrEven))
     }
 }

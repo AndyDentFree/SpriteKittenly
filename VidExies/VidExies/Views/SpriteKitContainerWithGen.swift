@@ -63,6 +63,10 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
                 context.coordinator.lastViewSize = skv.bounds.size
                 print("onLayout sbout to presentScene size \(skv.bounds.size) for first scene")
             } else {
+                guard skv.scene != nil else {
+                    print("onLayout not adjusting when not presenting a scene")
+                    return
+                }
                 let newSize = skv.bounds.size
                 let oldSize = context.coordinator.lastViewSize
                 if newSize != oldSize {

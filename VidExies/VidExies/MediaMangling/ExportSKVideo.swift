@@ -23,6 +23,8 @@ class ExportSKVideo {
     private var framewiseTimer: OffscreenRenderTimer? = nil
     private var saveScaleMode: SKSceneScaleMode = .aspectFit
     private var saveSKViewSize = CGSize.zero
+    private var exportSize = CGSize.zero
+    private var resizer: SKViewOwner.Resizer? = nil  // saved for framewise to resize after present
 
     public func export(mode: RecordType, fullScreenFlag: Binding<Bool>, previewFlag: Binding<Bool>, resultIn: Binding<String>, exportSize: CGSize = CGSize(width: 400, height: 400)) {
         currentMode = mode
@@ -57,8 +59,9 @@ class ExportSKVideo {
         let videoURL = makeVideoFileURL()
         resultMessage = resultIn
         do {
-            let exportSize = config.resolution.asCGSize()
+            exportSize = config.resolution.asCGSize()
             let (writer, _, pixelBufferAdaptor) = try makeAssetWriter(for: videoURL, size: exportSize)
+            print("Started export to \(videoURL.path)")
             writer.startWriting()
             writer.startSession(atSourceTime: .zero)  // this source time bothers me if we're picking up a scene that's already run a while
             previewPlayer = skv
@@ -86,8 +89,8 @@ class ExportSKVideo {
                 let oldSize = activeScene.size  // save with awkward fractional pixels
                 activeScene.size = exportRounded
                 // MANUALLY FORCE RESIZE
-                viewOwner.resizer?(oldSize, exportSize)
-                
+                resizer = viewOwner.resizer
+                resizer?(oldSize, exportSize)
             }
             isShowingContentToRecord = isRecordingFlag  // save so final completion can toggle, eg to hide a Stop button
             isRecordingFlag.wrappedValue = true
@@ -130,6 +133,7 @@ class ExportSKVideo {
                 self.resultMessage?.wrappedValue = "Saved to \(toStop.outputURL.absoluteString)"
                 self.exportingScene?.scaleMode = self.saveScaleMode
                 self.exportingScene?.size = self.saveSKViewSize
+                self.resizer?(self.exportSize, self.saveSKViewSize)
                 self.previewPlayer?.presentScene(self.exportingScene)  // give it back to preview on main screen
             }
         }

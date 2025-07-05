@@ -42,7 +42,7 @@ struct ContentView: View {
     var wrappedSKView = SKViewOwner() // hacky way for exporter to be able to affect preview
     private var frameWiseConfig = MovieExportConfiguration.zero  // defer getting size from view then remember
     @State private var showingConfigEditor = false
-    private var maker = TapppableEmitterSceneMaker(onTouch: {})
+    private var maker = TapppableEmitterSceneMaker(onTouch: {})  // MUST not be inline in the SpriteKitContainerWithGen init because that is rebuilt regularly
     
     var body: some View {
         VStack {
@@ -79,7 +79,8 @@ struct ContentView: View {
                     } else {
                         ZStack {
                             Button("Export video (framewise)") {
-                                guard let skv = wrappedSKView.ownedView else {
+                                guard wrappedSKView.ownedView != nil else {
+                                    print("Impossible condition of no SKView in the wrapper")
                                     return
                                 }
                                 ensureHaveExportSize()

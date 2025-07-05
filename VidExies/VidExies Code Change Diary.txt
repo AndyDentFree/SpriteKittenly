@@ -227,7 +227,7 @@ SpriteKitContainerWithGen
 - onLayout - suppress resize if view isn't presenting. This was the cause of the main resize bug - it was triggered by layout changes and had direct refs to the emitters we were still using, so resized AFTER the movie size was set.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-WIP - Framewise video exporting polish - exposing movies & throttling counter - See #14
+Framewise video exporting polish - exposing movies & throttling counter - See #14
 2025-06-23
 
 info.plist
@@ -238,3 +238,26 @@ OffscreenRenderTimer
 - init take logEverySeconds default 0.033 (30fps) to calc logEveryFrames
 - baseScale added instead of magic number 600
 - startRendering - timer event handler use lastLogFrameIndex to decide if should update logger
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Framewise video exporting polish - transition bugs, fix resize after recording - See #14
+2025-07-05
+
+RecordableScene
+- isPlaying renamed isPlayingOnSKView
+- still update lastFrameTime on the transition to no view, to reduce hiccup at start
+
+SpriteKitContainerWithGen.swift
+SKViewOwner
+- added typealias Resizer
+
+ExportSKVideo
+- var resizer added
+- exportSize made var, was local in exportFrameWise
+- stopRecordingFramewise call resizer before presentScene
+
+TapppableEmitterSceneMaker
+- viewResized - also resize scales & positionRanges
+
+

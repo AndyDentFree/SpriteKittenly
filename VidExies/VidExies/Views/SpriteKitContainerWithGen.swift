@@ -20,8 +20,9 @@ protocol ResizeableSceneMaker {
 // simple ref class to own a view made in here, so caller can pass around
 // much like what happens inside Coordinator but exposed at higher level
 class SKViewOwner {
+    typealias Resizer = (CGSize, CGSize) -> Void
     public var ownedView: SKView? = nil
-    public var resizer: ((CGSize, CGSize) -> Void)? = nil
+    public var resizer: Resizer? = nil
 }
 
 // Container taking a generator function, expects to only show one scene

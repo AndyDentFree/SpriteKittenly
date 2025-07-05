@@ -49,21 +49,23 @@ class TapppableEmitterSceneMaker: ResizeableSceneMaker {
             print("viewResized called before made emitters")
             return
         }
-        //leftFire?.position not reassigned as it's two constant values, relative to bottom-left
-        rightFire?.position = CGPoint(x: newSize.width - 56, y: 37)
+        let widthScale = newSize.width / 402.0
+        let heightScale = newSize.height / 874.0
+        let fireYIndent = 56 * widthScale
+        let fireHeight = 37 * heightScale
+        leftFire?.position = CGPoint(x: fireYIndent, y: fireHeight)
+        rightFire?.position = CGPoint(x: newSize.width - fireYIndent, y: fireHeight)
         confetti?.position = CGPoint(x: newSize.width / 2, y: newSize.height - 8)
         minSpray?.position = CGPoint(x: newSize.width/2, y: newSize.height/2)
         
         // for this demo, unlike ResizingRemit, as can be rendering on vastly bigger also resize particlePositionRange
-        let widthScale = newSize.width / 402.0
-        let heightScale = newSize.height / 874.0
-        leftFire?.particlePositionRange = CGVector(dx: 56 * widthScale, dy:  5 * heightScale)
-        rightFire?.particlePositionRange = CGVector(dx: 56 * widthScale, dy:  50 * heightScale)
+        leftFire?.particlePositionRange = CGVector(dx: fireYIndent, dy:  5 * heightScale)
+        rightFire?.particlePositionRange = CGVector(dx: fireYIndent, dy:  50 * heightScale)
         // minSpray centred
         confetti?.particlePositionRange = CGVector(dx: 400 * widthScale, dy:  2 * heightScale)
         
         let textureScale = min(widthScale, heightScale)
-        if textureScale > 1.5 {  // only bother if much bigger movies
+        if textureScale > 1.5  || textureScale < 0.9 {  // only bother if much bigger or smaller movies
             leftFire?.particleScale = textureScale
             rightFire?.particleScale = textureScale
             // no-texture particles we adjust size as is simple shader filling rect

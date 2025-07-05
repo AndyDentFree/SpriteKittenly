@@ -12,7 +12,7 @@ import SpriteKit
 class RecordableScene: SKScene {
     let id = UUID()  // for debugging only to detect different versions being created
     private(set) var lastFrameTime: TimeInterval = 0
-    private var isPlaying: Bool = true
+    private var isPlayingOnSKView: Bool = true
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -21,14 +21,15 @@ class RecordableScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         if view == nil {
-            if isPlaying {
-                isPlaying = false  // transition to recording detected
-                print("Scene \(id) stopped playing at \(lastFrameTime)")
+            if isPlayingOnSKView {
+                isPlayingOnSKView = false  // transition to recording detected
+                lastFrameTime = currentTime  // final update so recording starts after stopped on view
+                print("Scene \(id) stopped playing at on view \(lastFrameTime)")
             }
         } else {  // is playing, not rendering to a movie
-            if !isPlaying {
-                isPlaying = true  // transition to playing detected
-                print("Scene \(id) started playing after recording")
+            if !isPlayingOnSKView {
+                isPlayingOnSKView = true  // transition to playing detected
+                print("Scene \(id) started playing on view after recording")
             }
             lastFrameTime = currentTime
         }

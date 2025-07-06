@@ -20,7 +20,9 @@ protocol ResizeableSceneMaker {
 // simple ref class to own a view made in here, so caller can pass around
 // much like what happens inside Coordinator but exposed at higher level
 class SKViewOwner {
+    typealias Resizer = (CGSize, CGSize) -> Void
     public var ownedView: SKView? = nil
+    public var resizer: Resizer? = nil
 }
 
 // Container taking a generator function, expects to only show one scene
@@ -49,6 +51,8 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
     func makeView(context: Context) -> SKView {
         let ret = LayoutSensingSKView(frame: .zero)
         playsOn.ownedView = ret
+        playsOn.resizer = { (oldSize: CGSize, newSize: CGSize) in
+            sceneMaker.viewResized(from: oldSize, to: newSize)}
         ret.onLayout = { (skv: SKView) in
             guard skv.hasSize else {
                 print("onLayout called with zero size view")
@@ -60,6 +64,10 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
                 context.coordinator.lastViewSize = skv.bounds.size
                 print("onLayout sbout to presentScene size \(skv.bounds.size) for first scene")
             } else {
+                guard skv.scene != nil else {
+                    print("onLayout not adjusting when not presenting a scene")
+                    return
+                }
                 let newSize = skv.bounds.size
                 let oldSize = context.coordinator.lastViewSize
                 if newSize != oldSize {
@@ -89,7 +97,8 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
                     }
         } else {
             // tempting to think we can capture a resize here but only place detecting a resize is onLayout
-            print("updateView invoked after first scene setup, view size currently \(view.bounds.size)")
+           // print("updateView invoked after first scene setup, view size currently \(view.bounds.size)")
+            // note when exporting framewise this is hit every frame
         }
     }
  /*

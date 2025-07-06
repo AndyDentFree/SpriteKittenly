@@ -134,8 +134,8 @@ Framewise status counter - Fixes #12
 2025-06-11
 
 OffscreenRenderTimer
-- added properties timeLogger, logInterval
-- init take timeLogger & logInterval default 60fps
+- added property timeLogger
+- init take timeLogger
 - startRendering
   - setup logging in timer eventHandler
 
@@ -148,4 +148,116 @@ ContentView
 - exportStatus added state
 - added Text view to use for counter & pass to exportFrameWise
 - Stop Exporting button - clears exportStatus
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Framewise add video settings - See #14
+2025-06-12
+
+ContentView
+- add settings button
+- add states frameWiseConfig & showingConfigEditor
+
+MovieExportConfiguration
+ExportConfigEditorView
+- added
+
+ExportSKVideo
+- exportFrameWise 
+  - take MovieExportConfiguration instead of exportSize
+  - pass config to FrameCaptureRecorder
+  - pass config.fps to OffscreenRenderTimer(...frameRate)
+
+FrameCaptureRecorder
+  - take MovieExportConfiguration instead of exportSize
+  - renderSize property replaced by caching width, height
+
+OffscreenRenderTimer
+- remove frameRate property
+- init take frameRate art
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Framewise finish video settings - See #14
+2025-06-19
+
+ExportConfigEditorView
+- commonResolutions expanded list
+- width, height renamed movieWidth/Height to avoid confusion with view props
+- aspectRatio added so keep local one matching any choices from known video formats
+- editingWidth/Height flags added
+- onCommit removed unused code
+- onEditingChanged just set flag to indicate if inside edit mode for width/height
+- onChangeOf blocks added to call updateDimensions
+- commonResolutions menu added label with down caret
+- updateDimensions() simplified to just correct to aspect ratio, no clamping as people may edit to outside ranges whilst editing
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+WIP - Framewise video exporting at different sizes works - See #14
+2025-06-20..22
+
+RecordableScene
+- id & isPlaying added
+- override didMove(to) so can log starting on an SKView
+- update(time) log state transitions
+
+TappableEmitterSceneMaker
+- viewResized - scale the positionRange & particleSize as well
+- id prop added
+
+ContentView
+- move maker out from inline in SpriteKitContainerWithGen view to a local var, to avoid recreation when view hierarchy rebuilt
+- onAppear added to set maker.onTouch (for ReplayKit mode) because need exporter prop instantiated
+
+SpriteKitContainerWithGen
+- move sceneMaker out to a local var as view rebuild is triggered by counter and inline init expression was being triggered every counter update
+- added onAppear to assign the onTouch: lambda to the sceneMaker
+
+ExportSKView
+- CGSize extension added with equalsRounded and rounded
+- saveSKSize added
+- exportFrameWise 
+  - use rounded sizes to avoid trivial ResizingRemit
+  - saveSKSize stashed
+
+stopRecordingFramewise
+- restore size with saveSKSize
+
+SpriteKitContainerWithGen
+- onLayout - suppress resize if view isn't presenting. This was the cause of the main resize bug - it was triggered by layout changes and had direct refs to the emitters we were still using, so resized AFTER the movie size was set.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Framewise video exporting polish - exposing movies & throttling counter - See #14
+2025-06-23
+
+info.plist
+- added with keys UIFileSharingEnabled & LSSupportsOpeningDocumentsInPlacef so documents exposed in Files app (sandboxed doc folder accessible)
+
+OffscreenRenderTimer
+- added properties logEveryFrames, lastLogFrameIndex
+- init take logEverySeconds default 0.033 (30fps) to calc logEveryFrames
+- baseScale added instead of magic number 600
+- startRendering - timer event handler use lastLogFrameIndex to decide if should update logger
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Framewise video exporting polish - transition bugs, fix resize after recording - See #14
+2025-07-05
+
+RecordableScene
+- isPlaying renamed isPlayingOnSKView
+- still update lastFrameTime on the transition to no view, to reduce hiccup at start
+
+SpriteKitContainerWithGen.swift
+SKViewOwner
+- added typealias Resizer
+
+ExportSKVideo
+- var resizer added
+- exportSize made var, was local in exportFrameWise
+- stopRecordingFramewise call resizer before presentScene
+
+TapppableEmitterSceneMaker
+- viewResized - also resize scales & positionRanges
+
 

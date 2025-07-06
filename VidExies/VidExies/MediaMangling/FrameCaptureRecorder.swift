@@ -11,7 +11,10 @@ import AVFoundation
 import CoreVideo
 
 class FrameCaptureRecorder {
-    let renderSize: CGSize
+    let config: MovieExportConfiguration
+    let width: Int // cached
+    let height: Int
+
     // Metal and SpriteKit properties.
     let device: MTLDevice = MTLCreateSystemDefaultDevice()!
     let commandQueue: MTLCommandQueue
@@ -24,8 +27,10 @@ class FrameCaptureRecorder {
     // The scene you want to record.
     let scene: SKScene
     
-    init(scene: SKScene, pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor, size: CGSize) {
-        self.renderSize = size
+    init(scene: SKScene, pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor, config: MovieExportConfiguration) {
+        self.config = config
+        self.width = config.resolution.width // cache so not recalc per frame
+        self.height = config.resolution.height
         self.scene = scene
         self.pixelBufferAdaptor = pixelBufferAdaptor
         commandQueue = device.makeCommandQueue()!
@@ -40,8 +45,6 @@ class FrameCaptureRecorder {
         guard scene.size.width > 0.0 && scene.size.height > 0.0 else {
             return // skip some weird transitory state getting at least one capture with zero size frame
         }
-        let width = Int(renderSize.width)
-        let height = Int(renderSize.height)
 
         // 1. Get a CVPixelBuffer for the frame, from the adaptor's pool
         guard let pool = pixelBufferAdaptor.pixelBufferPool else {

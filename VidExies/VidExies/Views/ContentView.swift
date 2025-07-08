@@ -39,20 +39,30 @@ struct ContentView: View {
     @State private var exportTabSelection = RecordType.replayKitInMemory
     @State var resultMessage = ""
     @State var exportStatus = ""
-    var wrappedSKView = SKViewOwner() // hacky way for exporter to be able to affect preview
+    var wrappedSKView = SKViewOwner() // coordinator for video exporter to be able to affect preview
+    var wrappedMetalView = MetalViewOwner() // for video exporter to be able to publish frames whilst exporting
     private var frameWiseConfig = MovieExportConfiguration.zero  // defer getting size from view then remember
     @State private var showingConfigEditor = false
     private var maker = TapppableEmitterSceneMaker(onTouch: {})  // MUST not be inline in the SpriteKitContainerWithGen init because that is rebuilt regularly
     
     var body: some View {
-        VStack {
-            SpriteKitContainerWithGen(sceneMaker: maker, playsOn: wrappedSKView)
-            // controls below the video, may be hidden by it expanding
-            if !isFullScreenSK {
-                if isDirectRecording {  // replace instructional labels with big counter
-                    Text(exportStatus)
-                        .font(.headline.monospacedDigit())
-                } else {
+        if isDirectRecording {  // replace instructional labels with big counter
+            VStack {
+                MetalViewContainer(playsOn: wrappedMetalView)
+                Text(exportStatus)
+                    .font(.headline.monospacedDigit())
+                Button("Stop exporting (framewise)", systemImage: "stop.circle") {
+                    exporter.stopRecordingFramewise()
+                    exportStatus = ""
+                }
+                .buttonStyle(.bordered)
+                Spacer()
+            }
+        } else {
+            VStack {
+                SpriteKitContainerWithGen(sceneMaker: maker, playsOn: wrappedSKView)  // sized to fit above UI, full-screen or hidden when direct-recording
+                                                                                      // controls below the video, may be hidden by it expanding
+                if !isFullScreenSK {
                     VStack {
                         Text("Choose a movie export method")
                             .font(.subheadline)
@@ -61,22 +71,14 @@ struct ContentView: View {
                                 "Tap full-screen views to stop recording")
                         .font(.caption)
                     }
-                }
-                Picker("", selection: $exportTabSelection) {
-                    Text("ReplayKit Full screen").tag(RecordType.replayKitInMemory)
-                    //Text("ReplayKit Cropped").tag(RecordType.replayKitFiltering)
-                    Text("Framewise").tag(RecordType.frameWise)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding()
-                if exportTabSelection == .frameWise {
-                    if isDirectRecording {
-                        Button("Stop exporting (framewise)", systemImage: "stop.circle") {
-                            exporter.stopRecordingFramewise()
-                            exportStatus = ""
-                        }
-                        .buttonStyle(.bordered)
-                    } else {
+                    Picker("", selection: $exportTabSelection) {
+                        Text("ReplayKit Full screen").tag(RecordType.replayKitInMemory)
+                        //Text("ReplayKit Cropped").tag(RecordType.replayKitFiltering)
+                        Text("Framewise").tag(RecordType.frameWise)
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding()
+                    if exportTabSelection == .frameWise {
                         ZStack {
                             Button("Export video (framewise)") {
                                 guard wrappedSKView.ownedView != nil else {
@@ -106,49 +108,50 @@ struct ContentView: View {
                                 Spacer().frame(width: 8)
                             }
                         } // ZStack to put controls at right
-                    }
-                } else {
-                    Button("Export video") {
-                        // using ReplayKit so keep playing, we're going to expand to fullscreen and capture the entire phone
-                        exporter.export(mode: exportTabSelection,  // actually do the video export
-                                        fullScreenFlag: $isFullScreenSK,
-                                        previewFlag: $isShowingReplayPreview,
-                                        resultIn: $resultMessage)
                         
-                    }
-                    .buttonStyle(.borderedProminent)
+                    } else {
+                        Button("Export video") {
+                            // using ReplayKit so keep playing, we're going to expand to fullscreen and capture the entire phone
+                            exporter.export(mode: exportTabSelection,  // actually do the video export
+                                            fullScreenFlag: $isFullScreenSK,
+                                            previewFlag: $isShowingReplayPreview,
+                                            resultIn: $resultMessage)
+                            
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }  // export tab alternatives
+                    Spacer()
+                    Text(resultMessage) // only has content during or after a video export
+                        .font(.subheadline)
+                    Spacer(minLength: 40)
                 }
-                Spacer()
-                Text(resultMessage) // only has content during or after a video export
-                    .font(.subheadline)
-                Spacer(minLength: 40)
+            }  // VStack for main content other than during isDirectRecording
+            .onAppear {
+                maker.onTouch = {
+                    exporter.stopRecording()
+                }
             }
-        }
-        .onAppear {
-            maker.onTouch = {
-                exporter.stopRecording()
-            }
-        }
-        .edgesIgnoringSafeArea(isFullScreenSK ? .all : .init())
+            .edgesIgnoringSafeArea(isFullScreenSK ? .all : .init())
 #if os(iOS)
-        //note anything other than .fullScreenCover fails on iOS as the embedded VC stubbornly refuses to resize
-        //this also has to be used in combination with UIViewController.present in makeViewController
-        .fullScreenCover(isPresented: $isShowingReplayPreview) {
-            PreviewContent(exporter: exporter) {
-                withAnimation {
-                    resultMessage = ""
+            //note anything other than .fullScreenCover fails on iOS as the embedded VC stubbornly refuses to resize
+            //this also has to be used in combination with UIViewController.present in makeViewController
+            .fullScreenCover(isPresented: $isShowingReplayPreview) {
+                PreviewContent(exporter: exporter) {
+                    withAnimation {
+                        resultMessage = ""
+                    }
                 }
             }
-        }
 #else
-        .sheet(isPresented: $isShowingReplayPreview) {
-            PreviewContent(exporter: exporter) {
-                withAnimation {
-                    resultMessage = ""
+            .sheet(isPresented: $isShowingReplayPreview) {
+                PreviewContent(exporter: exporter) {
+                    withAnimation {
+                        resultMessage = ""
+                    }
                 }
-            }
-        }  //sheet
+            }  //sheet
 #endif
+        }
     }
     
     private func ensureHaveExportSize() {

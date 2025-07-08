@@ -261,3 +261,26 @@ TapppableEmitterSceneMaker
 - viewResized - also resize scales & positionRanges
 
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Preview for Framewise video exporting - See #13
+2025-07-07..08
+
+MetalViewContainer.swift
+- added
+
+ContentView
+- isDirectRecording renamed isFrameWiseRecording to match other names
+- body rearranged so SpriteKitContainerWithGen is only visible when !isFrameWiseRecording
+- wrappedMetalView added
+
+SpriteKitContainerWithGen
+- SKViewOwner - ownedView changed type SKView to LayoutSensingSKView
+- Coordinator
+  - isFirstScene set in init so can keep previously built LayoutSensingSKView, won't recreate when the container view is rebuilt after we've been playing
+  - playsOn added so can also use the passed-in SKViewOwner
+- makeCoordinator - pass playsOn into Coordinator  
+
+
+
+TODO
+ - actual texture copying and update loop

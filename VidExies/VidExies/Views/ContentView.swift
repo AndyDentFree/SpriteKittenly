@@ -40,7 +40,7 @@ struct ContentView: View {
     @State var resultMessage = ""
     @State var exportStatus = ""
     var wrappedSKView = SKViewOwner() // coordinator for video exporter to be able to affect preview
-    var wrappedMetalView = MetalViewOwner() // for video exporter to be able to publish frames whilst exporting
+    @StateObject var wrappedMetalView = MetalViewOwner() // for video exporter to be able to publish frames whilst exporting
     private var frameWiseConfig = MovieExportConfiguration.zero  // defer getting size from view then remember
     @State private var showingConfigEditor = false
     private var maker = TapppableEmitterSceneMaker(onTouch: {})  // MUST not be inline in the SpriteKitContainerWithGen init because that is rebuilt regularly
@@ -48,14 +48,33 @@ struct ContentView: View {
     var body: some View {
         if isDirectRecording {  // replace instructional labels with big counter
             VStack {
-                MetalViewContainer(playsOn: wrappedMetalView)
-                Text(exportStatus)
+                MetalViewContainer(playsOn: wrappedMetalView, texture: $wrappedMetalView.texture)  // TODO maybe just bind directly to the playsOn, think the need to have binding to the texture is to force updates
+                    .aspectRatio(frameWiseConfig.movieAspectRatio, contentMode: .fit)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .layoutPriority(1)
+                    .border(Color.gray, width: 2)
+                Spacer()
+                Text("Exporting format \(frameWiseConfig.movieFormatDescription)")
+                    .font(.subheadline)
+                Spacer()
+                ZStack {
+                    HStack {
+                        Spacer()
+                        Button("Stop exporting (framewise)", systemImage: "stop.circle") {
+                            exporter.stopRecordingFramewise()
+                            exportStatus = ""
+                        }
+                        .padding()
+                        .buttonStyle(.bordered)
+                        Spacer()
+                    }
+                    HStack {
+                        Spacer()
+                    Text(exportStatus)
                     .font(.headline.monospacedDigit())
-                Button("Stop exporting (framewise)", systemImage: "stop.circle") {
-                    exporter.stopRecordingFramewise()
-                    exportStatus = ""
-                }
-                .buttonStyle(.bordered)
+                        Spacer().frame(width: 8)
+                    }
+                } // ZStack to put controls at right
                 Spacer()
             }
         } else {
@@ -88,7 +107,7 @@ struct ContentView: View {
                                 ensureHaveExportSize()
                                 exporter.exportFrameWise(isRecordingFlag: $isDirectRecording,
                                                          resultIn: $resultMessage, logIn: $exportStatus,
-                                                         config: frameWiseConfig, fromView: wrappedSKView
+                                                         config: frameWiseConfig, fromView: wrappedSKView, metalPreviewVia: wrappedMetalView
                                 )
                             }
                             .buttonStyle(.borderedProminent)

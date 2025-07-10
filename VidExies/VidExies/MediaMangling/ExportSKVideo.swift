@@ -25,6 +25,7 @@ class ExportSKVideo {
     private var saveSKViewSize = CGSize.zero
     private var exportSize = CGSize.zero
     private var resizer: SKViewOwner.Resizer? = nil  // saved for framewise to resize after present
+    private var metalPreviewer: MetalViewOwner? = nil
 
     public func export(mode: RecordType, fullScreenFlag: Binding<Bool>, previewFlag: Binding<Bool>, resultIn: Binding<String>, exportSize: CGSize = CGSize(width: 400, height: 400)) {
         currentMode = mode
@@ -50,12 +51,13 @@ class ExportSKVideo {
         
     }
     
-    public func exportFrameWise(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, logIn: Binding<String>, config: MovieExportConfiguration, fromView viewOwner: SKViewOwner) {
+    public func exportFrameWise(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, logIn: Binding<String>, config: MovieExportConfiguration, fromView viewOwner: SKViewOwner, metalPreviewVia: MetalViewOwner) {
         guard let skv = viewOwner.ownedView,
                 let activeScene = skv.scene as? RecordableScene else {
             print("No active scene to export")  // something very weirdly wrong
             return
         }
+        metalPreviewer = metalPreviewVia  // so can send textures back up from recording
         let videoURL = makeVideoFileURL()
         resultMessage = resultIn
         do {
@@ -75,7 +77,7 @@ class ExportSKVideo {
             // this seems to work out that, if you are using SKRenderer instead of an SKView to present the scene, it won't resize?
             let activeRounded = activeScene.size.rounded
             let exportRounded = exportSize.rounded
-            framewiseRecorder = FrameCaptureRecorder(scene: activeScene, pixelBufferAdaptor: pixelBufferAdaptor, config: config)
+            framewiseRecorder = FrameCaptureRecorder(scene: activeScene, pixelBufferAdaptor: pixelBufferAdaptor, config: config, previewer: metalPreviewer)
             framewiseWriter = writer
             framewiseTimer = OffscreenRenderTimer(recorder: framewiseRecorder!, frameRate: config.fps) { (atTime: CMTime) in
                 DispatchQueue.main.async {
@@ -122,22 +124,26 @@ class ExportSKVideo {
             print("stopRecordingFramewise invoked when not recording")
             return
         }
-        self.isShowingContentToRecord?.wrappedValue = false  // hide buttons
+        self.isShowingContentToRecord?.wrappedValue = false  // hide stop buttons
         exportingScene?.isPaused = true
         framewiseTimer?.stopRendering {
             self.framewiseRecorder?.markAsFinished()
             toStop.finishWriting {  // only after timer stops generating!
-                self.framewiseWriter = nil
-                self.framewiseRecorder = nil
-                self.framewiseTimer = nil
                 self.resultMessage?.wrappedValue = "Saved to \(toStop.outputURL.absoluteString)"
                 self.exportingScene?.scaleMode = self.saveScaleMode
                 self.exportingScene?.size = self.saveSKViewSize
                 self.resizer?(self.exportSize, self.saveSKViewSize)
                 self.previewPlayer?.presentScene(self.exportingScene)  // give it back to preview on main screen
+                // stuff that should only be retained between start and stop
+                self.exportingScene = nil
+                self.previewPlayer = nil
+                self.metalPreviewer = nil
+                self.resizer = nil
+                self.framewiseWriter = nil
+                self.framewiseRecorder = nil
+                self.framewiseTimer = nil
             }
         }
-        framewiseTimer = nil
     }
     
     public func makePreview() -> PreviewContainer {

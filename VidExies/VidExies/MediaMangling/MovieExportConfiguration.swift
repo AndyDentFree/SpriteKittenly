@@ -32,6 +32,8 @@ class MovieExportConfiguration {
     var resolution: MovieRez
     var aspectRatio: CGFloat { CGFloat(sourceResolution.width) / CGFloat(sourceResolution.height) }
     var needsSizing: Bool { sourceResolution.isZero }
+    var movieAspectRatio: CGFloat { CGFloat(resolution.width) / CGFloat(resolution.height) }
+    var movieFormatDescription: String
     
     static let zero = MovieExportConfiguration(resolution: .init(width: 0, height: 0))
     
@@ -42,6 +44,7 @@ class MovieExportConfiguration {
         self.sourceResolution = resolution
         self.resolution = resolution
         self.fps = fps
+        movieFormatDescription = "Matching original: \(resolution.width)x\(resolution.height) @ \(fps)fps"
     }
     
     func useSizeIfNotSet(_ size: CGSize)  {
@@ -49,6 +52,7 @@ class MovieExportConfiguration {
             let viewRez = MovieRez(width: Int(size.width), height: Int(size.height))
             resolution = viewRez
             sourceResolution = viewRez
+            movieFormatDescription = "Matching original: \(resolution.width)x\(resolution.height) @ \(fps)fps"
         }
     }
 }

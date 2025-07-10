@@ -94,7 +94,7 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
                 let newSize = skv.bounds.size
                 let oldSize = context.coordinator.lastViewSize
                 if newSize != oldSize {
-                    print("onLayout resized from (\(oldSize.width),  \(oldSize.height)) to (\(newSize.width), \(newSize.height)")
+                    //print("onLayout resized from (\(oldSize.width),  \(oldSize.height)) to (\(newSize.width), \(newSize.height)")
                     context.coordinator.lastViewSize = newSize
                     sceneMaker.viewResized(from: oldSize, to: newSize)
                 } else {

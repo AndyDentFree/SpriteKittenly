@@ -263,15 +263,17 @@ TapppableEmitterSceneMaker
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Preview for Framewise video exporting - See #13
-2025-07-07..08
+2025-07-07..10
 
 MetalViewContainer.swift
-- added
+- added with assorted subclasses inc MetalViewOwner
 
 ContentView
 - isDirectRecording renamed isFrameWiseRecording to match other names
+- wrappedMetalView state added
 - body rearranged so SpriteKitContainerWithGen is only visible when !isFrameWiseRecording
-- wrappedMetalView added
+- wrappedMetalView added with text showing movieFormatDescription, offset counter text
+- pass wrappedMetalView down to exportFrameWise
 
 SpriteKitContainerWithGen
 - SKViewOwner - ownedView changed type SKView to LayoutSensingSKView
@@ -281,6 +283,29 @@ SpriteKitContainerWithGen
 - makeCoordinator - pass playsOn into Coordinator  
 
 
+ExportSKVideo
+- metalPreviewer added
+- stopRecordingFramewise nil out stuff that should only be retained between start and stop
+- exportFrameWise - pass metalPreviewer to FrameCaptureRecorder
+
+FrameCaptureRecorder
+- TextureMonitor protocol added
+- previewer added
+- init take previewer param
+- captureFrame update previewer
+
+MovieExportConfiguration
+- movieFormatDescription added
+- init set initial movieFormatDescription assuming don't edit
+
+ExportConfigEditorView
+- add states formatDescription & justPicked
+- rebuild formatDescription from picker, updateDimensions
+- Menu sets formatDescription when pick one
+- Done button copies formatDescription to config, sets justPicked
+- updateDimensions guard on justPicked, resets flag & sets formatDescription
+
 
 TODO
- - actual texture copying and update loop
+- add Open button to preview movie just created
+- fix weird reverse play thing I think because we're restarting from saved time so game plays backwards, after framewise recording

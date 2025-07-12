@@ -2,7 +2,7 @@
 //  OffscreenRenderTimer.swift
 //  VidExies
 //
-//  Created by Andrew Dent on 10/6/2025.
+//  Created by Andy Dent on 10/6/2025.
 //
 
 import Foundation

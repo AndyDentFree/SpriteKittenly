@@ -2,7 +2,7 @@
 //  MetalViewContainer.swift
 //  VidExies
 //
-//  Created by Andrew Dent on 7/7/2025.
+//  Created by Andy Dent on 7/7/2025.
 //  Based on https://medium.com/@giikwebdeveloper/metal-view-for-swiftui-93f5f78ec36a
 
 import MetalKit
@@ -12,13 +12,10 @@ import SwiftUI
 // much like what happens inside Coordinator but exposed at higher level
 class MetalViewOwner : ObservableObject, TextureMonitor {
     @Published var texture: MTLTexture?
-    //typealias Resizer = (CGSize, CGSize) -> Void
     public let id = UUID()
     public var ownedView: MTKView? = nil
-    //public var resizer: Resizer? = nil
     
-    func update(texture newTexture: MTLTexture) {  // this may be a mistake, may want to make more direct?
-        //ownedView?.setNeedsDisplay()
+    func update(texture newTexture: MTLTexture) {
             self.texture = newTexture
     }
 }
@@ -48,7 +45,7 @@ struct MetalViewContainer: AgnosticViewRepresentable {
             // match the view’s pixel format to our shaders
             mtk.colorPixelFormat = .bgra8Unorm
             playsOn.ownedView = mtk
-            print("MTKView created for MetalViewOwner id \(playsOn.id.uuidString)")
+            //print("MTKView created for MetalViewOwner id \(playsOn.id.uuidString)")
         }
         mtk.delegate = context.coordinator
         return mtk

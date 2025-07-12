@@ -52,6 +52,10 @@ We can't play an SKView so need a different way to have the captured Metal views
 
 - a `MetalViewContainer` wraps a `MTKView` similarly to how we wrapped `SKView`
 - the ref class `MetalViewOwner` is provided at the top by the `ContentView` so the exporter can get to the `MTKView` on which it should preview
+- when `FrameCaptureRecorder.captureFrame` is about to write a frame, it also despatches the metal texture for preview, via an optional `TextureMonitor`
+
+### Weird time-reversal effect with FrameWise big movies
+When you record to a 3840x2160 movie, especially on Mac, after playing the movie there's a delay then seems like big particles are running backwards for a while. I think this is an artifact of resizing the scene and there's no way to adjust particles _in flight_.
 
 ## Wrapping ViewControllers
 Unlike most of the samples, as well as wrapping an `SKView` we also need to present ViewControllers so this sample introduces `AgnosticViewControllerRepresentable` which is a _facade_ for [UIViewControllerRepresentable][a6] or [NSViewControllerRepresentable][a7].

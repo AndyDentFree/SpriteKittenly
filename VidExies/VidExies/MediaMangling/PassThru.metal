@@ -2,7 +2,7 @@
 //  PassThru.metal
 //  VidExies
 //
-//  Created by Andrew Dent on 8/7/2025.
+//  Created by Andy Dent on 8/7/2025.
 //
 
 #include <metal_stdlib>

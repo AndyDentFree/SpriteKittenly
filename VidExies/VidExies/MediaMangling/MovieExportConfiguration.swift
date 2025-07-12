@@ -2,7 +2,7 @@
 //  MovieExportConfiguration.swift
 //  VidExies
 //
-//  Created by Andrew Dent on 12/6/2025.
+//  Created by Andy Dent on 12/6/2025.
 //
 
 import Foundation

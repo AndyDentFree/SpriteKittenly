@@ -306,6 +306,16 @@ ExportConfigEditorView
 - updateDimensions guard on justPicked, resets flag & sets formatDescription
 
 
-TODO
-- add Open button to preview movie just created
-- fix weird reverse play thing I think because we're restarting from saved time so game plays backwards, after framewise recording
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Layout fixes, Add movie access after finished recording - See #13
+2025-07-11
+
+ContentView
+- added ShareLink for iOS, button to just open video for macOS
+- layout for exporting changed to make counter visible next to stop button on smaller phones
+
+ExportSKView
+- frameWiseVideoURL added, set in exportFrameWise
+- hasExportedVideo added
+- exportFrameWise set frameWiseVideoURL
+- export clear frameWiseVideoURL

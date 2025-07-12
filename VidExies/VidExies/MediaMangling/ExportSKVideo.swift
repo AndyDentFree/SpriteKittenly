@@ -26,6 +26,8 @@ class ExportSKVideo {
     private var exportSize = CGSize.zero
     private var resizer: SKViewOwner.Resizer? = nil  // saved for framewise to resize after present
     private var metalPreviewer: MetalViewOwner? = nil
+    private(set) var frameWiseVideoURL: URL? = nil
+    public var hasExportedVideo: Bool { frameWiseVideoURL != nil }
 
     public func export(mode: RecordType, fullScreenFlag: Binding<Bool>, previewFlag: Binding<Bool>, resultIn: Binding<String>, exportSize: CGSize = CGSize(width: 400, height: 400)) {
         currentMode = mode
@@ -38,9 +40,10 @@ class ExportSKVideo {
             replayRecorder = ReplayKitRecorder()
             replayRecorder?.startRecording()
             resultMessage = resultIn
+            frameWiseVideoURL = nil
             
         case .frameWise:
-            print("use exportDirectRender instead so can render in background")
+            print("use exportFrameWise instead so can render in background")
             
         default:
             print("unknown export mode")
@@ -59,6 +62,7 @@ class ExportSKVideo {
         }
         metalPreviewer = metalPreviewVia  // so can send textures back up from recording
         let videoURL = makeVideoFileURL()
+        frameWiseVideoURL = nil  // set at end if start OK
         resultMessage = resultIn
         do {
             exportSize = config.resolution.asCGSize()
@@ -97,6 +101,7 @@ class ExportSKVideo {
             isShowingContentToRecord = isRecordingFlag  // save so final completion can toggle, eg to hide a Stop button
             isRecordingFlag.wrappedValue = true
             print("Recording to: \(videoURL)")
+            frameWiseVideoURL = videoURL
         } catch {
             print("Error setting up video writer: \(error.localizedDescription) for URL \(videoURL)")
         }

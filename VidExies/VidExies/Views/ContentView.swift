@@ -46,7 +46,7 @@ struct ContentView: View {
     private var maker = TapppableEmitterSceneMaker(onTouch: {})  // MUST not be inline in the SpriteKitContainerWithGen init because that is rebuilt regularly
     
     var body: some View {
-        if isDirectRecording {  // replace instructional labels with big counter
+        if isDirectRecording {  // replace instructional labels with big counter and stop button
             VStack {
                 MetalViewContainer(playsOn: wrappedMetalView, texture: $wrappedMetalView.texture)  // TODO maybe just bind directly to the playsOn, think the need to have binding to the texture is to force updates
                     .aspectRatio(frameWiseConfig.movieAspectRatio, contentMode: .fit)
@@ -54,13 +54,13 @@ struct ContentView: View {
                     .layoutPriority(1)
                     .border(Color.gray, width: 2)
                 Spacer()
-                Text("Exporting format \(frameWiseConfig.movieFormatDescription)")
+                Text("Writing \(frameWiseConfig.movieFormatDescription)")
                     .font(.subheadline)
                 Spacer()
                 ZStack {
                     HStack {
                         Spacer()
-                        Button("Stop exporting (framewise)", systemImage: "stop.circle") {
+                        Button("Stop export", systemImage: "stop.circle") {
                             exporter.stopRecordingFramewise()
                             exportStatus = ""
                         }
@@ -99,7 +99,7 @@ struct ContentView: View {
                     .padding()
                     if exportTabSelection == .frameWise {
                         ZStack {
-                            Button("Export video (framewise)") {
+                            Button("Export video") {
                                 guard wrappedSKView.ownedView != nil else {
                                     print("Impossible condition of no SKView in the wrapper")
                                     return
@@ -140,8 +140,19 @@ struct ContentView: View {
                         .buttonStyle(.borderedProminent)
                     }  // export tab alternatives
                     Spacer()
-                    Text(resultMessage) // only has content during or after a video export
-                        .font(.subheadline)
+                    HStack {
+                        Text(resultMessage) // only has content during or after a video export
+                            .font(.subheadline)
+                        if exporter.hasExportedVideo {
+#if os(iOS)
+                            ShareLink(item: exporter.frameWiseVideoURL!)
+#else
+                            Button("Open exported video") {
+                                openVideo(at: exporter.frameWiseVideoURL!)
+                            }
+#endif
+                        }
+                    }
                     Spacer(minLength: 40)
                 }
             }  // VStack for main content other than during isDirectRecording

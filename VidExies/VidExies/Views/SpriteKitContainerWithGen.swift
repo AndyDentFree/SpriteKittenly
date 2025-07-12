@@ -21,7 +21,8 @@ protocol ResizeableSceneMaker {
 // much like what happens inside Coordinator but exposed at higher level
 class SKViewOwner {
     typealias Resizer = (CGSize, CGSize) -> Void
-    public var ownedView: SKView? = nil
+    public let id = UUID()
+    public var ownedView: LayoutSensingSKView? = nil
     public var resizer: Resizer? = nil
 }
 
@@ -29,28 +30,50 @@ class SKViewOwner {
 // Tries to be fairly reusable so parameterised with a couple of lambdas
 struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
     
+#if DEBUG
+    private let id = UUID()
+#endif
+
     typealias RepresentedViewType = SKView
     let sceneMaker: ResizeableSceneMaker
     let playsOn: SKViewOwner
 
     // memoizes state to be passed back in via updateView context
     class Coordinator: NSObject {
-        var isFirstScene = true
+        let coordId = UUID()
+        var isFirstScene: Bool!
         var lastViewSize = CGSize.zero
-        var sceneMaker: ResizeableSceneMaker
-        
-        init(maker: ResizeableSceneMaker) {
+        let sceneMaker: ResizeableSceneMaker
+        let playsOn: SKViewOwner
+
+        init(maker: ResizeableSceneMaker, playsOn: SKViewOwner) {
             self.sceneMaker = maker
+            self.playsOn = playsOn
+            self.isFirstScene = playsOn.ownedView == nil  // avoid recreation == restart
+            print("SpriteKitContainerWithGen.Coordinator \(coordId) init")
+        }
+        
+        func cleanup() {
+            sceneMaker.forgetScene()
+            playsOn.ownedView = nil
+            print("cleanup of SKViewOwner id \(playsOn.id.uuidString)")
         }
     }
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator(maker: self.sceneMaker)
+        print("SpriteKitContainerWithGen \(id) makeCoordinator")
+        return Coordinator(maker: self.sceneMaker, playsOn: self.playsOn)
     }
     
     func makeView(context: Context) -> SKView {
-        let ret = LayoutSensingSKView(frame: .zero)
-        playsOn.ownedView = ret
+        var ret: LayoutSensingSKView
+        if let keptView = playsOn.ownedView {
+            ret = keptView // don't recreate the SKView
+        } else {
+            ret = LayoutSensingSKView(frame: .zero)
+            playsOn.ownedView = ret
+            print("SKView created for SKViewOwner id \(playsOn.id.uuidString)")
+        }
         playsOn.resizer = { (oldSize: CGSize, newSize: CGSize) in
             sceneMaker.viewResized(from: oldSize, to: newSize)}
         ret.onLayout = { (skv: SKView) in
@@ -71,11 +94,11 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
                 let newSize = skv.bounds.size
                 let oldSize = context.coordinator.lastViewSize
                 if newSize != oldSize {
-                    print("onLayout resized from (\(oldSize.width),  \(oldSize.height)) to (\(newSize.width), \(newSize.height)")
+                    //print("onLayout resized from (\(oldSize.width),  \(oldSize.height)) to (\(newSize.width), \(newSize.height)")
                     context.coordinator.lastViewSize = newSize
                     sceneMaker.viewResized(from: oldSize, to: newSize)
                 } else {
-                    print("onLayout called for SKView after first scene started")
+                    print("onLayout called for SKView after first scene started")  // probably recreated view hierarchy
                 }
             }
         }
@@ -112,9 +135,10 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
  */
     
     static func dismantleView(_ view: RepresentedViewType, coordinator: Self.Coordinator) {
-        print("dismantleView invoked in SpriteKitContainerWithGen")
-        coordinator.sceneMaker.forgetScene()
+        print("dismantleView invoked in SpriteKitContainerWithGen for Coordinator \(coordinator.coordId)")
         view.presentScene(nil)
+        // don't as could be dismantling because it's beeen hidden to show a framewise preview
+        // coordinator.cleanup()
     }
     
 }

@@ -261,3 +261,61 @@ TapppableEmitterSceneMaker
 - viewResized - also resize scales & positionRanges
 
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Preview for Framewise video exporting - See #13
+2025-07-07..10
+
+MetalViewContainer.swift
+- added with assorted subclasses inc MetalViewOwner
+
+ContentView
+- isDirectRecording renamed isFrameWiseRecording to match other names
+- wrappedMetalView state added
+- body rearranged so SpriteKitContainerWithGen is only visible when !isFrameWiseRecording
+- wrappedMetalView added with text showing movieFormatDescription, offset counter text
+- pass wrappedMetalView down to exportFrameWise
+
+SpriteKitContainerWithGen
+- SKViewOwner - ownedView changed type SKView to LayoutSensingSKView
+- Coordinator
+  - isFirstScene set in init so can keep previously built LayoutSensingSKView, won't recreate when the container view is rebuilt after we've been playing
+  - playsOn added so can also use the passed-in SKViewOwner
+- makeCoordinator - pass playsOn into Coordinator  
+
+
+ExportSKVideo
+- metalPreviewer added
+- stopRecordingFramewise nil out stuff that should only be retained between start and stop
+- exportFrameWise - pass metalPreviewer to FrameCaptureRecorder
+
+FrameCaptureRecorder
+- TextureMonitor protocol added
+- previewer added
+- init take previewer param
+- captureFrame update previewer
+
+MovieExportConfiguration
+- movieFormatDescription added
+- init set initial movieFormatDescription assuming don't edit
+
+ExportConfigEditorView
+- add states formatDescription & justPicked
+- rebuild formatDescription from picker, updateDimensions
+- Menu sets formatDescription when pick one
+- Done button copies formatDescription to config, sets justPicked
+- updateDimensions guard on justPicked, resets flag & sets formatDescription
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Layout fixes, Add movie access after finished recording - See #13
+2025-07-11
+
+ContentView
+- added ShareLink for iOS, button to just open video for macOS
+- layout for exporting changed to make counter visible next to stop button on smaller phones
+
+ExportSKView
+- frameWiseVideoURL added, set in exportFrameWise
+- hasExportedVideo added
+- exportFrameWise set frameWiseVideoURL
+- export clear frameWiseVideoURL

@@ -2,13 +2,17 @@
 //  FrameCaptureRecorder.swift
 //  VidExies
 //
-//  Created by Andrew Dent on 5/4/2025.
+//  Created by Andy Dent on 5/4/2025.
 //
 
 import SpriteKit
 import Metal
 import AVFoundation
 import CoreVideo
+
+protocol TextureMonitor {
+    func update(texture: MTLTexture)
+}
 
 class FrameCaptureRecorder {
     let config: MovieExportConfiguration
@@ -20,6 +24,7 @@ class FrameCaptureRecorder {
     let commandQueue: MTLCommandQueue
     let renderer: SKRenderer
     var textureCache: CVMetalTextureCache!
+    let previewer: TextureMonitor?
     
     // AVAssetWriter pixel buffer adaptor.
     let pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor
@@ -27,12 +32,13 @@ class FrameCaptureRecorder {
     // The scene you want to record.
     let scene: SKScene
     
-    init(scene: SKScene, pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor, config: MovieExportConfiguration) {
+    init(scene: SKScene, pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor, config: MovieExportConfiguration, previewer: TextureMonitor?) {
         self.config = config
         self.width = config.resolution.width // cache so not recalc per frame
         self.height = config.resolution.height
         self.scene = scene
         self.pixelBufferAdaptor = pixelBufferAdaptor
+        self.previewer = previewer
         commandQueue = device.makeCommandQueue()!
         renderer = SKRenderer(device: device)
         renderer.scene = scene
@@ -100,6 +106,11 @@ class FrameCaptureRecorder {
         
         // 5. Append the rendered pixel buffer to AVAssetWriter.
         if pixelBufferAdaptor.assetWriterInput.isReadyForMoreMediaData {
+            if let updateVia = previewer {
+                DispatchQueue.main.async {
+                    updateVia.update(texture: texture)  // only update screen when we will be writing
+                }
+            }
             pixelBufferAdaptor.append(buffer, withPresentationTime: time)
         } else {
             print("Unable to append to pixel buffer at time \(time)")

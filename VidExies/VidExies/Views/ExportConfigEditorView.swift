@@ -2,7 +2,7 @@
 //  ExportConfigEditorView.swift
 //  VidExies
 //
-//  Created by Andrew Dent on 12/6/2025.
+//  Created by Andy Dent on 12/6/2025.
 //
 
 import SwiftUI
@@ -20,6 +20,8 @@ struct ExportConfigEditorView: View {
     @State private var aspectRatio: CGFloat = 1.0  // keep local copy because reset if pick a known movie size
     @State private var editingWidth: Bool = false
     @State private var editingHeight: Bool = false
+    @State private var formatDescription: String
+    @State private var justPicked = false  // flag to prevent updateDimensions reacting to state changes
 
     private let minWidth = 192
     private let minHeight = 144
@@ -49,6 +51,7 @@ struct ExportConfigEditorView: View {
         movieHeight = res.height
         aspectRatio = configuration.aspectRatio
         fps = configuration.fps
+        formatDescription = configuration.movieFormatDescription
         configSourceRes = "Source: \(configuration.sourceResolution.width) × \(configuration.sourceResolution.height)"
     }
 
@@ -96,10 +99,13 @@ struct ExportConfigEditorView: View {
             Menu {
                 // reverse because SwiftUI reverses on display
                 ForEach(commonResolutions.reversed(), id: \.self) { rez in
-                    Button("\(String(rez.width)) × \(String(rez.height))\n\(rez.title)") {
+                    let pickedDescription = "\(String(rez.width)) × \(String(rez.height))\n\(rez.title)"
+                    Button(pickedDescription) {
                         movieWidth = rez.width
                         movieHeight = rez.height
                         aspectRatio = CGFloat(rez.width) / CGFloat(rez.height)
+                        formatDescription = pickedDescription.replacingOccurrences(of: "\n", with: " ") + " @ \(fps)fps"
+                        justPicked = true
                     }
                 }
             }  label: {
@@ -130,6 +136,7 @@ struct ExportConfigEditorView: View {
             Button("Done") {
                 configuration.resolution = MovieRez(width: movieWidth, height: movieHeight)
                 configuration.fps = fps
+                configuration.movieFormatDescription = formatDescription
                 dismiss()
             }
             .frame(maxWidth: .infinity)
@@ -138,6 +145,9 @@ struct ExportConfigEditorView: View {
     }
 
     private func updateDimensions() {
+        guard !justPicked else {return}
+        justPicked = false
+        formatDescription = "Specified resolution: \(movieWidth)x\(movieHeight) @ \(fps)fps"
         guard keepAspectRatio else {return}
 
         // using flags only true when have actually started editing a field to guard against setters

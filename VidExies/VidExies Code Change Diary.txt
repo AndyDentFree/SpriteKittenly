@@ -319,3 +319,11 @@ ExportSKView
 - hasExportedVideo added
 - exportFrameWise set frameWiseVideoURL
 - export clear frameWiseVideoURL
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Add missing Mac video opener - Fixes #13
+2025-07-23
+
+ContentView
+- conditional openVideo func added
+

@@ -8,6 +8,10 @@
 import SwiftUI
 import SpriteKit
 
+#if os(macOS)
+import AppKit
+#endif
+
 enum RecordType: Int {
     case replayKitInMemory
     case replayKitFiltering
@@ -70,8 +74,8 @@ struct ContentView: View {
                     }
                     HStack {
                         Spacer()
-                    Text(exportStatus)
-                    .font(.headline.monospacedDigit())
+                        Text(exportStatus)
+                            .font(.headline.monospacedDigit())
                         Spacer().frame(width: 8)
                     }
                 } // ZStack to put controls at right
@@ -190,6 +194,14 @@ struct ContentView: View {
             frameWiseConfig.useSizeIfNotSet(skv.bounds.size)
         }
     }
+    
+    
+#if os(macOS)
+    /// Opens a video URL in the user’s default player on macOS.
+    func openVideo(at url: URL) {
+        NSWorkspace.shared.open(url)
+    }
+#endif
 }
 
 struct ContentView_Previews: PreviewProvider {

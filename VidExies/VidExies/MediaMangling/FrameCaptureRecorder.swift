@@ -64,6 +64,7 @@ class FrameCaptureRecorder {
 
         
         // 2. Create a Metal texture from the CVPixelBuffer.
+        //TODO: https://github.com/AndyDentFree/SpriteKittenly/issues/15 more options for scaling as write movie, eg:,render to smaller texture and scale up for movie
         var cvTextureOut: CVMetalTexture?
         let metalStatus = CVMetalTextureCacheCreateTextureFromImage(nil,
                                                   textureCache,

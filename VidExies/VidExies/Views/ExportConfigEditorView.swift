@@ -20,9 +20,11 @@ struct ExportConfigEditorView: View {
     @State private var aspectRatio: CGFloat = 1.0  // keep local copy because reset if pick a known movie size
     @State private var editingWidth: Bool = false
     @State private var editingHeight: Bool = false
+    @State private var recordFromBeginning: Bool = false
     @State private var formatDescription: String
     @State private var justPicked = false  // flag to prevent updateDimensions reacting to state changes
 
+    //TODO: https://github.com/AndyDentFree/SpriteKittenly/issues/18
     private let minWidth = 192
     private let minHeight = 144
     private let maxWidth = 4096
@@ -52,6 +54,7 @@ struct ExportConfigEditorView: View {
         aspectRatio = configuration.aspectRatio
         fps = configuration.fps
         formatDescription = configuration.movieFormatDescription
+        recordFromBeginning = configuration.recordFromBeginning
         configSourceRes = "Source: \(configuration.sourceResolution.width) × \(configuration.sourceResolution.height)"
     }
 
@@ -73,7 +76,6 @@ struct ExportConfigEditorView: View {
                     .onChangeOf(movieWidth) { _ in
                         updateDimensions()
                     }
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
 #if os(iOS)
                     .keyboardType(.numberPad)
 #endif
@@ -86,7 +88,6 @@ struct ExportConfigEditorView: View {
                         formatter: NumberFormatter(),
                         onEditingChanged: {editingHeight = $0}
                     )
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
                     .onChangeOf(movieHeight) { _ in
                         updateDimensions()
                     }
@@ -115,7 +116,6 @@ struct ExportConfigEditorView: View {
                     Image(systemName: "chevron.down")  // Mac has own down-chevron
 #endif
                 }
-                //.font(.body)                    // DynamicType–aware font
                 .foregroundColor(.accentColor)      // or whatever color you need
             }
 
@@ -126,25 +126,31 @@ struct ExportConfigEditorView: View {
                     value: $fps,
                     formatter: NumberFormatter()
                 )
-                .textFieldStyle(RoundedBorderTextFieldStyle())
 #if os(iOS)
                 .keyboardType(.decimalPad)
 #endif
             }
+            Spacer()
+               .frame(height: 16)
+            Toggle("Record from beginning", isOn: $recordFromBeginning)
+                .font(.body)
             Spacer()
 
             Button("Done") {
                 configuration.resolution = MovieRez(width: movieWidth, height: movieHeight)
                 configuration.fps = fps
                 configuration.movieFormatDescription = formatDescription
+                configuration.recordFromBeginning = recordFromBeginning
                 dismiss()
             }
             .frame(maxWidth: .infinity)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
             .buttonStyle(.borderedProminent)
         }
     }
 
     private func updateDimensions() {
+        //TODO: https://github.com/AndyDentFree/SpriteKittenly/issues/18 add rules on max sizes
         guard !justPicked else {return}
         justPicked = false
         formatDescription = "Specified resolution: \(movieWidth)x\(movieHeight) @ \(fps)fps"

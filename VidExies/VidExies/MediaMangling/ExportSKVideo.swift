@@ -26,9 +26,10 @@ class ExportSKVideo {
     private var exportSize = CGSize.zero
     private var resizer: SKViewOwner.Resizer? = nil  // saved for framewise to resize after present
     private var metalPreviewer: MetalViewOwner? = nil
+    private var recordFromBeginning: Bool = false
     private(set) var frameWiseVideoURL: URL? = nil
     public var hasExportedVideo: Bool { frameWiseVideoURL != nil }
-
+    
     public func export(mode: RecordType, fullScreenFlag: Binding<Bool>, previewFlag: Binding<Bool>, resultIn: Binding<String>, exportSize: CGSize = CGSize(width: 400, height: 400)) {
         currentMode = mode
         switch mode {
@@ -54,9 +55,9 @@ class ExportSKVideo {
         
     }
     
-    public func exportFrameWise(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, logIn: Binding<String>, config: MovieExportConfiguration, fromView viewOwner: SKViewOwner, metalPreviewVia: MetalViewOwner) {
+    public func exportFrameWise(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, logIn: Binding<String>, config: MovieExportConfiguration, fromView viewOwner: SKViewOwner, metalPreviewVia: MetalViewOwner, sceneMaker: ResizeableSceneMaker) {
         guard let skv = viewOwner.ownedView,
-                let activeScene = skv.scene as? RecordableScene else {
+                var activeScene = skv.scene as? RecordableScene else {
             print("No active scene to export")  // something very weirdly wrong
             return
         }
@@ -72,10 +73,18 @@ class ExportSKVideo {
             writer.startSession(atSourceTime: .zero)  // this source time bothers me if we're picking up a scene that's already run a while
             previewPlayer = skv
             activeScene.isPaused = true
-            saveScaleMode = activeScene.scaleMode
-            saveSKViewSize = activeScene.size
-            skv.presentScene(nil)  // stop it playing on the main SKView (wrapped in SpriteKitContainerWithGen)
-            exportingScene = activeScene
+            exportingScene = activeScene  // remember what's rendering, be it the original or a new clone
+            recordFromBeginning = config.recordFromBeginning
+            if recordFromBeginning {
+                let newSM = sceneMaker.cloneAsNew()
+                activeScene = newSM.makeScene(sizedTo: exportSize)
+                // fake scene setup stuff that happens with SKView.presentScene
+                //activeScene.sceneDidLoad()
+            } else {
+                saveScaleMode = activeScene.scaleMode
+                saveSKViewSize = activeScene.size
+                skv.presentScene(nil)  // stop it playing on the main SKView (wrapped in SpriteKitContainerWithGen)
+            }
             activeScene.scaleMode = .fill // .resizeFill causes empty movie, not compatible with SKRenderer
             // AppleDocs: The scene is not scaled to match the view. Instead, the scene is automatically resized so that its dimensions always match those of the view.
             // this seems to work out that, if you are using SKRenderer instead of an SKView to present the scene, it won't resize?
@@ -123,34 +132,41 @@ class ExportSKVideo {
         }
     }
     
-    // invoked by tap on preview movie
+    // invoked by button on 
     public func stopRecordingFramewise() {
         guard let toStop = framewiseWriter  else {
             print("stopRecordingFramewise invoked when not recording")
             return
         }
         self.isShowingContentToRecord?.wrappedValue = false  // hide stop buttons
-        exportingScene?.isPaused = true
         framewiseTimer?.stopRendering {
             self.framewiseRecorder?.markAsFinished()
             toStop.finishWriting {  // only after timer stops generating!
+                if self.recordFromBeginning {
+                    assert((self.exportingScene?.view ?? nil) != nil, "The exporting scene is still linked to view so just resume")
+                    self.exportingScene?.isPaused = false  // continue the preview with the scene it has had all along
+                } else {
+                    self.exportingScene?.scaleMode = self.saveScaleMode
+                    self.exportingScene?.size = self.saveSKViewSize
+                    self.resizer?(self.exportSize, self.saveSKViewSize)
+                    self.previewPlayer?.presentScene(self.exportingScene)  // give it back to preview on main screen
+                }
                 self.resultMessage?.wrappedValue = "Saved to \(toStop.outputURL.absoluteString)"
-                self.exportingScene?.scaleMode = self.saveScaleMode
-                self.exportingScene?.size = self.saveSKViewSize
-                self.resizer?(self.exportSize, self.saveSKViewSize)
-                self.previewPlayer?.presentScene(self.exportingScene)  // give it back to preview on main screen
-                // stuff that should only be retained between start and stop
-                self.exportingScene = nil
-                self.previewPlayer = nil
-                self.metalPreviewer = nil
-                self.resizer = nil
-                self.framewiseWriter = nil
-                self.framewiseRecorder = nil
-                self.framewiseTimer = nil
+                self.cleanupStuffOnlyValidWhilstRecording()
             }
         }
     }
     
+    private func cleanupStuffOnlyValidWhilstRecording() {
+        exportingScene = nil
+        previewPlayer = nil
+        metalPreviewer = nil
+        resizer = nil
+        framewiseWriter = nil
+        framewiseRecorder = nil
+        framewiseTimer = nil
+    }
+
     public func makePreview() -> PreviewContainer {
         guard let parentPresentingPreview = isShowingPreview, let previewer = replayPreviewer else {
             fatalError("makePreview called without bound flag to stop presenting")

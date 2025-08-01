@@ -11,9 +11,10 @@ import SwiftUI
 
 
 protocol ResizeableSceneMaker {
-    func makeScene(sizedTo: CGSize) -> SKScene
+    func makeScene(sizedTo: CGSize) -> RecordableScene
     func viewResized(from oldSize: CGSize, to newSize: CGSize)
     func forgetScene()
+    func cloneAsNew() -> ResizeableSceneMaker  // use to get a new copy to make a scene eg: for recordFromBeginning
 }
 
 
@@ -61,7 +62,9 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
+        #if DEBUG
         print("SpriteKitContainerWithGen \(id) makeCoordinator")
+        #endif
         return Coordinator(maker: self.sceneMaker, playsOn: self.playsOn)
     }
     
@@ -133,10 +136,12 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
         return nil  // use default
     }
  */
-    
+
     static func dismantleView(_ view: RepresentedViewType, coordinator: Self.Coordinator) {
         print("dismantleView invoked in SpriteKitContainerWithGen for Coordinator \(coordinator.coordId)")
-        view.presentScene(nil)
+        // don't clear because framewise recording means recreation of the SwiftUI views but we will come back to preview
+        // view.presentScene(nil)
+        
         // don't as could be dismantling because it's beeen hidden to show a framewise preview
         // coordinator.cleanup()
     }

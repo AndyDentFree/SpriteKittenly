@@ -22,8 +22,11 @@ class TapppableEmitterSceneMaker: ResizeableSceneMaker {
         self.onTouch = onTouch
     }
     
+    func cloneAsNew() -> ResizeableSceneMaker {
+        TapppableEmitterSceneMaker(onTouch: self.onTouch)
+    }
 
-    func makeScene(sizedTo: CGSize) -> SKScene {
+    func makeScene(sizedTo: CGSize) -> RecordableScene {
         guard leftFire == nil else {
             fatalError("makeScene called again after already made emitters")
         }

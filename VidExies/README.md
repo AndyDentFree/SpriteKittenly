@@ -21,7 +21,7 @@ Note that with ReplayKit you are [prompted for permission to record][a8]:
 **WARNING: you must test ReplayKit on real devices. The iOS simulators won't prompt and won't record.**
 
 
-### Simple whole screen capture
+### Simple whole screen capture with ReplayKit
 The pair of [startRecording][a1] and [stopRecording][a2] are used.
 
 When complete, you need to display a [RPPreviewViewController][a5] which inherits from either `NSViewController`
@@ -29,23 +29,33 @@ or `UIViewController`. So we use a similar `AgnosticViewRepresentable` as used f
 
 [This StackOverflow question][so1] helped.
 
+### Getting the PreviewController back out for ReplayKit mode
+To stop, we eventually have to invoke `RPScreenRecorder.shared().stopRecording` with a closure that receives an instance of `RPPreviewViewController`. That's handled by having the `ExportSKVideo` class both provide the `stopRecording()` function and, in there, provide a closure to save the PreviewController. With the exporter also providing `makePreview()`, it can use the saved PreviewController.
+
 
 ## Direct frame capture
 
 Saves a video direct to the Documents folder as a file, without any need to authorise recording.
 
-This first version just saves at the same size as the current playing view, which is paused for the duration.
+By default, it saves at the same size as the current playing view, which is hidden for the duration. You can press the settings button (three sliders) to configure a different scale output movie.
 
-This is vastly more complicated than using ReplayKit, because it's replacing the role of `SKView`. 
+This is vastly more complicated than using ReplayKit, because it's **replacing** the role of `SKView` with `SKRenderer`.
 
 The main components used by `ExportSKView.exportFrameWise` are:
-- `FrameCaptureRecorder` which captures each frame of the scene
+- `FrameCaptureRecorder` which captures each frame of the scene from an [SKRenderer][a9]
 - `OffscreenRenderTimer` which manages the timing to update and capture the scene
 - `AVAssetWriter` converts the pixel buffer and writes it to the movie on disk
 
+When you have finished recording the movie, the preview SKView resumes from the point at which the movie ended. You may notice scaling effects for items like the confetti emitter particles, for a few seconds.
+
+### Weird time-reversal effect with FrameWise big movies
+When you record to a 3840x2160 movie, especially on Mac, after playing the movie there's a delay then seems like big particles are running backwards for a while. I think this is an artifact of resizing the scene and there's no way to adjust particles _in flight_.
+
+### Record from beginning
+Added to help debug this feature in [Purrticles][p1], rather than pausing the scene and needing to get its frametime, creates a new scene for the `SKRenderer`. The theory being investigated was that a scene which had never been presented on an `SKView` might behave differently.
+
 ### Passing an SKView back out
 As quick hack to get this working, the SKView created inside the `SpriteKitContainerWithGen` is passed back to the calling context so that it can be then passed down and manipulated in `exportFrameWise` and `stopRecordingFramewise`. We use a trivial wrapper class `SKViewOwner` for this.
-
 
 ### Previewing the FrameWise capture
 We can't play an SKView so need a different way to have the captured Metal views shown for user preview.
@@ -54,14 +64,19 @@ We can't play an SKView so need a different way to have the captured Metal views
 - the ref class `MetalViewOwner` is provided at the top by the `ContentView` so the exporter can get to the `MTKView` on which it should preview
 - when `FrameCaptureRecorder.captureFrame` is about to write a frame, it also despatches the metal texture for preview, via an optional `TextureMonitor`
 
-### Weird time-reversal effect with FrameWise big movies
-When you record to a 3840x2160 movie, especially on Mac, after playing the movie there's a delay then seems like big particles are running backwards for a while. I think this is an artifact of resizing the scene and there's no way to adjust particles _in flight_.
+### Passing a MetalView around
+Similarly to SKView, we need the `MTKView` used in previewing to be accessible deep inside the exporter as well as being created by our `AgnosticViewRepresentable` `MetalViewContainer`.
 
-## Wrapping ViewControllers
+A `@StateObject var wrappedMetalView = MetalViewOwner()` is passed down from the top `ContentView` to both `MetalViewContainer` and `exportFrameWise`.
+
+## SpriteKit integration notes
+
+### Making scenes
+We pass a `ResizeableSceneMaker` into multiple classes, so our SwiftUI wrapper `SpriteKitContainerWithGen`
+
+### Wrapping ViewControllers
 Unlike most of the samples, as well as wrapping an `SKView` we also need to present ViewControllers so this sample introduces `AgnosticViewControllerRepresentable` which is a _facade_ for [UIViewControllerRepresentable][a6] or [NSViewControllerRepresentable][a7].
 
-### Getting the PreviewController back out
-To stop, we eventually have to invoke `RPScreenRecorder.shared().stopRecording` with a closure that receives an instance of `RPPreviewViewController`. That's handled by having the `ExportSKVideo` class both provide the `stopRecording()` function and, in there, provide a closure to save the PreviewController. With the exporter also providing `makePreview()`, it can use the saved PreviewController.
 
 [a1]: https://developer.apple.com/documentation/replaykit/rpscreenrecorder/startrecording(handler:)
 [a2]: https://developer.apple.com/documentation/replaykit/rpscreenrecorder/stoprecording(handler:)
@@ -71,6 +86,11 @@ To stop, we eventually have to invoke `RPScreenRecorder.shared().stopRecording` 
 [a6]: https://developer.apple.com/documentation/swiftui/uiviewcontrollerrepresentable
 [a7]: https://developer.apple.com/documentation/swiftui/nsviewcontrollerrepresentable
 [a8]: https://support.apple.com/en-au/guide/security/seca5fc039dd/web
+[a9]: https://developer.apple.com/documentation/spritekit/skrenderer
 
 [p1]: https://www.touchgram.com/purrticles
 [so1]: https://stackoverflow.com/questions/59842682/replaykit-with-swiftui
+
+[gh1]: https://github.com/AndyDentFree/SpriteKittenly/issues/18
+[gh2]: https://github.com/AndyDentFree/SpriteKittenly/issues/15
+

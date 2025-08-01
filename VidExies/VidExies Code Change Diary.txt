@@ -327,3 +327,38 @@ Add missing Mac video opener - Fixes #13
 ContentView
 - conditional openVideo func added
 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Add option to start from beginning FrameWise recording
+2025-07-31
+
+MovieExportConfiguration
+- recordFromBeginning added
+
+ExportConfigEditorView
+- add toggle and changes to update recordFromBeginning
+
+ResizeableSceneMaker protocol
+- cloneAsNew added
+- makeScene return a RecordableScene
+
+TappableEmitterSceneMaker
+- cloneAsNew added
+- makeScene return a RecordableScene
+
+OffscreenRenderTimer
+- use CACurrentMediaTime to calculate elapsed time for movie rendering, in case of slippage in schedule at higher frame rates
+
+ExportSKVideo
+- recordFromBeginning added
+- cleanupStuffOnlyValidWhilstRecording factored out from stopRecordingFramewise
+- exportFrameWise
+  - add config as parameter
+  - using config.recordFromBeginning for varying logic to cloneAsNew and use a new scene for export
+  - stopRecordingFramewise vary behaviour depending on recordFromBeginning, not needing to resize or present exportingScene, just unpause it
+  
+ContentView
+- pass config to exportFrameWise
+
+SpriteKitContainerWithGen
+- dismantleView - don't presentScene(nil) as ContentView rebuilds whilst metal preview during export, but the SKView will be used again when finished recording, so either export nils or left there to just resume

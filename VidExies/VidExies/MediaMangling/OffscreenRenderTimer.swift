@@ -32,11 +32,13 @@ class OffscreenRenderTimer {
         timer = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "FrameCaptureTimer"))
         timer?.schedule(deadline: .now(), repeating: frameDuration)
         let isLogging = timeLogger != nil // flag may have other reasons to prevent
+        let baseTime = CACurrentMediaTime()
         timer?.setEventHandler { [weak self] in
             guard let self = self else { return }
-            
+            let now = CACurrentMediaTime()
             // Calculate the presentation time for the current frame.
-            let elapsed = Double(self.frameIndex) * self.frameDuration
+            // naive approach: let elapsed = Double(self.frameIndex) * self.frameDuration
+            let elapsed = now - baseTime  // keep recalculating based on actual timer invoke rather than assumed accuracy
             let rendererTime = fromTime + elapsed  // offset matches our paused SKScene
             let movieTime = CMTime(seconds: elapsed, preferredTimescale: baseScale)  // movie started from 0
             

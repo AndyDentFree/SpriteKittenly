@@ -32,6 +32,7 @@ class MovieExportConfiguration {
     var resolution: MovieRez
     var aspectRatio: CGFloat { CGFloat(sourceResolution.width) / CGFloat(sourceResolution.height) }
     var needsSizing: Bool { sourceResolution.isZero }
+    var recordFromBeginning: Bool
     var movieAspectRatio: CGFloat { CGFloat(resolution.width) / CGFloat(resolution.height) }
     var movieFormatDescription: String
     
@@ -40,10 +41,11 @@ class MovieExportConfiguration {
     /// Frames per second for both rendering and the movie timeline.
     var fps: Double
     
-    init(resolution: MovieRez, fps: Double = 30.0 ) {
+    init(resolution: MovieRez, fps: Double = 30.0, recordFromBeginning: Bool = false ) {
         self.sourceResolution = resolution
         self.resolution = resolution
         self.fps = fps
+        self.recordFromBeginning = recordFromBeginning
         movieFormatDescription = "Matching original: \(resolution.width)x\(resolution.height) @ \(fps)fps"
     }
     

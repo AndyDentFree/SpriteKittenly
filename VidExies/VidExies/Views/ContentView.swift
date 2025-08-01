@@ -111,7 +111,8 @@ struct ContentView: View {
                                 ensureHaveExportSize()
                                 exporter.exportFrameWise(isRecordingFlag: $isDirectRecording,
                                                          resultIn: $resultMessage, logIn: $exportStatus,
-                                                         config: frameWiseConfig, fromView: wrappedSKView, metalPreviewVia: wrappedMetalView
+                                                         config: frameWiseConfig, fromView: wrappedSKView, metalPreviewVia: wrappedMetalView,
+                                                         sceneMaker: maker
                                 )
                             }
                             .buttonStyle(.borderedProminent)
@@ -167,6 +168,7 @@ struct ContentView: View {
             }
             .edgesIgnoringSafeArea(isFullScreenSK ? .all : .init())
 #if os(iOS)
+            //REPLAYKIT horrible hack but kinda works
             //note anything other than .fullScreenCover fails on iOS as the embedded VC stubbornly refuses to resize
             //this also has to be used in combination with UIViewController.present in makeViewController
             .fullScreenCover(isPresented: $isShowingReplayPreview) {
@@ -177,6 +179,7 @@ struct ContentView: View {
                 }
             }
 #else
+            //REPLAYKIT abandoned on macOS
             .sheet(isPresented: $isShowingReplayPreview) {
                 PreviewContent(exporter: exporter) {
                     withAnimation {

@@ -46,8 +46,9 @@ class FrameCaptureRecorder {
         renderer.showsDrawCount = true
         renderer.showsNodeCount = true
         renderer.showsQuadCount = true
+         */
         renderer.scene = scene
-        */
+        
         // Create a Metal texture cache for converting CVPixelBuffer to Metal textures.
         CVMetalTextureCacheCreate(nil, nil, device, nil, &textureCache)
     }

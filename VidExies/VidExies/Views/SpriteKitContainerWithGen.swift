@@ -11,7 +11,7 @@ import SwiftUI
 
 
 protocol ResizeableSceneMaker {
-    func makeScene(sizedTo: CGSize) -> RecordableScene
+    func makeScene(sizedTo: CGSize) -> SKScene
     func viewResized(to newSize: CGSize)
     func forgetScene()
     func cloneAsNew() -> ResizeableSceneMaker  // use to get a new copy to make a scene eg: for recordFromBeginning

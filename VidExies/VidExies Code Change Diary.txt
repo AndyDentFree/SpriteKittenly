@@ -362,11 +362,18 @@ ExportSKVideo
   - stopRecordingFramewise vary behaviour depending on recordFromBeginning, not needing to resize or present exportingScene, just unpause it
 
 
-RecordableScene
-- removed
-
 ContentView
 - pass config to exportFrameWise
 
 SpriteKitContainerWithGen
 - dismantleView - don't presentScene(nil) as ContentView rebuilds whilst metal preview during export, but the SKView will be used again when finished recording, so either export nils or left there to just resume
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Cleanup framewise - remove unneeded subclassing SKScene
+2025-08-03
+
+RecordableScene
+- removed
+
+Global search & replace RecordableScene -> SKScene

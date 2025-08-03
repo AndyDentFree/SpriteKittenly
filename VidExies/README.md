@@ -48,11 +48,11 @@ The main components used by `ExportSKView.exportFrameWise` are:
 
 When you have finished recording the movie, the preview SKView resumes from the point at which the movie ended. You may notice scaling effects for items like the confetti emitter particles, for a few seconds.
 
-### Weird time-reversal effect with FrameWise big movies
-When you record to a 3840x2160 movie, especially on Mac, after playing the movie there's a delay then seems like big particles are running backwards for a while. I think this is an artifact of resizing the scene and there's no way to adjust particles _in flight_.
 
 ### Record from beginning
 Added to help debug this feature in [Purrticles][p1], rather than pausing the scene and needing to get its frametime, creates a new scene for the `SKRenderer`. The theory being investigated was that a scene which had never been presented on an `SKView` might behave differently.
+
+After a very embarrassing amount of experimenting time, finally realised the fundamental mistake I was making was calling [SKRenderer.update(atTime:)][a10] with a zero-based time. It needs a _current time_ from [CACurrentMediaTime][a11].
 
 ### Passing an SKView back out
 As quick hack to get this working, the SKView created inside the `SpriteKitContainerWithGen` is passed back to the calling context so that it can be then passed down and manipulated in `exportFrameWise` and `stopRecordingFramewise`. We use a trivial wrapper class `SKViewOwner` for this.
@@ -87,6 +87,8 @@ Unlike most of the samples, as well as wrapping an `SKView` we also need to pres
 [a7]: https://developer.apple.com/documentation/swiftui/nsviewcontrollerrepresentable
 [a8]: https://support.apple.com/en-au/guide/security/seca5fc039dd/web
 [a9]: https://developer.apple.com/documentation/spritekit/skrenderer
+[a10]: https://developer.apple.com/documentation/spritekit/skrenderer/update(attime:)
+[a11]: https://developer.apple.com/documentation/quartzcore/cacurrentmediatime()
 
 [p1]: https://www.touchgram.com/purrticles
 [so1]: https://stackoverflow.com/questions/59842682/replaykit-with-swiftui

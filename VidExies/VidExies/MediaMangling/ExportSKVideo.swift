@@ -57,7 +57,7 @@ class ExportSKVideo {
     
     public func exportFrameWise(isRecordingFlag: Binding<Bool>, resultIn: Binding<String>, logIn: Binding<String>, config: MovieExportConfiguration, fromView viewOwner: SKViewOwner, metalPreviewVia: MetalViewOwner, sceneMaker: ResizeableSceneMaker) {
         guard let skv = viewOwner.ownedView,
-                var activeScene = skv.scene as? RecordableScene else {
+                var activeScene = skv.scene as? SKScene else {
             print("No active scene to export")  // something very weirdly wrong
             return
         }

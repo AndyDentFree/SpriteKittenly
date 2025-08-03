@@ -12,7 +12,7 @@ import SwiftUI
 
 protocol ResizeableSceneMaker {
     func makeScene(sizedTo: CGSize) -> RecordableScene
-    func viewResized(from oldSize: CGSize, to newSize: CGSize)
+    func viewResized(to newSize: CGSize)
     func forgetScene()
     func cloneAsNew() -> ResizeableSceneMaker  // use to get a new copy to make a scene eg: for recordFromBeginning
 }
@@ -21,7 +21,7 @@ protocol ResizeableSceneMaker {
 // simple ref class to own a view made in here, so caller can pass around
 // much like what happens inside Coordinator but exposed at higher level
 class SKViewOwner {
-    typealias Resizer = (CGSize, CGSize) -> Void
+    typealias Resizer = (CGSize) -> Void
     public let id = UUID()
     public var ownedView: LayoutSensingSKView? = nil
     public var resizer: Resizer? = nil
@@ -77,8 +77,8 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
             playsOn.ownedView = ret
             print("SKView created for SKViewOwner id \(playsOn.id.uuidString)")
         }
-        playsOn.resizer = { (oldSize: CGSize, newSize: CGSize) in
-            sceneMaker.viewResized(from: oldSize, to: newSize)}
+        playsOn.resizer = { (newSize: CGSize) in
+            sceneMaker.viewResized(to: newSize)}
         ret.onLayout = { (skv: SKView) in
             guard skv.hasSize else {
                 print("onLayout called with zero size view")
@@ -99,7 +99,7 @@ struct SpriteKitContainerWithGen : AgnosticViewRepresentable {
                 if newSize != oldSize {
                     //print("onLayout resized from (\(oldSize.width),  \(oldSize.height)) to (\(newSize.width), \(newSize.height)")
                     context.coordinator.lastViewSize = newSize
-                    sceneMaker.viewResized(from: oldSize, to: newSize)
+                    sceneMaker.viewResized(to: newSize)
                 } else {
                     print("onLayout called for SKView after first scene started")  // probably recreated view hierarchy
                 }

@@ -105,7 +105,7 @@ class ExportSKVideo {
                 activeScene.size = exportRounded
                 // MANUALLY FORCE RESIZE
                 resizer = viewOwner.resizer
-                resizer?(oldSize, exportSize)
+                resizer?(exportSize)
             }
             isShowingContentToRecord = isRecordingFlag  // save so final completion can toggle, eg to hide a Stop button
             isRecordingFlag.wrappedValue = true
@@ -148,7 +148,7 @@ class ExportSKVideo {
                 } else {
                     self.exportingScene?.scaleMode = self.saveScaleMode
                     self.exportingScene?.size = self.saveSKViewSize
-                    self.resizer?(self.exportSize, self.saveSKViewSize)
+                    self.resizer?(self.saveSKViewSize)
                     self.previewPlayer?.presentScene(self.exportingScene)  // give it back to preview on main screen
                 }
                 self.resultMessage?.wrappedValue = "Saved to \(toStop.outputURL.absoluteString)"

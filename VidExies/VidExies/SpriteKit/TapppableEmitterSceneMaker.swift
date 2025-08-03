@@ -44,10 +44,9 @@ class TapppableEmitterSceneMaker: ResizeableSceneMaker {
         return ret
     }
     
-    // take oldsize in case adjustments should scale relative to that or want to compare
     // note that the position setting here is basically just a copy of that in create methods below
     // but that might not always be the case so we don't abstract a single position setter
-    func viewResized(from oldSize: CGSize, to newSize: CGSize) {
+    func viewResized(to newSize: CGSize) {
         guard leftFire != nil else {
             print("viewResized called before made emitters")
             return

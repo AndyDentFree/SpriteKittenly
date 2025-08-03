@@ -98,7 +98,7 @@ class ExportSKVideo {
             }
             framewiseTimer?.startRendering()
             activeScene.isPaused = false  // undo being paused by presentScene(nil)
-            if activeRounded != exportRounded {
+            if !recordFromBeginning && activeRounded != exportRounded {
                 activeScene.size = exportRounded
                 // MANUALLY FORCE RESIZE
                 resizer = viewOwner.resizer

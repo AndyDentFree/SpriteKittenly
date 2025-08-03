@@ -330,7 +330,7 @@ ContentView
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Add option to start from beginning FrameWise recording
-2025-07-31
+2025-07-31..08-03
 
 MovieExportConfiguration
 - recordFromBeginning added
@@ -349,7 +349,9 @@ TappableEmitterSceneMaker
 - makeScene return a RecordableScene
 
 OffscreenRenderTimer
-- use CACurrentMediaTime to calculate elapsed time for movie rendering, in case of slippage in schedule at higher frame rates
+- startRendering
+  - use CACurrentMediaTime to calculate elapsed time for movie rendering, in case of slippage in schedule at higher frame rates
+  - THE FIX to start from beginning - also use the CACurrentMediaTime for new emitters playing from scratch (stupidly thought their update time should start from zero), don't pass in fromTime
 
 ExportSKVideo
 - recordFromBeginning added
@@ -358,7 +360,11 @@ ExportSKVideo
   - add config as parameter
   - using config.recordFromBeginning for varying logic to cloneAsNew and use a new scene for export
   - stopRecordingFramewise vary behaviour depending on recordFromBeginning, not needing to resize or present exportingScene, just unpause it
-  
+
+
+RecordableScene
+- removed
+
 ContentView
 - pass config to exportFrameWise
 

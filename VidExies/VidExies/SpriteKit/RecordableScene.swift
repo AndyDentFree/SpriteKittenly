@@ -39,7 +39,6 @@ class RecordableScene: SKScene {
     // In your SKSceneDelegate or wherever you have access to the scene:
 
     func dumpChildren() {
-        print("Dump details, scene \(sceneId):\nanchor \(anchorPoint), origin \(frame.origin), size \(frame.size)\n")
         enumerateChildNodes(withName: "//*") { node, _ in
             let nodeType = type(of: node)
             let nameStr  = node.name ?? "<unnamed>"

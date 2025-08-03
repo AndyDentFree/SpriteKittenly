@@ -77,9 +77,8 @@ class ExportSKVideo {
             recordFromBeginning = config.recordFromBeginning
             if recordFromBeginning {
                 let newSM = sceneMaker.cloneAsNew()
-                activeScene = newSM.makeScene(sizedTo: exportSize)
-                // fake scene setup stuff that happens with SKView.presentScene
-                //activeScene.sceneDidLoad()
+                activeScene = newSM.makeScene(sizedTo: exportSize) // makes sized scene but emitters not adjusted to match
+                newSM.viewResized(to: exportSize)  //  as normal SKView use expects resize later possibly many times
             } else {
                 saveScaleMode = activeScene.scaleMode
                 saveSKViewSize = activeScene.size
@@ -97,11 +96,9 @@ class ExportSKVideo {
                     logIn.wrappedValue = atTime.toMinuteSecondString()
                 }
             }
-            framewiseTimer?.startRendering(fromTime: activeScene.lastFrameTime)
+            framewiseTimer?.startRendering()
             activeScene.isPaused = false  // undo being paused by presentScene(nil)
-            // experiment - see if resuming prior to resize fixes anything
             if activeRounded != exportRounded {
-                let oldSize = activeScene.size  // save with awkward fractional pixels
                 activeScene.size = exportRounded
                 // MANUALLY FORCE RESIZE
                 resizer = viewOwner.resizer

@@ -42,11 +42,12 @@ class FrameCaptureRecorder {
         commandQueue = device.makeCommandQueue()!
         renderer = SKRenderer(device: device)
         // turn on debugging displays
+        /*
         renderer.showsDrawCount = true
         renderer.showsNodeCount = true
         renderer.showsQuadCount = true
         renderer.scene = scene
-        
+        */
         // Create a Metal texture cache for converting CVPixelBuffer to Metal textures.
         CVMetalTextureCacheCreate(nil, nil, device, nil, &textureCache)
     }

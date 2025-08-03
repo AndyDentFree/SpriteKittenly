@@ -27,7 +27,7 @@ class OffscreenRenderTimer {
         logEveryFrames = Int(round(frameRate * logEverySeconds))
     }
     
-    func startRendering(fromTime: TimeInterval) {
+    func startRendering() {
         // Create a timer that fires at our desired frame rate.
         timer = DispatchSource.makeTimerSource(queue: DispatchQueue(label: "FrameCaptureTimer"))
         timer?.schedule(deadline: .now(), repeating: frameDuration)
@@ -36,14 +36,11 @@ class OffscreenRenderTimer {
         timer?.setEventHandler { [weak self] in
             guard let self = self else { return }
             let now = CACurrentMediaTime()
-            // Calculate the presentation time for the current frame.
-            // naive approach: let elapsed = Double(self.frameIndex) * self.frameDuration
             let elapsed = now - baseTime  // keep recalculating based on actual timer invoke rather than assumed accuracy
-            let rendererTime = fromTime + elapsed  // offset matches our paused SKScene
             let movieTime = CMTime(seconds: elapsed, preferredTimescale: baseScale)  // movie started from 0
             
             // Manually drive the scene update.
-            self.recorder.renderer.update(atTime: rendererTime)
+            self.recorder.renderer.update(atTime: now)
             
             // Capture and append the frame.
             self.recorder.captureFrame(at: movieTime)

@@ -64,6 +64,8 @@ We can't play an SKView so need a different way to have the captured Metal views
 - the ref class `MetalViewOwner` is provided at the top by the `ContentView` so the exporter can get to the `MTKView` on which it should preview
 - when `FrameCaptureRecorder.captureFrame` is about to write a frame, it also despatches the metal texture for preview, via an optional `TextureMonitor`
 
+**macOS Warning**  as seen in [Purrticles Mac on the app store][p2], I've put the preview screen in the document window. I started with it appearing in a sheet and that fails to render anything. It turns out SwiftUI on macOS presents sheets in a way that _starves_ `MTKView`.
+
 ### Passing a MetalView around
 Similarly to SKView, we need the `MTKView` used in previewing to be accessible deep inside the exporter as well as being created by our `AgnosticViewRepresentable` `MetalViewContainer`.
 
@@ -91,6 +93,7 @@ Unlike most of the samples, as well as wrapping an `SKView` we also need to pres
 [a11]: https://developer.apple.com/documentation/quartzcore/cacurrentmediatime()
 
 [p1]: https://www.touchgram.com/purrticles
+[p2]: https://apps.apple.com/us/app/purrticles-effects-designer/id1664770790
 [so1]: https://stackoverflow.com/questions/59842682/replaykit-with-swiftui
 
 [gh1]: https://github.com/AndyDentFree/SpriteKittenly/issues/18

@@ -48,6 +48,12 @@ class LayoutSensingSKView: SKView {
 }
 ```
 
+Look at the code in `SpriteKitContainerWithGen.makeView` for the lambda it assigns to `onLayout`. This performs two vital roles:
+
+1. lifecycle - Using context stored in the nested `Coordinator` class, it completes the lifecycle of the SKView calling `presentScene`. This implies that the emitters within the scene are not created until this lambda invoked.
+2. Resizing - layout changes after resizing the SwiftUI view structure.
+
+
 ### sizeThatFits ignored
 Note that this is called **many** times with a variety of different sizes, often with one dimension being zero. The `AgnosticViewRepresentable` code to use `sizeThatFits` was left in, commented out, if you want to test it further.
 

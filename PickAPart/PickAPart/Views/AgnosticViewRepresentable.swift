@@ -1,0 +1,106 @@
+//
+//  AgnosticViewRepresentable.swift
+
+/*
+ from https://forums.swift.org/t/infer-associated-type-on-protocol-conformance/61166/3
+ with added dismantle*
+ 
+ See similar on
+ https://gist.github.com/insidegui/97d821ca933c8627e7f614bc1d6b4983
+ https://gist.github.com/MojtabaHs/569b4b467aa7a4cea2afcb6736314b23
+ and discussion https://stackoverflow.com/questions/58164606/undeclared-type-uiviewrepresentable-in-macos-project
+ */
+
+import SwiftUI
+
+#if os(iOS) || os(watchOS) || os(tvOS)
+import UIKit
+
+public protocol AgnosticViewRepresentable: UIViewRepresentable where UIViewType == RepresentedViewType {
+    associatedtype RepresentedViewType
+    associatedtype UIViewType = RepresentedViewType
+    
+    @MainActor
+    func makeView(context: Context) -> RepresentedViewType
+    
+    @MainActor
+    func updateView(_ view: RepresentedViewType, context: Context)
+/*
+   // optional informative call
+    @MainActor @preconcurrency
+    func sizeThatFits(_ proposal: ProposedViewSize, view: UIViewType, context: Context) -> CGSize?
+ */
+    @MainActor
+    static func dismantleView(_ view: RepresentedViewType, coordinator: Self.Coordinator)
+}
+
+extension AgnosticViewRepresentable {
+    @MainActor
+    public func makeUIView(context: Context) -> UIViewType {
+        makeView(context: context)
+    }
+    
+    @MainActor
+    public func updateUIView(_ uiView: UIViewType, context: Context) {
+        updateView(uiView, context: context)
+    }
+    
+    /*
+    @MainActor @preconcurrency
+    func sizeThatFits(_ proposal: ProposedViewSize, uiView: UIViewType, context: Context) -> CGSize?
+    {
+        return sizeThatFits(proposal, view: uiView, context: context)
+    }
+     */
+
+    @MainActor
+    static func dismantleUIView(_ view: RepresentedViewType, coordinator: Self.Coordinator) {
+        dismantleView(view, coordinator: coordinator)
+    }
+}
+#elseif os(macOS)
+import AppKit
+
+public protocol AgnosticViewRepresentable: NSViewRepresentable where NSViewType == RepresentedViewType {
+    associatedtype RepresentedViewType
+    associatedtype NSViewType = RepresentedViewType
+    
+    @MainActor
+    func makeView(context: Context) -> RepresentedViewType
+    
+    @MainActor
+    func updateView(_ view: RepresentedViewType, context: Context)
+    /*
+    @MainActor @preconcurrency
+    func sizeThatFits(_ proposal: ProposedViewSize, view: RepresentedViewType, context: Context) -> CGSize?
+    */
+    
+    @MainActor
+    static func dismantleView(_ view: RepresentedViewType, coordinator: Self.Coordinator)
+}
+
+extension AgnosticViewRepresentable {
+
+    @MainActor
+    public func makeNSView(context: Context) -> NSViewType {
+        makeView(context: context)
+    }
+    
+    @MainActor
+    public func updateNSView(_ nsView: NSViewType, context: Context) {
+        updateView(nsView, context: context)
+    }
+    /*
+    @MainActor @preconcurrency
+    func sizeThatFits(_ proposal: ProposedViewSize, nsView: NSViewType, context: Context) -> CGSize?
+    {
+        return sizeThatFits(proposal, view: nsView, context: context)
+    }
+     */
+    
+    @MainActor
+    static func dismantleNSView(_ view: RepresentedViewType, coordinator: Self.Coordinator) {
+        dismantleView(view, coordinator: coordinator)
+    }
+}
+#endif
